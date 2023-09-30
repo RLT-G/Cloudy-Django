@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
+    <link rel="stylesheet" href="{% static 'cm_site/css/store.css' %}">
+    <title>CloudyMotion | Store</title>
+</head>
+<body>
+    <!-- Оболочка -->
+    <div class="wrapper">
+        <!-- шапка -->
+        <header class="header">
+            <div class="header__container">
+                <a href="{% url 'home' %}">
+                    <div class="header__container-logo"></div>
+                </a>
+                    {% if user.is_authenticated %}
+                        <!-- Навигация после аунтефикации -->
+                        <div class="header__container-navbar">
+                            <a href="" class="navbar__link">
+                                <div class="navbar__link-home">Home</div>
+                            </a>
+                            <a href="" class="navbar__link">
+                                <div class="navbar__link-services">Services</div>
+                            </a>
+                            <a href="" class="navbar__link">
+                                <div class="navbar__link-contacts">Contacts</div>
+                            </a>
+                            <a href="" class="navbar__link navbar__link--svg">
+                                <div class="navbar__link-account"></div>
+                            </a>
+                            <a href="" class="navbar__link navbar__link--svg">
+                                <div class="navbar__link-basket"></div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <!-- Навигация без аунтификации -->
+                        <div class="header__container-navbar header__container-navbar--no">
+                            <a href="" class="navbar__link">
+                                <div class="navbar__link-home">Home</div>
+                            </a>
+                            <a href="{% url 'account_login' %}" class="navbar__link">
+                                <div class="navbar__link-singin">Sign In</div>
+                            </a>
+                            <div class="navbar__link navbar__link-sep">
+                                <div id="item1" class="navbar__link-sep">|</div>
+                            </div>
+                            <a href="{% url 'account_signup' %}" class="navbar__link">
+                                <div class="navbar__link-singup">Sign Up</div>
+                            </a>
+                            <a href="" class="navbar__link navbar__link--svg">
+                                <div class="navbar__link-basket"></div>
+                            </a>
+                        </div>
+                    {% endif %}
+            </div>
+        </header>
+        <!-- Главная часть -->
+        <main class="main">
+            <div class="main__container"></div>
+        </main>
+        <!-- Подвал -->
+        <footer class="footer">
+            <div class="footer__container"></div>
+        </footer>
+    </div>
+</body>
+</html>
