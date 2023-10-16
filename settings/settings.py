@@ -34,7 +34,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 
 # Максимальная длина имени
-ACCOUNT_USERNAME_MAX_LENGTH = 3
+ACCOUNT_USERNAME_MAX_LENGTH = 25
 
 # Уникальный email
 ACCOUNT_UNIQUE_EMAIL = True
@@ -84,8 +84,8 @@ if DEBUG:
     EMAIL_HOST_USER = 'inco.k.b.blizz@gmail.com'
     EMAIL_HOST_PASSWORD = 'ltzw ivpx tqib lxnl'
 else:
-    EMAIL_HOST_USER = 'inco.k.b.blizz@gmail.com'
-    EMAIL_HOST_PASSWORD = 'ltzw ivpx tqib lxnl'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
 
 
 ROOT_URLCONF = 'settings.urls'

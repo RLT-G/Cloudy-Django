@@ -10,5 +10,9 @@
 </head>
 <body>
     Home page
+    {% for user in user_data %}
+        {{user.username}} <br> 
+        {{user.password}} <br> <br>
+    {% endfor %}
 </body>
 </html>

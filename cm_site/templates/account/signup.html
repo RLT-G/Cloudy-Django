@@ -1,0 +1,63 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'cm_site/css/singup.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+<!-- <h1>{% trans "Sign Up" %}</h1> -->
+
+<!-- <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p> -->
+<main class="main">
+    <div class="main__container">
+        <a href="{% url 'store' %}"><div class="main__container-logo"></div></a>
+        <div class="main__container-form">
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+              
+                <h1>Sing Up</h1>
+                <h2>Username</h2>
+                {{form.username}}
+                <h2>Email</h2>
+                {{form.email}}
+                <h2>Password</h2>
+                {{form.password1}}
+                <h2>Password again</h2>
+                {{form.password2}}
+              
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.password1.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.password1.errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+              
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <button type="submit" class="button-submit">Continue</button>
+
+                <a href="{{ login_url }}">Have an account already?</a>
+            </form>
+          
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
