@@ -61,7 +61,42 @@
         </header>
         <!-- Главная часть -->
         <main class="main">
-            <div class="main__container"></div>
+            <div class="main__container">
+                <div class="main__container_sort">
+                    <div class="main__container_sort-search">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ search_form.text_field }}
+                            <button class="search__submit" type="submit"><div></div></button>
+                        </form>
+                    </div>
+                    <div class="main__container_sort-filter"></div>
+                </div>
+                <div class="main__container_playlist">
+                    {% for element in tracks %}
+                        <div class="music">
+                            <div class="music__cover" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
+                                <div class="music__cover_button"></div>
+                            </div>
+                            <div class="music__data">
+                                <div class="music__data-main">
+                                    <h2>{{element.bpm}} BPM</h2>
+                                    <h2>·</h2>
+                                    <h2>Key {{element.key}}</h2>
+                                    <h2>·</h2>
+                                    <h3>{{prices.wav_license}}$</h3>
+                                </div>
+                                <div class="music__data-name">
+                                    <h1>{{element.track_name}}</h1>
+                                </div>
+                                <div class="music__data-typebeat">
+                                    <h2>{{element.type_beat}} Type Beat</h2>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </main>
         <!-- Подвал -->
         <footer class="footer">
