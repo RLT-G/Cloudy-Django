@@ -26,15 +26,22 @@ class Moods(models.Model):
 
 class Tracks(models.Model):
     track_name = models.CharField('Track Name', unique=True, null=False, max_length=64)
-    cover_art = models.ImageField("Cover Art", upload_to='uploads/') ############################
+    cover_art = models.ImageField("Cover Art", upload_to='uploads/')
     bpm = models.IntegerField('BPM', default=90)
     key = models.CharField('Key', unique=False, null=False, max_length=16)
     mood = models.ForeignKey(Moods, on_delete=models.CASCADE)
     duration = models.CharField('Duration', max_length=16, null=False)
     type_beat = models.CharField('Type Beat', unique=False, max_length=32, default="Unique", null=False)
-    mp3 = models.FileField('Mp3 File', upload_to='uploads/') ####################################
+    mp3 = models.FileField('Mp3 File', upload_to='uploads/')
     def __str__(self) -> str:
         return self.track_name
     class Meta:
         verbose_name = 'Track'
         verbose_name_plural = 'Tracks'
+
+
+class Banners(models.Model):
+    banner = models.ImageField("Banner", upload_to='uploads/')
+    class Meta:
+        verbose_name = 'Banner'
+        verbose_name_plural = 'Banners'

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # Для описания request в функциях
 from django.core.handlers.wsgi import WSGIRequest
-from . models import CustomUser, Tracks, Prices
+from . models import CustomUser, Tracks, Prices, Banners
 from . forms import SearchForm
 
 def index(request: WSGIRequest):
@@ -24,7 +24,8 @@ def store(request: WSGIRequest):
                 'user': request.user,
                 'tracks': current_tracks,
                 'prices': Prices.objects.all()[0],
-                'search_form': form
+                'search_form': form,
+                'banners': Banners.objects.all()
             }
             return render(request, 'cm_site/store.html', data)
         else:
@@ -35,6 +36,7 @@ def store(request: WSGIRequest):
         'user': request.user,
         'tracks': Tracks.objects.all(),
         'prices': Prices.objects.all()[0],
-        'search_form': form
+        'search_form': form,
+        'banners': Banners.objects.all()
     }
     return render(request, 'cm_site/store.html', data)
