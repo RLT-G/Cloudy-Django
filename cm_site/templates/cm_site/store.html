@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'cm_site/img/logo.svg' %}">
     <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
@@ -73,28 +73,6 @@
                             </div>
                         {% endfor %}
                     </div>
-                    <!-- Скрипт Баннеров -->
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const slides = document.querySelectorAll(".carousel__slide");
-                            let currentSlide = 0;
-                            function showSlide(slideIndex) {
-                                slides.forEach((slide, index) => {
-                                    if (index === slideIndex) {
-                                        slide.style.display = "block";
-                                    } else {
-                                        slide.style.display = "none";
-                                    }
-                                });
-                            }
-                            function nextSlide() {
-                                currentSlide = (currentSlide + 1) % slides.length;
-                                showSlide(currentSlide);
-                            }
-                            showSlide(currentSlide);
-                            setInterval(nextSlide, 5000);
-                        });
-                    </script>
                 </div>
                 <!-- Поисковик и фильтр -->
                 <div class="main__container_sort">
@@ -113,7 +91,7 @@
                 <div class="main__container_playlist">
                     {% for element in tracks %}
                         <div class="music">
-                            <div class="music__cover" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
+                            <div class="music__cover" onclick="coverPlay({{forloop.counter}});" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
                                 <div class="music__cover_button"></div>
                             </div>
                             <div class="music__data">
@@ -125,7 +103,7 @@
                                     <h3>{{prices.wav_license}}$</h3>
                                 </div>
                                 <div class="music__data-name">
-                                    <h1>{{element.track_name}}</h1>
+                                    <h1><a href="{% url 'store' %}{{element.id}}/{{element.track_name}}/">{{element.track_name}}</a></h1>
                                 </div>
                                 <div class="music__data-typebeat">
                                     <h2>{{element.type_beat}} Type Beat</h2>
@@ -235,28 +213,33 @@
                         </button>
                         <div class="player-volume">
                             <div class="volume-ico"></div>
-                            <div class="volume"></div>
+                            <!-- <div class="volume"></div> -->
+                            <input class="volume" type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Скрипт плеера -->
     <script>
         // Получение блоков
         const progressContainer = document.querySelector('.player__progress');
+        const volumeControlIco = document.querySelector('.volume-ico');
         const typeBeat = document.querySelector('.player-type');
+        const volumeControl = document.querySelector('.volume');
         const audio = document.querySelector('.player__audio');
         const cover = document.querySelector('.player-cover');
         const progress = document.querySelector('.progress');
         const title = document.querySelector('.player-name');
         const nextBtn = document.querySelector('.forward');
+        const randBtn = document.querySelector('.random');
         const player = document.querySelector('.player');
+        const repBtn = document.querySelector('.repeat');
         const playBtn = document.querySelector('.play');
         const prevBtn = document.querySelector('.back');
-
+        
         // Переменная с треками 
         const songs = [
             {% for element in tracks %}
@@ -303,11 +286,55 @@
                 playSong();
             }
         });
+        // Кнопка рандома
+        let isRand = false;
+        function randHandler(){
+            if (isRand){
+                isRand = false;
+                randBtn.style.background = "url('../../static/cm_site/img/p-random.svg')";
+                randBtn.style.backgroundSize = "cover";
+                randBtn.style.backgroundRepeat = "no-repeat";
+            } else {
+                isRand = true;
+                randBtn.style.background = "url('../../static/cm_site/img/randActive.svg')";
+                randBtn.style.backgroundSize = "cover";
+                randBtn.style.backgroundRepeat = "no-repeat";
+            }
+        }
+        randBtn.addEventListener('click', randHandler);
+        // Кнопка повтора
+        let isRep = false;
+        function repHandler(){
+            if (isRep){
+                isRep = false;
+                repBtn.style.background = "url('../../static/cm_site/img/p-repeat.svg')";
+                repBtn.style.backgroundSize = "cover";
+                repBtn.style.backgroundRepeat = "no-repeat";
+            } else {
+                isRep = true;
+                repBtn.style.background = "url('../../static/cm_site/img/repActive.svg')";
+                repBtn.style.backgroundSize = "cover";
+                repBtn.style.backgroundRepeat = "no-repeat";
+            }
+        }
+        repBtn.addEventListener('click', repHandler);
+        audio.addEventListener("ended", function() {
+            if (isRep){
+                audio.currentTime = 0;
+                audio.play();
+            }
+            else{
+                nextSong();
+            }
+        });
         // Кнопка next
         function nextSong(){
             songIndex++;
             if (songIndex > songs.length - 1){
                 songIndex = 0;
+            }
+            if (isRand){
+                songIndex = Math.floor(Math.random() * songs.length);
             }
             loadSong(songIndex);
             playSong();
@@ -319,6 +346,9 @@
             if (songIndex < 0){
                 songIndex = songs.length - 1;
             }
+            if (isRand){
+                songIndex = Math.floor(Math.random() * songs.length);
+            }
             loadSong(songIndex);
             playSong();
         }
@@ -329,7 +359,6 @@
             const {duration, currentTime} = e.srcElement;
             const progressPercent = (currentTime / duration) * 100;
             progress.style.width = progressPercent + "%";
-
         }
         audio.addEventListener('timeupdate', updateProgress);
 
@@ -348,6 +377,7 @@
             const userCurrentTime = (clickX / width) * duration;
             const audioCurrentTime = audio.currentTime;
             const progressWidth = progress.style.width;
+            progressContainer.removeEventListener('click', setProgress);
             if (isPlaying) {
                 audio.pause();
                 for (let index = 0; index < 30; index++) {
@@ -365,7 +395,8 @@
             }
             setTimeout(() => {
                 errorHandler(userCurrentTime, audioCurrentTime, progressWidth);
-            }, 300);
+                progressContainer.addEventListener('click', setProgress);
+            }, 200);
         }
         progressContainer.addEventListener('click', setProgress);
 
@@ -386,7 +417,92 @@
                     audio.addEventListener('timeupdate', updateProgress);
                 }, (userCurrentTime / 16) * 1000);
             }
+        }        
+        // Звук
+        audio.volume = 1;
+        volumeControl.addEventListener('input', function() {
+            const volume = parseFloat(this.value);
+            if (volume == 0){
+                volumeControlIco.style.background = "url('../../static/cm_site/img/v1.svg')";
+                volumeControlIco.style.backgroundSize = "cover";
+                volumeControlIco.style.backgroundRepeat = "no-repeat";
+            } else {
+                if (volume < 0.33){
+                    volumeControlIco.style.background = "url('../../static/cm_site/img/v2.svg')";
+                    volumeControlIco.style.backgroundSize = "cover";
+                    volumeControlIco.style.backgroundRepeat = "no-repeat";
+                } else {
+                    if (volume < 0.66){
+                        volumeControlIco.style.background = "url('../../static/cm_site/img/v3.svg')";
+                        volumeControlIco.style.backgroundSize = "cover";
+                        volumeControlIco.style.backgroundRepeat = "no-repeat";
+                    } else {
+                        volumeControlIco.style.background = "url('../../static/cm_site/img/p-vol.svg')";
+                        volumeControlIco.style.backgroundSize = "cover";
+                        volumeControlIco.style.backgroundRepeat = "no-repeat";
+                    }
+                }
+            }
+            audio.volume = volume;
+        });
+
+        function coverPlay(index){
+            if (songIndex != index - 1){
+                let classDel;
+                let innerClassDel;
+                for (let i = 1; i <= songs.length; i++) {
+                    innerClassDel = document.querySelector(`.music:nth-child(${i}) .music__cover_button`);
+                    classDel = document.querySelector(`.music:nth-child(${i})`);
+                    classDel.classList.remove('operated');
+                    innerClassDel.classList.remove('music__cover_button-active');
+                }
+            }
+            const musicButton = document.querySelector(`.music:nth-child(${index})`);
+            const isOperated = musicButton.classList.contains('operated');
+            const musicCoverButton = document.querySelector(`.music:nth-child(${index}) .music__cover_button`);
+            if (isOperated){
+                const isPlaing = musicButton.classList.contains('playSong');
+                if (isPlaing){
+                    musicCoverButton.classList.remove('music__cover_button-active');
+                    musicButton.classList.remove('playSong');
+                    pauseSong();
+                } else {
+                    musicCoverButton.classList.add('music__cover_button-active');
+                    musicButton.classList.add('playSong');
+                    playSong();
+                }
+            } else {
+                console.log('init');
+                musicButton.classList.add('operated');
+                musicButton.classList.add('playSong');
+                musicCoverButton.classList.add('music__cover_button-active');
+                songIndex = index - 1;
+                loadSong(songIndex);
+                playSong(songIndex);
+            }
         }
+    </script>
+    <!-- Скрипт Баннеров -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const slides = document.querySelectorAll(".carousel__slide");
+            let currentSlide = 0;
+            function showSlide(slideIndex) {
+                slides.forEach((slide, index) => {
+                    if (index === slideIndex) {
+                        slide.style.display = "block";
+                    } else {
+                        slide.style.display = "none";
+                    }
+                });
+            }
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            showSlide(currentSlide);
+            setInterval(nextSlide, 5000);
+        });
     </script>
 </body>
 </html>

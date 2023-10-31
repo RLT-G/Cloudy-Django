@@ -34,7 +34,7 @@ def store(request: WSGIRequest):
         form = SearchForm()
     data = {
         'user': request.user,
-        'tracks': Tracks.objects.all(),
+        'tracks': Tracks.objects.all().order_by('-id'),
         'prices': Prices.objects.all()[0],
         'search_form': form,
         'banners': Banners.objects.all()

@@ -298,18 +298,25 @@ header{
     align-items: center;
 }
 .music__cover:hover{
-    /* border: 3px solid rgba(71, 11, 11, 0); */
     border-radius: 0px 25px;
-    box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.50) inset;
 }
+
 .music__cover_button{
     width: 50px;
     height: 58px;
-    background: url("../img/play.svg") no-repeat;
     background-size: cover;
 }
 .music__cover:hover .music__cover_button{
-    background-image: url("../img/play-hover.svg");
+    background: url("../img/play.svg") no-repeat;
+}
+.music__cover_button:hover, .music__cover:hover .music__cover_button:hover{
+    background-image: url("../img/play1003.svg");
+}
+.music__cover:hover .music__cover_button-active{
+    background: url('../img/m_pause70.svg') no-repeat;
+}
+.music__cover_button-active:hover, .music__cover:hover .music__cover_button-active:hover{
+    background-image: url("../img/m-pause100.svg");
 }
 .music__data{
     width: 100%;
@@ -326,7 +333,7 @@ header{
     justify-content: space-around;
     align-items: center;
 }
-.music__data h1{
+.music__data h1, .music__data h1 a{
     color: #FFF;
     font-family: Outfit;
     font-size: 20px;
@@ -335,6 +342,9 @@ header{
     line-height: 32px; /* 160% */
     letter-spacing: 1px;
     text-transform: capitalize;
+}
+.music__data h1:hover, .music__data h1 a:hover{
+    text-decoration: underline;
 }
 .music__data h2{
     color: #ABABAB;
@@ -573,12 +583,45 @@ header{
     background: url("../img/p-vol.svg") no-repeat;
     background-size: cover;
 }
-.volume{
-    width: 100px;
-    height: 2px;
-    background: #464646;
+
+.volume {
+-webkit-appearance: none; /* Убираем стандартные стили вебкит-браузеров */
+width: 100px; /* Ширина ползунка равна 100% */
+height: 2px; /* Высота ползунка */
+background: #464646;
+opacity: 0.7; /* Прозрачность фона */
+transition: opacity 0.2s; /* Плавное изменение прозрачности при наведении */
 }
 
+/* Стили для ползунка при наведении */
+.volume:hover {
+opacity: 1;
+}
+/* Стили для ползунка при активации (перетаскивание) */
+.volume::-webkit-slider-thumb {
+-webkit-appearance: none; /* Убираем стандартные стили вебкит-браузеров */
+width: 6px; /* Ширина ползунка */
+height: 6px; /* Высота ползунка */
+background: #636363; 
+border-radius: 50%; /* Круглая форма ползунка */
+cursor: pointer; /* Курсор при наведении на ползунок */
+}
+.volume:hover::-webkit-slider-thumb, .volume::-webkit-slider-thumb:hover{
+    width: 16px;
+    height: 16px;
+    transition: 0.2s;
+}
+/* Стили для маркеров (ticks) на ползунке (опционально) */
+.volume::-webkit-slider-thumb::before {
+content: "▼";
+display: block;
+text-align: center;
+line-height: 20px;
+font-size: 16px;
+color: white;
+}
+
+  
 .player__container_data{
     width: 20%;
     display: flex;
@@ -597,10 +640,11 @@ header{
 .player-data{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: start;
-    /* height: 20px; */
-    margin-left: 15px
+    height: 50px;
+    gap: 15px;
+    margin-left: 15px;
 }
 .player-name{
     color: #FFF;
@@ -608,9 +652,10 @@ header{
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    line-height: 32px; /* 160% */
+    /* line-height: 32px; 160%/ */
     letter-spacing: 1px;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
+    height: 18px;
 }
 .player-type{
     color: #ABABAB;
@@ -618,8 +663,9 @@ header{
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px; /* 246.154% */
+    /* line-height: 32px; 246.154% */
     letter-spacing: 0.65px;
+    height: 12px;
 }
 .player__progress{
     width: 100%;
@@ -661,4 +707,8 @@ header{
     100%{
         background-color: #ffafc7;
     }
+}
+.randActive{
+    background: url('../img/p-random.svg') no-repeat;
+    background-size: cover;
 }
