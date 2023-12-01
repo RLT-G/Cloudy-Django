@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'cm_site/img/logo.svg' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
+        <title>CloudyMotion | Store</title>
+    </head>
+    <style>
+        body{
+            width: 100%;height: 100vh;display: flex;flex-direction: column;justify-content: center;align-items: center;background-color: #0A0A09;
+        }
+        h1, h2{
+            color: #FFF;font-family: Outfit;font-size: 2vw;font-style: normal;font-weight: 700;letter-spacing: 1px;text-transform: capitalize;
+        }
+        h1{
+            font-size: 4vw;
+        }
+        h3{
+            color: #ABABAB;font-family: Outfit;font-size: 1vw;font-style: normal;font-weight: 400;letter-spacing: 0.65px;text-transform: capitalize;
+        }
+        a{
+            color: #BA0038;text-align: center;font-family: Outfit;font-size: 2vw;font-style: normal;font-weight: 700; /* 228.571% */letter-spacing: 0.7px;text-transform: capitalize;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+    </style>
+    <body>
+        <div>
+            <h1>Coming Soon</h1>
+        </div>
+        <div>
+            <h2>Please be quet, the developer is making this page</h2>
+        </div>
+        <div>
+            <a href="{% url 'store' %}">Return to store</a>
+        </div>
+        {% if id %}
+            {% if name %}
+                <div>
+                    <h3>{{id}}|{{name}}</h3>
+                </div>
+            {% endif %}
+        {% endif %}
+    </body>
+</html>

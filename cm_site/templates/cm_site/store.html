@@ -9,52 +9,53 @@
     <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
     <link rel="stylesheet" href="{% static 'cm_site/css/store.css' %}">
+    <link rel="stylesheet" href="{% static 'cm_site/css/store_a.css' %}">
     <title>CloudyMotion | Store</title>
 </head>
 <body>
     <!-- Оболочка -->
-    <div class="wrapper">
+    <div class="wrapper" style="width: 100%;">
         <!-- шапка -->
         <header class="header">
             <div class="header__container">
-                <a href="{% url 'home' %}">
+                <a href="{% url 'not_developed' %}">
                     <div class="header__container-logo"></div>
                 </a>
                     {% if user.is_authenticated %}
                         <!-- Навигация после аунтефикации -->
                         <div class="header__container-navbar">
-                            <a href="" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-home">Home</div>
                             </a>
-                            <a href="" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-services">Services</div>
                             </a>
-                            <a href="" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-contacts">Contacts</div>
                             </a>
-                            <a href="" class="navbar__link navbar__link--svg">
+                            <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-account"></div>
                             </a>
-                            <a href="" class="navbar__link navbar__link--svg">
+                            <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-basket"></div>
                             </a>
                         </div>
                     {% else %}
                         <!-- Навигация без аунтификации -->
                         <div class="header__container-navbar header__container-navbar--no">
-                            <a href="" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-home">Home</div>
                             </a>
-                            <a href="{% url 'account_login' %}" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-singin">Sign In</div>
                             </a>
                             <div class="navbar__link navbar__link-sep">
                                 <div id="item1" class="navbar__link-sep">|</div>
                             </div>
-                            <a href="{% url 'account_signup' %}" class="navbar__link">
+                            <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-singup">Sign Up</div>
                             </a>
-                            <a href="" class="navbar__link navbar__link--svg">
+                            <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-basket"></div>
                             </a>
                         </div>
@@ -118,32 +119,32 @@
         <footer class="footer">
             <div class="footer__container">
                 <div class="footer__container_up">
-                    <a href="{% url 'home' %}">
+                    <a href="{% url 'not_developed' %}">
                         <div class="footer__container_up-logo"></div>
                     </a>
                     <div class="footer__container_up-items1">
-                        <a href="">Home</a>
-                        <a href="">Store</a>
-                        <a href="">Accounts</a>
-                        <a href="">Services</a>
+                        <a href="{% url 'not_developed' %}">Home</a>
+                        <a href="{% url 'store' %}">Store</a>
+                        <a href="{% url 'not_developed' %}">Accounts</a>
+                        <a href="{% url 'not_developed' %}">Services</a>
                     </div>
                     <div class="footer__container_up-items2">
-                        <a href="">Cart</a>
-                        <a href="">About</a>
-                        <a href="">Contact us</a>
-                        <a href="">Support</a>
+                        <a href="{% url 'not_developed' %}">Cart</a>
+                        <a href="{% url 'not_developed' %}">About</a>
+                        <a href="{% url 'not_developed' %}">Contact us</a>
+                        <a href="{% url 'not_developed' %}">Support</a>
                     </div>
                     <div class="footer__container_up-items3">
-                        <a href="">Beats</a>
-                        <a href="">Custom beats</a>
-                        <a href="">Mixing & mastering</a>
-                        <a href="">Custom projects</a>
+                        <a href="{% url 'not_developed' %}">Beats</a>
+                        <a href="{% url 'not_developed' %}">Custom beats</a>
+                        <a href="{% url 'not_developed' %}">Mixing & mastering</a>
+                        <a href="{% url 'not_developed' %}">Custom projects</a>
                     </div>
                     <div class="footer__container_up-items4">
-                        <a href="">Agreement</a>
-                        <a href="">Beat Licencing</a>
-                        <a href="">Whish list</a>
-                        <a href="">Your orders</a>
+                        <a href="{% url 'not_developed' %}">Agreement</a>
+                        <a href="{% url 'not_developed' %}">Beat Licencing</a>
+                        <a href="{% url 'not_developed' %}">Whish list</a>
+                        <a href="{% url 'not_developed' %}">Your orders</a>
                     </div>
                 </div>
                 <div class="footer__container_line"></div>
@@ -207,10 +208,12 @@
                     </div>
                     <!-- Правая часть -->
                     <div class="player__container_other">
-                        <button class="other-buy">
-                            <img src="../../static/cm_site/img/p-buy.svg" alt="">
-                            <div>{{prices.wav_license}}$</div>
-                        </button>
+                        <a href="{% url 'not_developed' %}">
+                            <button class="other-buy">
+                                <img src="../../static/cm_site/img/p-buy.svg" alt="">
+                                <div>{{prices.wav_license}}$</div>
+                            </button>
+                        </a>
                         <div class="player-volume">
                             <div class="volume-ico"></div>
                             <!-- <div class="volume"></div> -->
@@ -386,21 +389,25 @@
                 audio.currentTime = userCurrentTime;
                 
                 audio.play();
+                    setTimeout(() => {
+                    errorHandler(userCurrentTime, audioCurrentTime, progressWidth, false);
+                    progressContainer.addEventListener('click', setProgress);
+                }, 200);
             } else {
                 for (let index = 0; index < 30; index++) {
                     audio.load();                    
                 }
                 console.log('DON`T PLAY');
                 audio.currentTime = userCurrentTime;
+                setTimeout(() => {
+                    errorHandler(userCurrentTime, audioCurrentTime, progressWidth, true);
+                    progressContainer.addEventListener('click', setProgress);
+                }, 200);
             }
-            setTimeout(() => {
-                errorHandler(userCurrentTime, audioCurrentTime, progressWidth);
-                progressContainer.addEventListener('click', setProgress);
-            }, 200);
         }
         progressContainer.addEventListener('click', setProgress);
 
-        function errorHandler(userCurrentTime, currentTime, progressWidth){
+        function errorHandler(userCurrentTime, currentTime, progressWidth, isStop){
             if (Math.floor(audio.currentTime) == 0){
                 console.log("LOAD MUSIC");
                 progress.classList.add('loadMusicAnim');
@@ -414,6 +421,9 @@
                     progress.classList.remove('loadMusicAnim');
                     audio.muted = false;
                     audio.playbackRate = 1;
+                    if (isStop){
+                        audio.pause();
+                    }
                     audio.addEventListener('timeupdate', updateProgress);
                 }, (userCurrentTime / 16) * 1000);
             }

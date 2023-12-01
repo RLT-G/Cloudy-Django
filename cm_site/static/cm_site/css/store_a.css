@@ -1,0 +1,573 @@
+@media only screen and (max-width: 1100px) {
+    .header{
+        max-width: 1100px;
+    }
+    .header__container {
+        width: 1000px;
+    }
+    .main__container_banners-carousel {
+        width: 1000px;
+        height: 281px;
+    }
+    .carousel__slide {
+        width: 1000px;
+        height: 281px;
+    }
+    .main__container_sort {
+        width: 1000px;
+    }
+    .main__container_playlist {
+        width: 1000px;
+    }
+    .music {
+        width: 235px;
+    }
+    .music__cover {
+        width: 215px;
+        height: 215px;
+    }
+    .music__data {
+        height: 65px;
+    }
+    .music__data h3 {
+        line-height: 24px;
+    }
+    .music__data h2 {
+        line-height: 18px;
+    }
+    .main__container_playlist {
+        gap: 20px;
+        row-gap: 0px;
+    }
+    .footer__container {
+        max-width: 1100px;
+    }
+    .footer__container_up {
+        width: 1000px;
+    }
+    .player {
+        max-width: 1100px;
+    }
+    .player__container {
+        width: 1000px;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .header{
+        max-width: 1024px;
+    }
+    .header__container {
+        width: 1000px;
+    }
+    .main__container_banners-carousel {
+        width: 1000px;
+        height: 281px;
+    }
+    .carousel__slide {
+        width: 1000px;
+        height: 281px;
+    }
+    .main__container_sort {
+        width: 1000px;
+    }
+    .main__container_playlist {
+        width: 1000px;
+    }
+    .music {
+        width: 235px;
+    }
+    .music__cover {
+        width: 215px;
+        height: 215px;
+    }
+    .music__data {
+        height: 65px;
+    }
+    .music__data h3 {
+        line-height: 24px;
+    }
+    .music__data h2 {
+        line-height: 18px;
+    }
+    .main__container_playlist {
+        gap: 20px;
+        row-gap: 0px;
+    }
+    .footer__container {
+        max-width: 1024px;
+    }
+    .footer__container_up {
+        width: 1000px;
+    }
+    .player {
+        max-width: 1024px;
+    }
+    .player__container {
+        width: 1000px;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .header{
+        max-width: 1000px;
+    }
+    .header__container {
+        width: 900px;
+    }
+    .main__container_banners-carousel {
+        width: 900px;
+        height: 253px;
+    }
+    .carousel__slide {
+        width: 900px;
+        height: 253px;
+    }
+    .main__container_sort {
+        width: 900px;
+    }
+    .main__container_playlist {
+        width: 900px;
+    }
+    .music {
+        width: 225px;
+    }
+    .music__cover {
+        width: 205px;
+        height: 205px;
+    }
+    .main__container_playlist {
+        gap: 0px;
+        row-gap: 0px;
+    }
+    .footer__container {
+        max-width: 1000px;
+    }
+    .footer__container_up {
+        width: 900px;
+    }
+    .player {
+        max-width: 1000px;
+    }
+    .player__container {
+        width: 900px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .header{
+        max-width: 900px;
+        height: 60px;
+    }
+    .header__container {
+        width: 768px;
+    }
+    .header__container-logo {
+        width: 90px;
+        height: 45px;
+    }
+    .navbar__link-basket {
+        width: 25px;
+        height: 25px;
+    }
+    .main__container {
+        margin-top: 60px;
+    }
+    .main__container_banners-carousel {
+        width: 768px;
+        height: 219px;
+    }
+    .carousel__slide {
+        width: 768px;
+        height: 219px;
+    }
+    .main__container_sort {
+        width: 768px;
+    }
+    .main__container_playlist {
+        width: 768px;
+    }
+    .music {
+        width: 192px;
+    }
+    .music__cover {
+        width: 172px;
+        height: 172px;
+    }
+    .music__data h3 {
+        line-height: 20px;
+        font-size: 12px;
+    }
+    .music__data h2 {
+        font-size: 12px;
+    }
+    .footer__container {
+        max-width: 900px;
+    }
+    .footer__container_up {
+        width: 768px;
+    }
+    .footer__container_down-social {
+        width: 25%;
+    }
+    .player {
+        max-width: 900px;
+    }
+    .player__container {
+        width: 768px;
+    }
+    .player-cover {
+        width: 40px;
+        height: 40px;
+    }
+    .player-data {
+        height: 40px;
+        gap: 5px;
+        margin-left: 5px;
+        text-wrap: nowrap;
+    }
+    .volume {
+        width: 50px;
+    }
+    .player-volume {
+        justify-content: start;
+        gap: 5px;
+    }
+    .player__container_other {
+        gap: 20px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header{
+        max-width: 768px;
+    }
+    .header__container {
+        width: calc(100% - 10px);
+    }
+    .main__container_banners{
+        width: calc(100% - 10px);
+        aspect-ratio: 1/0.281;
+        height: auto;
+    }
+    .main__container_banners-carousel {
+        width: calc(100% - 10px);
+        height: auto;
+    }
+    .carousel__slide {
+        width: calc(100% - 10px);
+        height: auto;
+    }
+    .main__container_sort {
+        width: calc(100% - 10px);
+    }
+    .main__container_playlist {
+        width: calc(100% - 10px);
+    }
+    .music {
+        width: calc(100% / 4);
+    }
+    .music__cover {
+        width: calc(100% - 20px);
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+    .music__data {
+        height: 50px;
+    }
+    /* .music__data h3 {
+        line-height: 24px;
+    }
+    .music__data h2 {
+        line-height: 18px;
+    } */
+     /* .main__container_playlist {
+        gap: 20px;
+        row-gap: 0px;
+    } */
+    .footer__container {
+        max-width: 768px;
+    }
+    .footer__container_up {
+        width: calc(100% - 10px);
+    }
+    .player {
+        max-width: 768px;
+    }
+    .player__container {
+        width: calc(100% - 10px);
+    }
+    .music__data h2 {
+        line-height: 8px;
+        font-size: 8px;
+    }
+    .music__data h3 {
+        line-height: 12px;
+        font-size: 8px;
+    }
+    .music__data h1, .music__data h1 a {
+        color: #FFF;
+        font-family: Outfit;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 1px;
+    }
+    .player__container_data, .player__container_other{
+        width: 30%;
+    }
+    .player__container_buttons .back{
+        margin-left: 15px;
+    }
+    .player__container_buttons .forward{
+        margin-right: 15px;
+    }
+    .footer__container_down-social {
+        width: auto;
+        gap: 5px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .music {
+        width: calc(100% / 3);
+    }
+    .music__cover {
+        width: calc(100% - 20px);
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+    .music__data {
+        height: 50px;
+    }
+    .music__data h2 {
+        line-height: 8px;
+        font-size: 10px;
+    }
+    .music__data h3 {
+        line-height: 12px;
+        font-size: 10px;
+    }
+}
+@media only screen and (max-width: 480px) {
+     .music {
+        width: calc(100% / 2);
+    }
+    .music__cover {
+        width: calc(100% - 20px);
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+    .music__data {
+        height: 50px;
+    }
+    .music__data h2 {
+        line-height: 14px;
+        font-size: 14px;
+    }
+    .music__data h3 {
+        line-height: 14px;
+        font-size: 14px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 24px;
+    }
+    .main__container_sort-search{
+        max-width: 62%;
+    }
+    .footer__container_up{
+        flex-direction: column;
+        align-items: start;
+        gap: 25px;
+        /* margin-left: 10%; */
+        padding-left: 10%;
+    }
+    .footer__container_up-items1, .footer__container_up-items2, .footer__container_up-items3, .footer__container_up-items4 {
+        width: 100%;
+    }
+    .player-type {
+        color: #ABABAB;
+        font-family: Outfit;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0.65px;
+        height: 12px;
+    }
+    .player-name {
+        color: #FFF;
+        font-family: Outfit;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        letter-spacing: 1px;
+        height: 18px;
+        margin-bottom: 3px;
+    }
+    .player-data {
+        height: 40px;
+        gap: 0px;
+        margin-left: 5px;
+        text-wrap: nowrap;
+    }
+    .other-buy{
+        display: none;
+    }
+    .player__container_data, .player__container_other {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .volume {
+        width: 70%;
+    }
+    .player__container_buttons .random, .player__container_buttons .repeat{
+        width: 15px;
+        height: 12.5px;
+    }
+    .player__container_buttons .play {
+        width: 35px;
+        height: 35px
+    }
+    .player__container_data{
+        max-width: calc(100% / 3);
+        min-width: calc(100% / 3);
+    }
+    .player__container_buttons{
+        max-width: calc(100% / 3);
+        min-width: calc(100% / 3);
+    
+    }
+    .player__container_other{
+        max-width: calc(100% / 3);
+        min-width: calc(100% / 3);
+    }
+}
+@media only screen and (max-width: 460px) {
+    .music__data h2 {
+        line-height: 14px;
+        font-size: 12px;
+    }
+    .music__data h3 {
+        line-height: 14px;
+        font-size: 12px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 24px;
+    }
+}
+@media only screen and (max-width: 445px) {
+    .header__container-navbar--no {
+        width: 50%;
+    }
+    .navbar__link {
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 435px) {
+    .player__container_buttons .play {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .navbar__link {
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 405px) {
+    .music__data h2 {
+        line-height: 12px;
+        font-size: 10px;
+    }
+    .music__data h3 {
+        line-height: 12px;
+        font-size: 10px;
+    }
+    .player-cover {
+        width: 30px;
+        height: 30px;
+    }
+    .player-data {
+        height: 25px;
+    }
+    .player__container_buttons .back {
+        margin-left: 10px;
+    }
+    .player__container_buttons .forward {
+        margin-right: 10px;
+    }
+    .player {
+        height: 60px;
+    }
+    .player-wrapper {
+        height: 60px;
+    }
+}
+@media only screen and (max-width: 380px) {
+    .volume-ico {
+        width: 21px;
+    }
+    .header__container-navbar--no {
+        width: 60%;
+    }
+    .player__container_buttons .play {
+        width: 30px;
+        height: 30px;
+    }
+    .player-volume {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 355px) {
+    .player-cover {
+        display: none;
+    }
+    .player__container_data{
+        max-width: calc(100% / 4);
+        min-width: calc(100% / 4);
+    }
+    .player__container_buttons{
+        max-width: calc(100% / 2);
+        min-width: calc(100% / 2);
+    
+    }
+    .player__container_other{
+        max-width: calc(100% / 4);
+        min-width: calc(100% / 4);
+    
+    }
+    .player__container_other {
+        justify-content: start;
+    }
+    .player-volume {
+        width: 100%;
+    }
+    .music__data h2 {
+        line-height: 12px;
+        font-size: 8px;
+    }
+    .music__data h3 {
+        line-height: 12px;
+        font-size: 8px;
+    }
+}
+@media only screen and (max-width: 320px){
+    .navbar__link {
+        font-size: 12px;
+    }
+    .music__data h1, .music__data h1 a {
+        color: #FFF;
+        font-family: Outfit;
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 290px){
+    .music__data h1, .music__data h1 a {
+        font-size: 14px;
+    }
+    .music__data h2 {
+        line-height: 10px;
+        font-size: 6px;
+    }
+    .music__data h3 {
+        line-height: 10px;
+        font-size: 6px;
+    }
+}

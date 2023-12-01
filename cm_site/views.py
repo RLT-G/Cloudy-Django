@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Для описания request в функциях
 from django.core.handlers.wsgi import WSGIRequest
 from . models import CustomUser, Tracks, Prices, Banners
@@ -9,7 +9,8 @@ def index(request: WSGIRequest):
         'user': request.user,
         'user_data': CustomUser.objects.all()
     }
-    return render(request, 'cm_site/index.html', data)
+    # return render(request, 'cm_site/index.html', data)
+    return redirect('store')
 
 def store(request: WSGIRequest):
     if request.method == 'POST':
@@ -40,3 +41,14 @@ def store(request: WSGIRequest):
         'banners': Banners.objects.all()
     }
     return render(request, 'cm_site/store.html', data)
+
+def store_track(request: WSGIRequest, track_id: int, track_name: str):
+    data = {
+       'id': track_id,
+       'name': track_name
+    }
+    return render(request, 'cm_site/track.html', data)
+
+def not_developed(request: WSGIRequest):
+    return render(request, 'cm_site/track.html')
+    

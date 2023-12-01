@@ -1,3 +1,10 @@
+body{
+    background-color: #110F13;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
 .header{
     display: flex;
     flex-direction: row;
@@ -126,6 +133,7 @@
     align-items: center;
     justify-content: space-between;
     background-color: #110F13;
+    margin-bottom: 50px;
 }
 .footer__container_line{
     width: 95%;
@@ -278,11 +286,12 @@ header{
 }
 .music{
     width: 272.5px;
-    height: 360px;
+    /* height: 360px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 10px;
+    padding-bottom: 10px;
     cursor: pointer;
 }
 .music:hover{
@@ -339,9 +348,8 @@ header{
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
-    line-height: 32px; /* 160% */
+    line-height: 20px;
     letter-spacing: 1px;
-    text-transform: capitalize;
 }
 .music__data h1:hover, .music__data h1 a:hover{
     text-decoration: underline;
@@ -353,9 +361,8 @@ header{
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px; /* 228.571% */
+    line-height: 24px;
     letter-spacing: 0.7px;
-    text-transform: capitalize;
 }
 .music__data h3{
     color: #BA0038;
@@ -366,7 +373,6 @@ header{
     font-weight: 700;
     line-height: 32px; /* 228.571% */
     letter-spacing: 0.7px;
-    text-transform: capitalize;
 }
 .main__container_sort{
     width: 1100px;
@@ -374,8 +380,8 @@ header{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    margin-top: 30px;
+    margin-bottom: 4px;
+    margin-top: 20px;
 }
 .main__container_sort-search{
     width: 400px;
@@ -406,7 +412,6 @@ header{
     font-weight: 500;
     line-height: 32px; /* 213.333% */
     letter-spacing: 0.75px;
-    text-transform: capitalize;
 }
 .search__text{
     color: #FFF;
@@ -643,7 +648,7 @@ color: white;
     justify-content: flex-end;
     align-items: start;
     height: 50px;
-    gap: 15px;
+    gap: 8px;
     margin-left: 15px;
 }
 .player-name{
@@ -654,8 +659,8 @@ color: white;
     font-weight: 700;
     /* line-height: 32px; 160%/ */
     letter-spacing: 1px;
-    /* text-transform: capitalize; */
     height: 18px;
+    margin-bottom: 3px;
 }
 .player-type{
     color: #ABABAB;
@@ -712,3 +717,4 @@ color: white;
     background: url('../img/p-random.svg') no-repeat;
     background-size: cover;
 }
+
