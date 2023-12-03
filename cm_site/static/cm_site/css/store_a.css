@@ -417,14 +417,14 @@
     .volume {
         width: 70%;
     }
-    .player__container_buttons .random, .player__container_buttons .repeat{
+    /* .player__container_buttons .random, .player__container_buttons .repeat{
         width: 15px;
         height: 12.5px;
-    }
-    .player__container_buttons .play {
+    } */
+    /* .player__container_buttons .play {
         width: 35px;
         height: 35px
-    }
+    } */
     .player__container_data{
         max-width: calc(100% / 3);
         min-width: calc(100% / 3);
@@ -461,10 +461,10 @@
     }
 }
 @media only screen and (max-width: 435px) {
-    .player__container_buttons .play {
+    /* .player__container_buttons .play {
         margin-left: 5px;
         margin-right: 5px;
-    }
+    } */
 }
 @media only screen and (max-width: 420px) {
     .navbar__link {
@@ -493,12 +493,12 @@
     .player__container_buttons .forward {
         margin-right: 10px;
     }
-    .player {
+    /* .player {
         height: 60px;
     }
     .player-wrapper {
         height: 60px;
-    }
+    } */
 }
 @media only screen and (max-width: 380px) {
     .volume-ico {
@@ -507,10 +507,10 @@
     .header__container-navbar--no {
         width: 60%;
     }
-    .player__container_buttons .play {
+    /* .player__container_buttons .play {
         width: 30px;
         height: 30px;
-    }
+    } */
     .player-volume {
         width: 100%;
     }
@@ -569,5 +569,157 @@
     .music__data h3 {
         line-height: 10px;
         font-size: 6px;
+    }
+}
+@media only screen and (max-width: 2000px){
+    .footer__container_down-social {
+        width: 15%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+@media only screen and (max-width: 1400px){
+    .footer__container_down-social {
+        width: 20%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+@media only screen and (max-width: 1100px){
+    .volume {
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 1000px){
+    .footer__container_down-social {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 900px){
+    .other-buy {
+        display: none;
+    }
+    .player-volume {
+        width: 100%;
+        justify-content: space-around;
+    }
+    .player__progress::-webkit-slider-thumb, .volume::-webkit-slider-thumb{
+        background-color: #BA0038;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        -webkit-appearance: none;
+    }
+    .music__data h2 {
+        font-size: 12px;
+    }
+}
+@media only screen and (max-width: 800px){
+    .footer__container_down-social {
+        width: auto;
+        gap: 10px;
+    }
+    .music__data-main {
+        width: auto;
+        gap: 5px;
+    }
+}
+@media only screen and (max-width: 700px){
+    .music__data h2 {
+        font-size: 10px;
+    }
+}
+@media only screen and (max-width: 600px){
+    .player-cover {
+        display: none;
+    }
+}
+@media only screen and (max-width: 480px){
+    .player__container_data {
+        display: flex;
+        justify-content: start;
+    }
+    .player__container_other {
+        display: none;
+    }
+    .player-cover {
+        display: block;
+    }
+    .player__container  {
+        justify-content: space-around;
+    }
+    .player__container_buttons {
+        max-width: unset;
+        min-width: unset;
+        width: 50%;
+    }
+
+    .music__data h2 {
+        font-size: 14px;
+    }
+    .music__data h3 {
+        font-size: 14px;
+    }
+    .music__data h1, .music__data h1 a {
+        font-size: 24px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 32px;
+    }
+    .music__data {
+        height: 70px;
+    }
+}
+
+
+@media only screen and (max-width: 440px){
+    .music__data h2 {
+        font-size: 12px;
+    }
+    .music__data h3 {
+        font-size: 12px;
+    }
+    .music__data h1, .music__data h1 a {
+        font-size: 22px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 32px;
+    }
+    .music__data {
+        height: 70px;
+    }
+}
+@media only screen and (max-width: 400px){
+    .music__data h2 {
+        font-size: 12px;
+    }
+    .music__data h3 {
+        font-size: 12px;
+    }
+    .music__data h1, .music__data h1 a {
+        font-size: 20px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 32px;
+    }
+    .music__data {
+        height: 70px;
+    }
+}
+@media only screen and (max-width: 370px){
+    .music__data h2 {
+        font-size: 10px;
+    }
+    .music__data h3 {
+        font-size: 10px;
+    }
+    .music__data h1, .music__data h1 a {
+        font-size: 18px;
+    }
+    .music__data h1, .music__data h1 a {
+        line-height: 28px;
+    }
+    .music__data {
+        height: auto;
     }
 }

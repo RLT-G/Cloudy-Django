@@ -42,6 +42,7 @@ class Tracks(models.Model):
 
 class Banners(models.Model):
     banner = models.ImageField("Banner", upload_to='uploads/')
+    link = models.URLField('HREF', default='http://127.0.0.1:8000/store')
     class Meta:
         verbose_name = 'Banner'
         verbose_name_plural = 'Banners'

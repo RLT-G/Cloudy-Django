@@ -350,6 +350,7 @@ header{
     font-weight: 700;
     line-height: 20px;
     letter-spacing: 1px;
+    margin-bottom: 3px;
 }
 .music__data h1:hover, .music__data h1 a:hover{
     text-decoration: underline;
@@ -446,11 +447,24 @@ header{
 }
 .carousel__slide{
     border-radius: 15px;
-    display: none;
     position: absolute;
     width: 1100px;
     height: 310px;
+    cursor: pointer;
+    position: absolute;
 }
+/*  */
+.carousel__slide {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 0;
+  }
+
+  .carousel__slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+/*  */
 .carousel__slide img{
     width: 100%;
     height: 100%;
@@ -465,6 +479,7 @@ header{
     justify-content: center;
     align-items: center;
     background-color: #000;
+    z-index: 10;
 }
 .player-wrapper{
     width: 100%;
@@ -570,7 +585,7 @@ header{
 .other-buy div{
     color: #FFF;
     text-align: center;
-    font-family: Inter;
+    font-family: Outfit;
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
@@ -647,8 +662,8 @@ color: white;
     flex-direction: column;
     justify-content: flex-end;
     align-items: start;
-    height: 50px;
-    gap: 8px;
+    height: auto;
+    gap: 2px;
     margin-left: 15px;
 }
 .player-name{
@@ -674,11 +689,13 @@ color: white;
 }
 .player__progress{
     width: 100%;
-    height: 4px;
+    height: 3px;
     cursor: pointer;
-    background-color: #464646;
+    background-color: #BA0038;
+    position: absolute;
+    top: -2px; left: -2px;
 }
-.progress{
+/* .progress{
     width: 0%;
     height: 4px;
     background-color: #BA0038;
@@ -697,7 +714,7 @@ color: white;
 .player__progress:hover .progress{
     background-color: #ff004c;
     transition: 0.5s;
-}
+} */
 .loadMusicAnim{
     animation-name: loadMusic;
     animation-duration: 0.35s;
@@ -718,3 +735,54 @@ color: white;
     background-size: cover;
 }
 
+
+
+
+
+/* @import "compass/css3"; */
+
+.player__progress {
+background: linear-gradient(to right, #BA0038 0%, #BA0038 50%, #464646 50%, #464646 100%);
+border-radius: 2px;
+height: 3px;
+width: 100%;
+outline: none; 
+transition: background 450ms ease-in;
+
+-webkit-appearance: none;
+}
+.volume{
+    background: linear-gradient(to right, #BA0038 0%, #BA0038 100%, #464646 50%, #464646 100%);
+    transition: background 450ms ease-in;
+}
+
+.player__progress::-webkit-slider-thumb, .volume::-webkit-slider-thumb{
+background-color: #BA0038;
+height: 1px;
+width: 1px;
+border-radius: 50%;
+-webkit-appearance: none;
+}
+.player__progress:hover::-webkit-slider-thumb, .player__progress::-webkit-slider-thumb:hover,
+.volume:hover::-webkit-slider-thumb, .volume::-webkit-slider-thumb:hover{
+background-color: #BA0038;
+height: 20px;
+width: 20px;
+border-radius: 50%;
+transition: 0.5s;
+-webkit-appearance: none;
+}
+
+
+.carousel__slide img:hover{
+    box-shadow: 0 0 10px 1px rgba(0, 140, 186, 0.5);
+
+}
+.player__container_buttons .forward:hover,
+.player__container_buttons .play:hover,
+.player__container_buttons .back:hover{
+    stroke-width: 2px;
+    stroke: #FFF;
+    filter: drop-shadow(0px 0px 5px white);
+    transition: 0.2s;
+}

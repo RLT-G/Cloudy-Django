@@ -69,11 +69,16 @@
                 <div class="main__container_banners">
                     <div class="main__container_banners-carousel">
                         {% for banner in banners %}
-                            <div class="carousel__slide">
+                            <div class="carousel__slide" onclick="goToUrl('{{banner.link}}')">
                                 <img src="../media/{{banner.banner}}" alt="banner.jpg">
                             </div>
                         {% endfor %}
                     </div>
+                    <script>
+                        function goToUrl(url){
+                            window.open(url, '_blank');
+                        }
+                    </script>
                 </div>
                 <!-- Поисковик и фильтр -->
                 <div class="main__container_sort">
@@ -150,11 +155,11 @@
                 <div class="footer__container_line"></div>
                 <div class="footer__container_down">
                     <div class="footer__container_down-social">
-                        <a href=""><div class="instagram"></div></a>
-                        <a href=""><div class="youtube"></div></a>
-                        <a href=""><div class="telegram"></div></a>
-                        <a href=""><div class="discord"></div></a>
-                        <a href=""><div class="email"></div></a>
+                        <a href="https://www.instagram.com/cloudymotion4life/"><div class="instagram"></div></a>
+                        <a href="https://www.youtube.com/channel/UCjFzg281yew5Ikgu4QzfoqQ"><div class="youtube"></div></a>
+                        <a href="https://t.me/Cloudy_Motion"><div class="telegram"></div></a>
+                        <a href="https://discord.gg/8bJu3stv"><div class="discord"></div></a>
+                        <a href="mailto:cloudymotion4life@gmail.com"><div class="email"></div></a>
                     </div>
                     <div class="footer__container_down-copyright">
                         ©Copyright Cloudy Motion
@@ -175,9 +180,42 @@
                 <source src="" type="audio/mpeg">
             </audio>
             <!-- Прогресс бар -->
-            <div class="player__progress">
+            <!-- <div class="player__progress">
                 <div class="progress"></div>
-            </div>
+            </div> -->
+            <input class="player__progress" id="myRange" type="range" min="0" max="100" step="0.00001" value="0">
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <script>
+                // .firefox
+const isFF = true;
+
+const addRule = ((style) => {
+    const sheet = document.head.appendChild(style).sheet;
+
+    return (selector, css) => {
+        if (isFF) {
+            if (sheet.cssRules.length > 0) {
+                sheet.deleteRule(0);
+            }
+
+            try {
+                sheet.insertRule(`${selector} {${css}}`, 0);
+            } catch (ex) {
+                isFF = false;
+            }
+        }
+    };
+})(document.createElement("style"));
+
+// .chrome styling
+$('.player__progress').on('input', function () {
+    $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
+});
+
+
+
+            </script>
             <!-- Главная оболочка -->
             <div class="player-wrapper">
                 <div class="player__container">
@@ -218,13 +256,17 @@
                             <div class="volume-ico"></div>
                             <!-- <div class="volume"></div> -->
                             <input class="volume" type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+                            <script>
+                                $('.volume').on('input', function () {
+                                    $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value * 100}%, #464646 ${this.value * 100}%, #464646 100%)`);
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Скрипт плеера -->
     <script>
         // Получение блоков
@@ -234,7 +276,8 @@
         const volumeControl = document.querySelector('.volume');
         const audio = document.querySelector('.player__audio');
         const cover = document.querySelector('.player-cover');
-        const progress = document.querySelector('.progress');
+        // const progress = document.querySelector('.progress');
+        const progress = document.querySelector('.player__progress');
         const title = document.querySelector('.player-name');
         const nextBtn = document.querySelector('.forward');
         const randBtn = document.querySelector('.random');
@@ -250,7 +293,9 @@
                     name: "{{element.track_name}}",
                     typeBeat: "{{element.type_beat}} Type Beat",
                     cover: "../media/{{element.cover_art}}",
+                    // mp3: "../media/{{element.mp3}}"
                     mp3: "../media/{{element.mp3}}"
+                    // mp3: "../media/{{element.mp3}}"
                 },
             {% endfor %}
         ];
@@ -258,10 +303,25 @@
         let songIndex = 0;
         // Функция инициализации
         function loadSong(songIndex){
+            const audioUrl = songs[songIndex].mp3;
+            fetch(audioUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const objectURL = URL.createObjectURL(blob);
+                audio.src = objectURL;
+                console.log('Audio loaded successfully:', audio);
+            })
+            .catch(error => {
+                console.error('Error loading audio file:', error);
+            });
             title.innerHTML = songs[songIndex].name;
             typeBeat.innerHTML = songs[songIndex].typeBeat;
-            audio.src = songs[songIndex].mp3;
-            audio.load();
+            // audio.load();
             cover.style.background = "url(" + songs[songIndex].cover + ")";
             cover.style.backgroundSize = "cover";
             cover.style.backgroundRepeat = "no-repeat";
@@ -340,7 +400,9 @@
                 songIndex = Math.floor(Math.random() * songs.length);
             }
             loadSong(songIndex);
-            playSong();
+            setTimeout(() => {
+                playSong();
+            }, 500);
         }
         nextBtn.addEventListener('click', nextSong);
         // Кнопка prev
@@ -353,7 +415,9 @@
                 songIndex = Math.floor(Math.random() * songs.length);
             }
             loadSong(songIndex);
-            playSong();
+            setTimeout(() => {
+                playSong();
+            }, 500);
         }
         prevBtn.addEventListener('click', prevSong);
 
@@ -361,73 +425,21 @@
         function updateProgress(e){
             const {duration, currentTime} = e.srcElement;
             const progressPercent = (currentTime / duration) * 100;
-            progress.style.width = progressPercent + "%";
+            progress.value = parseFloat(progressPercent.toFixed(5));
+            // Получаем элемент .player__progress
+            const playerProgressUp = $('.player__progress');
+
+            // Устанавливаем стиль
+            playerProgressUp.css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${playerProgressUp.val()}%, #464646 ${playerProgressUp.val()}%, #464646 100%)`);
+
+            // progress.style.background = `linear-gradient(to right, #BA0038 0%, #BA0038 ${progress.value}%, ##464646 ${progress.value}%, #464646 100%)`;
         }
         audio.addEventListener('timeupdate', updateProgress);
-
-        // Гадость
-        let isPlaying = false; 
-        audio.addEventListener('play', function () {
-            isPlaying = true;
+        progress.addEventListener('input', function() {
+            const progress_value = parseFloat(this.value);
+            const duration = audio.duration; 
+            audio.currentTime = (progress_value / 100) * duration;
         });
-        audio.addEventListener('pause', function () {
-            isPlaying = false;
-        });
-        function setProgress(e) {
-            const width = this.clientWidth;
-            const clickX = e.offsetX;
-            const duration = audio.duration;
-            const userCurrentTime = (clickX / width) * duration;
-            const audioCurrentTime = audio.currentTime;
-            const progressWidth = progress.style.width;
-            progressContainer.removeEventListener('click', setProgress);
-            if (isPlaying) {
-                audio.pause();
-                for (let index = 0; index < 30; index++) {
-                    audio.load();           
-                }
-                audio.currentTime = userCurrentTime;
-                
-                audio.play();
-                    setTimeout(() => {
-                    errorHandler(userCurrentTime, audioCurrentTime, progressWidth, false);
-                    progressContainer.addEventListener('click', setProgress);
-                }, 200);
-            } else {
-                for (let index = 0; index < 30; index++) {
-                    audio.load();                    
-                }
-                console.log('DON`T PLAY');
-                audio.currentTime = userCurrentTime;
-                setTimeout(() => {
-                    errorHandler(userCurrentTime, audioCurrentTime, progressWidth, true);
-                    progressContainer.addEventListener('click', setProgress);
-                }, 200);
-            }
-        }
-        progressContainer.addEventListener('click', setProgress);
-
-        function errorHandler(userCurrentTime, currentTime, progressWidth, isStop){
-            if (Math.floor(audio.currentTime) == 0){
-                console.log("LOAD MUSIC");
-                progress.classList.add('loadMusicAnim');
-                audio.pause();
-                audio.removeEventListener('timeupdate', updateProgress);
-                progress.style.width = progressWidth;
-                audio.muted = true;
-                audio.playbackRate = 16;
-                audio.play();
-                setTimeout(() => {
-                    progress.classList.remove('loadMusicAnim');
-                    audio.muted = false;
-                    audio.playbackRate = 1;
-                    if (isStop){
-                        audio.pause();
-                    }
-                    audio.addEventListener('timeupdate', updateProgress);
-                }, (userCurrentTime / 16) * 1000);
-            }
-        }        
         // Звук
         audio.volume = 1;
         volumeControl.addEventListener('input', function() {
@@ -488,7 +500,9 @@
                 musicCoverButton.classList.add('music__cover_button-active');
                 songIndex = index - 1;
                 loadSong(songIndex);
-                playSong(songIndex);
+                setTimeout(() => {
+                    playSong(songIndex);
+                }, 500);
             }
         }
     </script>
@@ -497,14 +511,15 @@
         document.addEventListener("DOMContentLoaded", function () {
             const slides = document.querySelectorAll(".carousel__slide");
             let currentSlide = 0;
+
             function showSlide(slideIndex) {
-                slides.forEach((slide, index) => {
-                    if (index === slideIndex) {
-                        slide.style.display = "block";
-                    } else {
-                        slide.style.display = "none";
-                    }
-                });
+            slides.forEach((slide, index) => {
+                if (index === slideIndex) {
+                slide.classList.add("active");
+                } else {
+                slide.classList.remove("active");
+                }
+            });
             }
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % slides.length;
@@ -512,7 +527,7 @@
             }
             showSlide(currentSlide);
             setInterval(nextSlide, 5000);
-        });
+  });
     </script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 from pathlib import Path
-
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-gwupewp@i(5na=%45p^&9da3kaglz4@180^ncqz$l64vssu_n7'
+SECRET_KEY = 'django-insecursdfsdfe-gasdsadwupewp@i(5na=%45p^&9da3kaglz4@180^ncqz$l64vssu_n7'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['cloudymotion.pythonanywhere.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,7 +88,7 @@ else:
     EMAIL_HOST_PASSWORD = ''
 
 
-ROOT_URLCONF = 'settings.urls'
+ROOT_URLCONF = 'www.urls'
 #end django-allouth
 
 MIDDLEWARE = [
@@ -119,7 +119,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'settings.wsgi.application'
+WSGI_APPLICATION = 'www.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -153,12 +153,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# STATIC_ROOT = BASE_DIR / 'static'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    # 'static/'
 ]
-
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
