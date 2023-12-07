@@ -670,8 +670,6 @@
         height: 70px;
     }
 }
-
-
 @media only screen and (max-width: 440px){
     .music__data h2 {
         font-size: 12px;
@@ -721,5 +719,10 @@
     }
     .music__data {
         height: auto;
+    }
+}
+@media only screen and (max-width: 768px){
+    .header__container {
+        width: calc(100% - 20px);
     }
 }

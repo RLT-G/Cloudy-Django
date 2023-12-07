@@ -15,6 +15,21 @@
 <body>
     <!-- Оболочка -->
     <div class="wrapper" style="width: 100%;">
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+        </div>
+        <script>
+            // Show loader immediately
+const loaderWrapper = document.querySelector('.loader-wrapper');
+loaderWrapper.style.display = 'flex'; // Show loader
+
+// Hide loader when all resources are loaded
+window.addEventListener('load', function () {
+  loaderWrapper.style.display = 'none'; // Hide loader
+  document.querySelector('.content').style.display = 'block'; // Show content
+});
+
+        </script>
         <!-- шапка -->
         <header class="header">
             <div class="header__container">
@@ -185,7 +200,22 @@
             </div> -->
             <input class="player__progress" id="myRange" type="range" min="0" max="100" step="0.00001" value="0">
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                let flag = false;
+                $('.player__progress').on({
+                    mouseenter: function () {
+                        flag = true;
+        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
 
+                    },
+                    mouseleave: function () {
+                        flag = false
+        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
+
+                    }
+                });
+
+            </script>
             <script>
                 // .firefox
 const isFF = true;
@@ -210,7 +240,11 @@ const addRule = ((style) => {
 
 // .chrome styling
 $('.player__progress').on('input', function () {
-    $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
+    if (flag){
+        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
+    } else {
+        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
+    }
 });
 
 
@@ -253,13 +287,53 @@ $('.player__progress').on('input', function () {
                             </button>
                         </a>
                         <div class="player-volume">
-                            <div class="volume-ico"></div>
+                            <div class="volume-ico" onclick="volumeButton()"></div>
                             <!-- <div class="volume"></div> -->
                             <input class="volume" type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+                            <script>
+                                let volValue = 0;
+                                const vol = document.getElementById('volumeControl');
+                                
+                                function volumeButton(){
+                                    if (parseFloat(vol.value) != 0){
+                                        volValue = parseFloat(vol.value);
+                                        vol.value = 0;
+                                        audio.volume = 0;
+                                    } else {
+                                        vol.value = volValue;
+                                        audio.volume = volValue;
+                                    }
+
+                                    if (vol.value == 0){
+                                        volumeControlIco.style.background = "url('../../static/cm_site/img/v1.svg')";
+                                        volumeControlIco.style.backgroundSize = "cover";
+                                        volumeControlIco.style.backgroundRepeat = "no-repeat";
+                                    } else {
+                                        if (vol.value < 0.33){
+                                            volumeControlIco.style.background = "url('../../static/cm_site/img/v2.svg')";
+                                            volumeControlIco.style.backgroundSize = "cover";
+                                            volumeControlIco.style.backgroundRepeat = "no-repeat";
+                                        } else {
+                                            if (vol.value < 0.66){
+                                                volumeControlIco.style.background = "url('../../static/cm_site/img/v3.svg')";
+                                                volumeControlIco.style.backgroundSize = "cover";
+                                                volumeControlIco.style.backgroundRepeat = "no-repeat";
+                                            } else {
+                                                volumeControlIco.style.background = "url('../../static/cm_site/img/p-vol.svg')";
+                                                volumeControlIco.style.backgroundSize = "cover";
+                                                volumeControlIco.style.backgroundRepeat = "no-repeat";
+                                            }
+                                        }
+                                    }
+                                    let volV = $('.volume');
+                                    volV.css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${volV.val() * 100}%, #464646 ${volV.val() * 100}%, #464646 100%)`);
+                                }
+                            </script>
                             <script>
                                 $('.volume').on('input', function () {
                                     $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value * 100}%, #464646 ${this.value * 100}%, #464646 100%)`);
                                 });
+                                
                             </script>
                         </div>
                     </div>
@@ -285,7 +359,7 @@ $('.player__progress').on('input', function () {
         const repBtn = document.querySelector('.repeat');
         const playBtn = document.querySelector('.play');
         const prevBtn = document.querySelector('.back');
-        
+        player.classList.add('player-deactivate');
         // Переменная с треками 
         const songs = [
             {% for element in tracks %}
@@ -294,16 +368,14 @@ $('.player__progress').on('input', function () {
                     typeBeat: "{{element.type_beat}} Type Beat",
                     cover: "../media/{{element.cover_art}}",
                     // mp3: "../media/{{element.mp3}}"
-                    mp3: "../media/{{element.mp3}}"
+                    mp3: "../media/{{element.mp3}}",
+                    scr: null
                     // mp3: "../media/{{element.mp3}}"
                 },
             {% endfor %}
         ];
-        // Начальная композиция
-        let songIndex = 0;
-        // Функция инициализации
-        function loadSong(songIndex){
-            const audioUrl = songs[songIndex].mp3;
+        for (let index = 0; index < songs.length; index++) {
+            const audioUrl = songs[index].mp3;
             fetch(audioUrl)
             .then(response => {
                 if (!response.ok) {
@@ -313,12 +385,19 @@ $('.player__progress').on('input', function () {
             })
             .then(blob => {
                 const objectURL = URL.createObjectURL(blob);
-                audio.src = objectURL;
+                songs[index].scr = objectURL;
                 console.log('Audio loaded successfully:', audio);
             })
             .catch(error => {
                 console.error('Error loading audio file:', error);
             });
+            
+        }
+        // Начальная композиция
+        let songIndex = 0;
+        // Функция инициализации
+        function loadSong(songIndex){
+            audio.src = songs[songIndex].scr;
             title.innerHTML = songs[songIndex].name;
             typeBeat.innerHTML = songs[songIndex].typeBeat;
             // audio.load();
@@ -429,8 +508,13 @@ $('.player__progress').on('input', function () {
             // Получаем элемент .player__progress
             const playerProgressUp = $('.player__progress');
 
+            if (flag){
+                playerProgressUp.css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${playerProgressUp.val()}%, #464646 ${playerProgressUp.val()}%, #464646 100%)`);
+
+            } else {
+                playerProgressUp.css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${playerProgressUp.val()}%, transparent ${playerProgressUp.val()}%, transparent 100%)`);                
+            }
             // Устанавливаем стиль
-            playerProgressUp.css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${playerProgressUp.val()}%, #464646 ${playerProgressUp.val()}%, #464646 100%)`);
 
             // progress.style.background = `linear-gradient(to right, #BA0038 0%, #BA0038 ${progress.value}%, ##464646 ${progress.value}%, #464646 100%)`;
         }
@@ -469,6 +553,10 @@ $('.player__progress').on('input', function () {
         });
 
         function coverPlay(index){
+            if (player.classList.contains('player-deactivate')) {
+                player.classList.remove('player-deactivate');
+                player.classList.add('player-activate');
+            }
             if (songIndex != index - 1){
                 let classDel;
                 let innerClassDel;
@@ -505,6 +593,10 @@ $('.player__progress').on('input', function () {
                 }, 500);
             }
         }
+        setTimeout(() => {
+            let va = '0.00001'
+            progress.value = parseFloat(va.toFixed(5));
+        }, 1000);
     </script>
     <!-- Скрипт Баннеров -->
     <script>
@@ -526,7 +618,7 @@ $('.player__progress').on('input', function () {
                 showSlide(currentSlide);
             }
             showSlide(currentSlide);
-            setInterval(nextSlide, 5000);
+            setInterval(nextSlide, 7500);
   });
     </script>
 </body>

@@ -54,9 +54,9 @@ body{
     align-items: center;
 }
 .navbar__link:hover{
-    background: #000;
+    /* background: #000;
     box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.50);
-    text-shadow: 0px 0px 15px #000000;
+    text-shadow: 0px 0px 15px #000000; */
     color: #BA0038;
     transition: 0.2s;
 }
@@ -751,9 +751,14 @@ transition: background 450ms ease-in;
 
 -webkit-appearance: none;
 }
+.player__progress:hover{
+    background-color: blue;
+}
 .volume{
     background: linear-gradient(to right, #BA0038 0%, #BA0038 100%, #464646 50%, #464646 100%);
     transition: background 450ms ease-in;
+    cursor: pointer;
+    height: 3px;
 }
 
 .player__progress::-webkit-slider-thumb, .volume::-webkit-slider-thumb{
@@ -785,4 +790,94 @@ transition: 0.5s;
     stroke: #FFF;
     filter: drop-shadow(0px 0px 5px white);
     transition: 0.2s;
+}
+
+
+
+
+
+
+
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #110F13;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    display: none; /* initially hide loader */
+  }
+  
+  .loader {
+    border: 8px solid #636363;
+    border-top: 8px solid #BA0038;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+.player-deactivate{
+    bottom: -100px;
+    opacity: 0;
+}
+.player-activate{
+    bottom: -0px;
+    opacity: 1;
+}
+.player{
+    transition: bottom 0.5s ease, opacity 0.5s ease;
+}
+.volume-ico:hover{
+    cursor: pointer;
+}
+
+
+.header{
+    height: 60px;
+}
+.header__container-logo {
+    width: 90px;
+    height: 45px;
+}
+
+.main__container {
+    margin-top: 60px;
+}
+
+
+
+
+
+.navbar__link {
+    font-size: 16px;
+}
+.navbar__link-basket {
+    width: 25px;
+    height: 25px;
+}
+.header__container-logo {
+    width: 75px;
+    height: 37.5px;
+}
+
+.volume-ico:hover{
+    stroke-width: 2px;
+    stroke: #FFF;
+    filter: drop-shadow(0px 0px 5px white);
+    transition: 0.2s;
+}
+.search__text::placeholder, .search__text {
+    color: rgba(255, 255, 255, 0.40);
+    font-family: Outfit;
+    font-size: 14px;
 }

@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecursdfsdfe-gasdsadwupewp@i(5na=%45p^&9da3kaglz4@180^ncqz$l64vssu_n7'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['cloudymotion.pythonanywhere.com', '127.0.0.1']
 
