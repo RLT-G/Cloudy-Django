@@ -374,37 +374,69 @@ $('.player__progress').on('input', function () {
                 },
             {% endfor %}
         ];
-        for (let index = 0; index < songs.length; index++) {
-            const audioUrl = songs[index].mp3;
-            fetch(audioUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                const objectURL = URL.createObjectURL(blob);
-                songs[index].scr = objectURL;
-                console.log('Audio loaded successfully:', audio);
-            })
-            .catch(error => {
-                console.error('Error loading audio file:', error);
-            });
+        // old V
+        // for (let index = 0; index < songs.length; index++) {
+        //     const audioUrl = songs[index].mp3;
+        //     fetch(audioUrl)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! Status: ${response.status}`);
+        //         }
+        //         return response.blob();
+        //     })
+        //     .then(blob => {
+        //         const objectURL = URL.createObjectURL(blob);
+        //         songs[index].scr = objectURL;
+        //         console.log('Audio loaded successfully:', audio);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error loading audio file:', error);
+        //     });
+        // }
+        function changeBlobData(songIndex) {
+            const audioUrl = songs[songIndex].mp3;
             
+            return fetch(audioUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const objectURL = URL.createObjectURL(blob);
+                    songs[songIndex].scr = objectURL;
+                    console.log('Audio loaded successfully:', objectURL);
+                    return objectURL; // возвращаем URL для использования в следующем then
+                })
+                .catch(error => {
+                    console.error('Error loading audio file:', error);
+                    throw error; // повторно выбрасываем ошибку для обработки в следующем catch
+                });
         }
-        // Начальная композиция
+
         let songIndex = 0;
-        // Функция инициализации
-        function loadSong(songIndex){
-            audio.src = songs[songIndex].scr;
-            title.innerHTML = songs[songIndex].name;
-            typeBeat.innerHTML = songs[songIndex].typeBeat;
-            // audio.load();
-            cover.style.background = "url(" + songs[songIndex].cover + ")";
-            cover.style.backgroundSize = "cover";
-            cover.style.backgroundRepeat = "no-repeat";
+
+        function loadSong(songIndex) {
+            changeBlobData(songIndex)
+                .then(objectURL => {
+                    // Этот код выполнится после завершения changeBlobData
+                    audio.src = objectURL;
+                    title.innerHTML = songs[songIndex].name;
+                    typeBeat.innerHTML = songs[songIndex].typeBeat;
+                    cover.style.background = "url(" + songs[songIndex].cover + ")";
+                    cover.style.backgroundSize = "cover";
+                    cover.style.backgroundRepeat = "no-repeat";
+                })
+                .catch(error => {
+                    // Обработка ошибок, если они возникнут в changeBlobData
+                    console.error('Error in loadSong:', error);
+                });
         }
+
+// Вызовем функцию loadSong
+loadSong(songIndex);
+
         // init
         loadSong(songIndex);
         // Запуск Трека
