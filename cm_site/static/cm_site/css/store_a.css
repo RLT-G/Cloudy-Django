@@ -726,3 +726,8 @@
         width: calc(100% - 20px);
     }
 }
+@media only screen and (max-width: 800px){
+    .music__data-main {
+        max-width: 100%;
+    }
+}

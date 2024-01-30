@@ -20,15 +20,14 @@
         </div>
         <script>
             // Show loader immediately
-const loaderWrapper = document.querySelector('.loader-wrapper');
-loaderWrapper.style.display = 'flex'; // Show loader
+            const loaderWrapper = document.querySelector('.loader-wrapper');
+            loaderWrapper.style.display = 'flex'; // Show loader
 
-// Hide loader when all resources are loaded
-window.addEventListener('load', function () {
-  loaderWrapper.style.display = 'none'; // Hide loader
-  document.querySelector('.content').style.display = 'block'; // Show content
-});
-
+            // Hide loader when all resources are loaded
+            window.addEventListener('load', function () {
+                loaderWrapper.style.display = 'none'; // Hide loader
+                document.querySelector('.content').style.display = 'block'; // Show content
+            });
         </script>
         <!-- шапка -->
         <header class="header">
@@ -189,15 +188,10 @@ window.addEventListener('load', function () {
         <!-- Плеер -->
         <div class="player">
             <!-- Звук -->
-            <!-- <audio class="player__audio" src="../../../../../old/audio/antisocial/track.mp3"></audio> -->
-            <!-- <audio class="player__audio" preload="auto" controls> -->
             <audio class="player__audio" preload="auto">
                 <source src="" type="audio/mpeg">
             </audio>
             <!-- Прогресс бар -->
-            <!-- <div class="player__progress">
-                <div class="progress"></div>
-            </div> -->
             <input class="player__progress" id="myRange" type="range" min="0" max="100" step="0.00001" value="0">
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
@@ -205,50 +199,42 @@ window.addEventListener('load', function () {
                 $('.player__progress').on({
                     mouseenter: function () {
                         flag = true;
-        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
-
+                        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
                     },
                     mouseleave: function () {
                         flag = false
-        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
-
+                        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
                     }
                 });
-
             </script>
             <script>
-                // .firefox
-const isFF = true;
+                const isFF = true;
 
-const addRule = ((style) => {
-    const sheet = document.head.appendChild(style).sheet;
+                const addRule = ((style) => {
+                    const sheet = document.head.appendChild(style).sheet;
 
-    return (selector, css) => {
-        if (isFF) {
-            if (sheet.cssRules.length > 0) {
-                sheet.deleteRule(0);
-            }
+                    return (selector, css) => {
+                        if (isFF) {
+                            if (sheet.cssRules.length > 0) {
+                                sheet.deleteRule(0);
+                            }
+                            try {
+                                sheet.insertRule(`${selector} {${css}}`, 0);
+                            } catch (ex) {
+                                isFF = false;
+                            }
+                        }
+                    };
+                })(document.createElement("style"));
 
-            try {
-                sheet.insertRule(`${selector} {${css}}`, 0);
-            } catch (ex) {
-                isFF = false;
-            }
-        }
-    };
-})(document.createElement("style"));
-
-// .chrome styling
-$('.player__progress').on('input', function () {
-    if (flag){
-        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
-    } else {
-        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
-    }
-});
-
-
-
+                // .chrome styling
+                $('.player__progress').on('input', function () {
+                    if (flag){
+                        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, #464646 ${this.value}%, #464646 100%)`);
+                    } else {
+                        $(this).css('background', `linear-gradient(to right, #BA0038 0%, #BA0038 ${this.value}%, transparent ${this.value}%, transparent 100%)`);
+                    }
+                });
             </script>
             <!-- Главная оболочка -->
             <div class="player-wrapper">
@@ -367,10 +353,8 @@ $('.player__progress').on('input', function () {
                     name: "{{element.track_name}}",
                     typeBeat: "{{element.type_beat}} Type Beat",
                     cover: "../media/{{element.cover_art}}",
-                    // mp3: "../media/{{element.mp3}}"
                     mp3: "../media/{{element.mp3}}",
                     scr: null
-                    // mp3: "../media/{{element.mp3}}"
                 },
             {% endfor %}
         ];
@@ -433,9 +417,6 @@ $('.player__progress').on('input', function () {
                     console.error('Error in loadSong:', error);
                 });
         }
-
-// Вызовем функцию loadSong
-loadSong(songIndex);
 
         // init
         loadSong(songIndex);
@@ -651,7 +632,7 @@ loadSong(songIndex);
             }
             showSlide(currentSlide);
             setInterval(nextSlide, 7500);
-  });
+        });
     </script>
 </body>
 </html>
