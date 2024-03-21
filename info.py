@@ -1,0 +1,6 @@
+__author__ = 'RLT'
+__version__ = '1.3.0'
+__copyright__ = 'Copyright @ 2024 CloudyMotion'
+__email__ = 'inco.k.b.blizz@gmail.com'
+__url__ = 'https://github.com/RLT-G/CloudyDjango'
+__description__ = 'Интернет магазин бренда CloudyMotion'
