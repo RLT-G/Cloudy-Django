@@ -44,6 +44,7 @@ class Tracks(models.Model):
     mp3 = models.FileField('Mp3 File', upload_to='uploads/')
     tags = models.ManyToManyField(Tags, blank=True)
     priority = models.IntegerField('Track priority', blank=False, unique=False, default=0)
+    description = models.CharField('Track description', max_length=256, blank=False, unique=False, default='Produced by @Cloudymotion4life. Only high quality beats for you💎')
     def __str__(self) -> str:
         return self.track_name
     class Meta:

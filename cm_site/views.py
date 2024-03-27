@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # Для описания request в функциях
 from django.core.handlers.wsgi import WSGIRequest
 from . models import CustomUser, Tracks, Prices, Banners
@@ -42,13 +42,15 @@ def store(request: WSGIRequest):
     }
     return render(request, 'cm_site/store.html', data)
 
-def store_track(request: WSGIRequest, track_id: int, track_name: str):
+def store_track(request: WSGIRequest, track_id: int):
+    track = get_object_or_404(Tracks, id=track_id)
     data = {
-       'id': track_id,
-       'name': track_name
+        'user': request.user,
+        'id': track_id,
+        'track': track
     }
     return render(request, 'cm_site/track.html', data)
 
 def not_developed(request: WSGIRequest):
-    return render(request, 'cm_site/track.html')
+    return render(request, 'cm_site/comingsoon.html')
     
