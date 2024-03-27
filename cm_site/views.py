@@ -18,9 +18,9 @@ def store(request: WSGIRequest):
         if form.is_valid():
             text = form.cleaned_data['text_field']
             if text is None or text == "":
-                current_tracks = Tracks.objects.all()
+                current_tracks = Tracks.objects.all().order_by('-priority')
             else:
-                current_tracks = Tracks.objects.filter(track_name__icontains=text)
+                current_tracks = Tracks.objects.filter(track_name__icontains=text).order_by('-priority')
             data = {
                 'user': request.user,
                 'tracks': current_tracks,
@@ -35,7 +35,7 @@ def store(request: WSGIRequest):
         form = SearchForm()
     data = {
         'user': request.user,
-        'tracks': Tracks.objects.all().order_by('-id'),
+        'tracks': Tracks.objects.all().order_by('-priority'),
         'prices': Prices.objects.all()[0],
         'search_form': form,
         'banners': Banners.objects.all()
