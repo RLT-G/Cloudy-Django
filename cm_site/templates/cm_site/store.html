@@ -114,7 +114,7 @@
                             <div class="music__cover" onclick="coverPlay({{forloop.counter}});" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
                                 <div class="music__cover_button"></div>
                             </div>
-                            <div class="music__data">
+                            <div class="music__data" onclick="redirectToURL(`{% url 'store' %}{{element.id}}/`)">
                                 <div class="music__data-main">
                                     <h2>{{element.bpm}} BPM</h2>
                                     <h2>·</h2>
@@ -633,6 +633,11 @@
             showSlide(currentSlide);
             setInterval(nextSlide, 7500);
         });
+    </script>
+    <script>
+        function redirectToURL(url) {
+            window.location.href = url;
+        }
     </script>
 </body>
 </html>
