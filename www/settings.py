@@ -23,6 +23,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    #API
+    'rest_framework',
+    'api'
 ]
 
 # django-allouth
