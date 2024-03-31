@@ -266,7 +266,7 @@
                     </div>
                     <!-- Правая часть -->
                     <div class="player__container_other">
-                        <a href="{% url 'not_developed' %}">
+                        <a class="player__container_other-link" href="{% url 'not_developed' %}">
                             <button class="other-buy">
                                 <img src="../../static/cm_site/img/p-buy.svg" alt="">
                                 <div>{{prices.wav_license}}$</div>
@@ -332,6 +332,7 @@
         const songs = [
             {% for element in tracks %}
                 {
+                    href: "{{element.id}}",
                     name: "{{element.track_name}}",
                     typeBeat: "{{element.type_beat}} Type Beat",
                     cover: "../media/{{element.cover_art}}",

@@ -14,6 +14,7 @@
         const repBtn = document.querySelector('.repeat');
         const playBtn = document.querySelector('.play');
         const prevBtn = document.querySelector('.back');
+        const buyLink = document.querySelector('.player__container_other-link');
         player.classList.add('player-deactivate');
       
       
@@ -54,6 +55,7 @@
                     cover.style.background = "url(" + songs[songIndex].cover + ")";
                     cover.style.backgroundSize = "cover";
                     cover.style.backgroundRepeat = "no-repeat";
+                    buyLink.href = songs[songIndex].href;
                     if (play){
                         playSong();
                     }
