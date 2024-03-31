@@ -30,5 +30,84 @@
             priority {{track.priority}}<br><hr>
             desc {{track.description}}<br>
         {% endif %}
+        <hr>
+        <button class="wav">Wav License</button>
+        <button class="unl">Unlimited License</button>
+        <button class="exc">Exclusive License</button>
+        <button class="buy">BUY</button>
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Имя cookie должно начинаться с csrftoken=
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script>
+        <script>
+            const wavBtn = document.querySelector('.wav');
+            const unlBtn = document.querySelector('.unl');
+            const excBtn = document.querySelector('.exc');
+            const buyBtn = document.querySelector('.buy');
+
+            let buyType = 'wav';
+
+            function whiteBtn(){
+                wavBtn.style.background = '#FFF';
+                unlBtn.style.background = '#FFF';
+                excBtn.style.background = '#FFF';
+            }
+
+            wavBtn.addEventListener('click', () => {
+                whiteBtn();
+                wavBtn.style.background = '#BA0038';
+                buyType = 'wav';
+            })
+            unlBtn.addEventListener('click', () => {
+                whiteBtn();
+                unlBtn.style.background = '#BA0038';
+                buyType = 'unlimited';
+            })
+            excBtn.addEventListener('click', () => {
+                whiteBtn();
+                excBtn.style.background = '#BA0038';
+                buyType = 'exclusive';
+            })
+
+            buyBtn.addEventListener('click', () => {
+                const url = "{% url 'basket' %}";
+                const data = { name: "{{track.track_name}}", license: buyType };
+                const csrftoken = getCookie('csrftoken'); // Получение CSRF-токена из куки
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken // Включение CSRF-токена в заголовок запроса
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
     </body>
 </html>
