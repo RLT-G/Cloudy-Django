@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'cm_site/img/logo.svg' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
+        <title>CloudyMotion | Store</title>
+    </head>
+    <body>
+        CART <br>
+        <div class="cart_list">
+
+        </div>
+    <script>
+        const songsData = [
+            {% for element in tracks %}
+                {
+                    name: "{{element.track_name}}",
+                    typeBeat: "{{element.type_beat}} Type Beat",
+                    cover: "../media/{{element.cover_art}}",
+                },
+            {% endfor %}
+        ];
+        const songs = [
+            {% for element in basket %}
+                {
+                    name: "{{element.track_name}}"
+                    license: "{{element.license}}",
+                    price: "{{element.price}}"
+                },
+            {% endfor %}
+        ]
+    </script>
+    <script>
+        function insertScriptIntoDiv(jsCode) {
+            // Получаем элемент с классом cart_list
+            var cartList = document.querySelector(".cart_list");
+
+            // Проверяем, что элемент cart_list существует
+            if (cartList) {
+                cartList.innerHTML = jsCode;
+            }
+        }
+    </script>
+    </body>
+</html>

@@ -36,23 +36,6 @@
         <button class="exc">Exclusive License</button>
         <button class="buy">BUY</button>
         <script>
-            function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        // Имя cookie должно начинаться с csrftoken=
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-        </script>
-        <script>
             const wavBtn = document.querySelector('.wav');
             const unlBtn = document.querySelector('.unl');
             const excBtn = document.querySelector('.exc');
@@ -85,13 +68,12 @@
             buyBtn.addEventListener('click', () => {
                 const url = "{% url 'basket' %}";
                 const data = { name: "{{track.track_name}}", license: buyType };
-                const csrftoken = getCookie('csrftoken'); // Получение CSRF-токена из куки
 
                 fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken // Включение CSRF-токена в заголовок запроса
+                        'X-CSRFToken': '{% csrf_token %}' // Включение CSRF-токена в заголовок запроса
                     },
                     body: JSON.stringify(data)
                 })

@@ -6,16 +6,14 @@ from rest_framework.views import APIView
 from django.forms import model_to_dict
 from django.core.handlers.wsgi import WSGIRequest
 
+# Utils
 from api.utils import has_duplicate_dicts
 
+# Permissions
 from rest_framework.permissions import AllowAny
-# Models
-# from api1.models import PhraseModel
 
-# Serializers
-# from api1.serializers import FirstSerializer
-# from api1.serializers import SecondSerializers
-# from api1.serializers import ThirdSerializers
+# Models
+from cm_site.models import Prices
 
 
 class BasketAPIViews(APIView):
@@ -37,6 +35,12 @@ class BasketAPIViews(APIView):
     
     @staticmethod
     def post(requests: WSGIRequest):
+        prices = Prices.objects.all().first()
+        prices = {
+            'wav': prices.wav_license,
+            'unlimited': prices.unlimited_license,
+            'exclusive': prices.exclusive_license
+        }
         track_name = requests.data.get('name', None)
         license = requests.data.get('license', None)
         if track_name is None or license is None:
@@ -52,7 +56,7 @@ class BasketAPIViews(APIView):
         else:
             if 'basket' in requests.session:
                 basket = requests.session.get('basket')
-                basket.append({'track_name': track_name, 'license': license})
+                basket.append({'track_name': track_name, 'license': license, 'price': prices.get(license)})
                 if has_duplicate_dicts(basket):
                     answer = {
                         'status': 'Error',
@@ -61,7 +65,7 @@ class BasketAPIViews(APIView):
                     return Response(answer)
                 requests.session['basket'] = basket
             else:
-                requests.session['basket'] = [{'track_name': track_name, 'license': license}]
+                requests.session['basket'] = [{'track_name': track_name, 'license': license, 'price': prices.get(license)}]
             answer = {
                 'status': 'OK',
                 'data': f'add {track_name} to basket'
@@ -73,6 +77,10 @@ class ClearSessionAPIViews(APIView):
     def delete(requests):
         requests.session.flush()
         return Response({'answer': 'OK'})
+
+
+
+
 # Накидал на рандомиче.
 # class MainAPIViews(APIView):
     # @staticmethod

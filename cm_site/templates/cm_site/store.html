@@ -50,7 +50,7 @@
                             <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-account"></div>
                             </a>
-                            <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
+                            <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-basket"></div>
                             </a>
                         </div>
@@ -69,7 +69,7 @@
                             <a href="{% url 'not_developed' %}" class="navbar__link">
                                 <div class="navbar__link-singup">Sign Up</div>
                             </a>
-                            <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
+                            <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
                                 <div class="navbar__link-basket"></div>
                             </a>
                         </div>
@@ -332,12 +332,12 @@
         const songs = [
             {% for element in tracks %}
                 {
-                    href: "{{element.id}}",
                     name: "{{element.track_name}}",
                     typeBeat: "{{element.type_beat}} Type Beat",
                     cover: "../media/{{element.cover_art}}",
                     mp3: "../media/{{element.mp3}}",
-                    scr: null
+                    scr: null,
+                    href: "{{element.id}}",
                 },
             {% endfor %}
         ];

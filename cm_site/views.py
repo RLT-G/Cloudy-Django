@@ -42,6 +42,7 @@ def store(request: WSGIRequest):
     }
     return render(request, 'cm_site/store.html', data)
 
+
 def store_track(request: WSGIRequest, track_id: int):
     track = get_object_or_404(Tracks, id=track_id)
     data = {
@@ -51,6 +52,20 @@ def store_track(request: WSGIRequest, track_id: int):
     }
     return render(request, 'cm_site/track.html', data)
 
+
 def not_developed(request: WSGIRequest):
+    request.session.flush()
     return render(request, 'cm_site/comingsoon.html')
     
+
+def basket(request: WSGIRequest):
+    basket = request.session.get('basket', None)
+
+    track_names = [item['track_name'] for item in basket]
+
+    tracks_in_basket = Tracks.objects.filter(track_name__in=track_names)
+    data = {
+        'tracks': tracks_in_basket,
+        'basket': basket
+    }
+    return render(request, 'cm_site/basket.html', data)
