@@ -15,6 +15,7 @@
         <div class="cart_list">
 
         </div>
+        <button class="buyBtn">BUY</button>
     <script>
         const songsData = JSON.parse(`{
             "value": [
@@ -38,17 +39,38 @@
                 {% endfor %}
             ]   
         }`)["value"];
+
+        let mergedSongs = [];
+        songs.forEach(song => {
+            const matchingSong = songsData.find(data => data.name === song.name);
+            if (matchingSong) {
+                const mergedSong = {
+                    name: song.name,
+                    license: song.license,
+                    price: song.price,
+                    typeBeat: matchingSong.typeBeat,
+                    cover: matchingSong.cover
+                };
+                mergedSongs.push(mergedSong);
+            }
+        });
+        console.log(mergedSongs);
     </script>
     <script>
         function insertScriptIntoDiv(jsCode) {
-            // Получаем элемент с классом cart_list
             var cartList = document.querySelector(".cart_list");
-
-            // Проверяем, что элемент cart_list существует
             if (cartList) {
                 cartList.innerHTML = jsCode;
             }
         }
+        let innerhtml = "<hr>";
+        let totalPrice = 0;
+        for (let i = 0; i < mergedSongs.length; i++) {
+            innerhtml += `name: ${mergedSongs[i].name}<br>license: ${mergedSongs[i].license}<br>price: ${mergedSongs[i].price}<br>typeBeat: ${mergedSongs[i].typeBeat}<br>cover: ${mergedSongs[i].cover}<br><hr>`;
+            totalPrice += parseInt(mergedSongs[i].price);
+        }
+        innerhtml += `TOTAL PRICE: ${totalPrice}`;
+        insertScriptIntoDiv(innerhtml);
     </script>
     </body>
 </html>
