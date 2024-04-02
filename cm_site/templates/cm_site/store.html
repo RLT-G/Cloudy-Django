@@ -111,7 +111,7 @@
                 <div class="main__container_playlist">
                     {% for element in tracks %}
                         <div class="music">
-                            <div class="music__cover" onclick="coverPlay({{forloop.counter}});" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
+                            <div class="music__cover" onclick="coverPlay(parseInt('{{forloop.counter}}'));" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
                                 <div class="music__cover_button"></div>
                             </div>
                             <div class="music__data" onclick="redirectToURL(`{% url 'store' %}{{element.id}}/`)">
