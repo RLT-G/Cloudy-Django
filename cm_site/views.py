@@ -5,10 +5,10 @@ from . models import CustomUser, Tracks, Prices, Banners
 from . forms import SearchForm
 
 def index(request: WSGIRequest):
-    data = {
-        'user': request.user,
-        'user_data': CustomUser.objects.all()
-    }
+    # data = {
+    #     'user': request.user,
+    #     'user_data': CustomUser.objects.all()
+    # }
     # return render(request, 'cm_site/index.html', data)
     return redirect('store')
 

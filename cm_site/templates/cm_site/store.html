@@ -329,18 +329,21 @@
     </div>
     <!-- Скрипт плеера -->
     <script>
-        const songs = [
-            {% for element in tracks %}
-                {
-                    name: "{{element.track_name}}",
-                    typeBeat: "{{element.type_beat}} Type Beat",
-                    cover: "../media/{{element.cover_art}}",
-                    mp3: "../media/{{element.mp3}}",
-                    scr: null,
-                    href: "{{element.id}}",
-                },
-            {% endfor %}
-        ];
+        const songs = JSON.parse(`{
+            "value":[
+                {% for element in tracks %}
+                    {
+                        "name": "{{element.track_name}}",
+                        "typeBeat": "{{element.type_beat}} Type Beat",
+                        "cover": "../media/{{element.cover_art}}",
+                        "mp3": "../media/{{element.mp3}}",
+                        "scr": null,
+                        "href": "{{element.id}}"
+                    }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }`)["value"];
+
     </script>
     <script src="{% static 'cm_site/js/player.js' %}"></script>
     <!-- Скрипт Баннеров -->

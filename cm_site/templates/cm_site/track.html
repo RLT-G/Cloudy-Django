@@ -67,13 +67,16 @@
 
             buyBtn.addEventListener('click', () => {
                 const url = "{% url 'basket' %}";
-                const data = { name: "{{track.track_name}}", license: buyType };
-
+                const data = { 
+                    name: "{{track.track_name}}", 
+                    license: buyType,
+                    csrfmiddlewaretoken: "{{ csrf_token }}" // добавлен CSRF-токен
+                };
                 fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{% csrf_token %}' // Включение CSRF-токена в заголовок запроса
+                        'X-CSRFToken': '{{ csrf_token }}' // Включение CSRF-токена в заголовок запроса
                     },
                     body: JSON.stringify(data)
                 })

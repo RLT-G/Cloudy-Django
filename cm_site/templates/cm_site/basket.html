@@ -16,24 +16,28 @@
 
         </div>
     <script>
-        const songsData = [
-            {% for element in tracks %}
-                {
-                    name: "{{element.track_name}}",
-                    typeBeat: "{{element.type_beat}} Type Beat",
-                    cover: "../media/{{element.cover_art}}",
-                },
-            {% endfor %}
-        ];
-        const songs = [
-            {% for element in basket %}
-                {
-                    name: "{{element.track_name}}"
-                    license: "{{element.license}}",
-                    price: "{{element.price}}"
-                },
-            {% endfor %}
-        ]
+        const songsData = JSON.parse(`{
+            "value": [
+                {% for element in tracks %}
+                    {
+                        "name": "{{element.track_name}}",
+                        "typeBeat": "{{element.type_beat}} Type Beat",
+                        "cover": "../media/{{element.cover_art}}"
+                    }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }`)["value"];
+        const songs = JSON.parse(`{
+            "value": [
+                {% for element in basket %}
+                    {
+                        "name": "{{element.track_name}}",
+                        "license": "{{element.license}}",
+                        "price": "{{element.price}}"
+                    }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            ]   
+        }`)["value"];
     </script>
     <script>
         function insertScriptIntoDiv(jsCode) {
