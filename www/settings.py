@@ -1,9 +1,12 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecursdfsdfe-gasdsadwupewp@i(5na=%45p^&9da3kaglz4@180^ncqz$l64vssu_n7'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
@@ -179,8 +182,8 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG:
-    STRIPE_PUBLIC_KEY = 'pk_test_51P1CcqFsN6oZdv70QFJ8fUxLrmlqmyVfTZNfWRF2HqJRK0eiXK8BbvbgCkGLgz22aTIfr23VPnAuv8NZCQXmqVhN002a7LU2Ev'
-    STRIPE_SECRET_KEY = 'sk_test_51P1CcqFsN6oZdv70dnXqfXBd0SXQM9aY8IUgfbOcIblzXhzvOmK2ikglgra45gOYEhymN63XpRnA0jAftyzf86dK00IfmpjsGf'
+    STRIPE_PUBLIC_KEY = os.getenv("STRIPE_TEST_PUBLIC_KEY")
+    STRIPE_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET_KEY")
 else:
-    STRIPE_PUBLIC_KEY = 'pk_live_51P1CcqFsN6oZdv70LvH0XdKsU7hVzc4zBGkeHLNVokzrPkmeTgiI6NQ8MZ5LUHmVsdZxvS4BhLQhOMYeT5hMsPRk00du0pIfL5'
-    STRIPE_SECRET_KEY = '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'
+    STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
+    STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
