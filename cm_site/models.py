@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 
 
 class CustomUser(AbstractUser):
     artist_name = models.CharField('Artist name', max_length=64, blank=False, default="")
+
 
 
 class Prices(models.Model):
@@ -58,3 +60,17 @@ class Banners(models.Model):
     class Meta:
         verbose_name = 'Banner'
         verbose_name_plural = 'Banners'
+
+
+User = get_user_model()
+class PurchasedTrack(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchased_tracks')
+    track = models.ForeignKey(Tracks, on_delete=models.CASCADE)
+    purchase_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Purchased Track'
+        verbose_name_plural = 'Purchased Tracks'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.track.track_name}'

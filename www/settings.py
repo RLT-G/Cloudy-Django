@@ -8,6 +8,7 @@ SECRET_KEY = 'django-insecursdfsdfe-gasdsadwupewp@i(5na=%45p^&9da3kaglz4@180^ncq
 DEBUG = True
 
 ALLOWED_HOSTS = ['cloudymotion.com', '127.0.0.1', 'localhost']
+CURRENT_DOMAIN = 'http://localhost:8000/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -177,3 +178,9 @@ REST_FRAMEWORK = {
     ],
 }
 
+if DEBUG:
+    STRIPE_PUBLIC_KEY = 'pk_test_51P1CcqFsN6oZdv70QFJ8fUxLrmlqmyVfTZNfWRF2HqJRK0eiXK8BbvbgCkGLgz22aTIfr23VPnAuv8NZCQXmqVhN002a7LU2Ev'
+    STRIPE_SECRET_KEY = 'sk_test_51P1CcqFsN6oZdv70dnXqfXBd0SXQM9aY8IUgfbOcIblzXhzvOmK2ikglgra45gOYEhymN63XpRnA0jAftyzf86dK00IfmpjsGf'
+else:
+    STRIPE_PUBLIC_KEY = 'pk_live_51P1CcqFsN6oZdv70LvH0XdKsU7hVzc4zBGkeHLNVokzrPkmeTgiI6NQ8MZ5LUHmVsdZxvS4BhLQhOMYeT5hMsPRk00du0pIfL5'
+    STRIPE_SECRET_KEY = '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'

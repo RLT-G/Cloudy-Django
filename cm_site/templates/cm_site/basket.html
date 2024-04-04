@@ -72,5 +72,10 @@
         innerhtml += `TOTAL PRICE: ${totalPrice}`;
         insertScriptIntoDiv(innerhtml);
     </script>
+    <script>
+        document.querySelector('.buyBtn').addEventListener('click', () => {
+            window.location.href = "{% url 'checkout' %}";
+        })
+    </script>
     </body>
 </html>
