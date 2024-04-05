@@ -8,54 +8,227 @@
         <link rel="icon" href="{% static 'cm_site/img/logo.svg' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/basket.css' %}">
         <title>CloudyMotion | Store</title>
     </head>
     <body>
-        CART <br>
-        <div class="cart_list">
-
+        <div class="wrapper">
+            <header class="header">
+                <div class="header__container">
+                    <a href="{% url 'not_developed' %}">
+                        <div class="header__container-logo"></div>
+                    </a>
+                        {% if user.is_authenticated %}
+                            <!-- Навигация после аунтефикации -->
+                            <div class="header__container-navbar">
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Home</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-services">Services</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-contacts">Contacts</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-account"></div>
+                                </a>
+                                <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-basket"></div>
+                                </a>
+                            </div>
+                        {% else %}
+                            <!-- Навигация без аунтификации -->
+                            <div class="header__container-navbar header__container-navbar--no">
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Home</div>
+                                </a>
+                                <a href="{% url 'account_login' %}" class="navbar__link">
+                                    <div class="navbar__link-singin">Sign In</div>
+                                </a>
+                                <div class="navbar__link navbar__link-sep">
+                                    <div id="item1" class="navbar__link-sep">|</div>
+                                </div>
+                                <a href="{% url 'account_signup' %}" class="navbar__link">
+                                    <div class="navbar__link-singup">Sign Up</div>
+                                </a>
+                                <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-basket"></div>
+                                </a>
+                            </div>
+                        {% endif %}
+                </div>
+            </header>
+            <main class="main">
+                <div class="main__container">
+                    <div class="cart__container">
+                        <div class="cart__container__title">Your Cart</div>
+                        <div class="cart__container__content">
+                            <div class="cart__container__list">
+                                {% if basket %}
+                                    <div class="cart_is_full">
+                                        <div class="cart_is_full__beat">
+                                            <div class="beat_left">
+                                                <div class="beat_left__cover"></div>
+                                                <div class="beat_left__data">
+                                                    <div class="beat_left__data-name">Antisocial</div>
+                                                    <div class="beat_left__data-license">Beat - WAV License</div>
+                                                    <div class="beat_left__data-review">Review License</div>
+                                                </div>
+                                            </div>
+                                            <div class="beat_right">
+                                                <div class="beat_right__price">30$</div>
+                                                <button class="beat_right__del"></button>
+                                            </div>
+                                        </div>
+                                        <div class="cart_is_full__line"></div>
+                                    </div>
+                                    {% else %}
+                                    <div class="cart_is_empty">
+                                        <div class="cart_is_empty__ico"></div>
+                                        <div class="cart_is_empty__text">Cart is empty now</div>
+                                        <div class="cart_is_empty__desc">Add something to make it look nicer, it’s gonna appear here</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="summary__wrapper">
+                                <div class="cart__container__summary">
+                                    <div class="summary__text">Cart Summary</div>
+                                    <div class="summary__line"></div>
+                                    <div class="summary__total">
+                                        <div class="summary__total-count">
+                                            {% if basket %}
+                                            {% else %}
+                                                Total (0 items)
+                                            {% endif %}
+                                        </div>
+                                        <div class="summary__total-price">
+                                            {% if basket %}
+                                            {% else %}
+                                                $0.00
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                        {% if basket %}
+                                            <button class="summary__checkout">Proceed to Checkout</button>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="summary__singinsingup">
+                                            Please <a href="">sing in</a> or <a href="">sing up</a> to continue
+                                        </div>
+                                    {% endif %}
+                                    <div class="summary__refund_policy">
+                                        Please read our <a href="">refund policy</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <h1>Your Cart</h1>
+                    <div class="cart_list">
+                        {% if basket %}
+                        {% else %}
+                            <div class="cart_is_empty">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="cart_summary"></div> -->
+                </div>
+            </main>
+            <footer class="footer">
+                <div class="footer__container">
+                    <div class="footer__container_up">
+                        <a href="{% url 'not_developed' %}">
+                            <div class="footer__container_up-logo"></div>
+                        </a>
+                        <div class="footer__container_up-items1">
+                            <a href="{% url 'not_developed' %}">Home</a>
+                            <a href="{% url 'store' %}">Store</a>
+                            <a href="{% url 'not_developed' %}">Accounts</a>
+                            <a href="{% url 'not_developed' %}">Services</a>
+                        </div>
+                        <div class="footer__container_up-items2">
+                            <a href="{% url 'not_developed' %}">Cart</a>
+                            <a href="{% url 'not_developed' %}">About</a>
+                            <a href="{% url 'not_developed' %}">Contact us</a>
+                            <a href="{% url 'not_developed' %}">Support</a>
+                        </div>
+                        <div class="footer__container_up-items3">
+                            <a href="{% url 'not_developed' %}">Beats</a>
+                            <a href="{% url 'not_developed' %}">Custom beats</a>
+                            <a href="{% url 'not_developed' %}">Mixing & mastering</a>
+                            <a href="{% url 'not_developed' %}">Custom projects</a>
+                        </div>
+                        <div class="footer__container_up-items4">
+                            <a href="{% url 'not_developed' %}">Agreement</a>
+                            <a href="{% url 'not_developed' %}">Beat Licencing</a>
+                            <a href="{% url 'not_developed' %}">Whish list</a>
+                            <a href="{% url 'not_developed' %}">Your orders</a>
+                        </div>
+                    </div>
+                    <div class="footer__container_line"></div>
+                    <div class="footer__container_down">
+                        <div class="footer__container_down-social">
+                            <a href="https://www.instagram.com/cloudymotion4life/"><div class="instagram"></div></a>
+                            <a href="https://www.youtube.com/channel/UCjFzg281yew5Ikgu4QzfoqQ"><div class="youtube"></div></a>
+                            <a href="https://t.me/Cloudy_Motion"><div class="telegram"></div></a>
+                            <a href="https://discord.gg/8bJu3stv"><div class="discord"></div></a>
+                            <a href="mailto:cloudymotion4life@gmail.com"><div class="email"></div></a>
+                        </div>
+                        <div class="footer__container_down-copyright">
+                            ©Copyright Cloudy Motion
+                        </div>
+                        <div class="footer__container_down-logo">
+    
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <button class="buyBtn">BUY</button>
-    <script>
-        const songsData = JSON.parse(`{
-            "value": [
-                {% for element in tracks %}
-                    {
-                        "name": "{{element.track_name}}",
-                        "typeBeat": "{{element.type_beat}} Type Beat",
-                        "cover": "../media/{{element.cover_art}}"
-                    }{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            ]
-        }`)["value"];
-        const songs = JSON.parse(`{
-            "value": [
-                {% for element in basket %}
-                    {
-                        "name": "{{element.track_name}}",
-                        "license": "{{element.license}}",
-                        "price": "{{element.price}}"
-                    }{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            ]   
-        }`)["value"];
+        <script src="{% static 'cm_site/js/basket.js' %}"></script>
+        <script>
+            const songsData = JSON.parse(`{
+                "value": [
+                    {% for element in tracks %}
+                        {
+                            "name": "{{element.track_name}}",
+                            "typeBeat": "{{element.type_beat}} Type Beat",
+                            "cover": "../media/{{element.cover_art}}"
+                        }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]
+            }`)["value"];
+            const songs = JSON.parse(`{
+                "value": [
+                    {% for element in basket %}
+                        {
+                            "name": "{{element.track_name}}",
+                            "license": "{{element.license}}",
+                            "price": "{{element.price}}"
+                        }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]   
+            }`)["value"];
 
-        let mergedSongs = [];
-        songs.forEach(song => {
-            const matchingSong = songsData.find(data => data.name === song.name);
-            if (matchingSong) {
-                const mergedSong = {
-                    name: song.name,
-                    license: song.license,
-                    price: song.price,
-                    typeBeat: matchingSong.typeBeat,
-                    cover: matchingSong.cover
-                };
-                mergedSongs.push(mergedSong);
-            }
-        });
-        console.log(mergedSongs);
-    </script>
+            let mergedSongs = [];
+            songs.forEach(song => {
+                const matchingSong = songsData.find(data => data.name === song.name);
+                if (matchingSong) {
+                    const mergedSong = {
+                        name: song.name,
+                        license: song.license,
+                        price: song.price,
+                        typeBeat: matchingSong.typeBeat,
+                        cover: matchingSong.cover
+                    };
+                    mergedSongs.push(mergedSong);
+                }
+            });
+            console.log(mergedSongs);
+        </script> 
+        
+        <!--
     <script>
         function insertScriptIntoDiv(jsCode) {
             var cartList = document.querySelector(".cart_list");
@@ -76,6 +249,6 @@
         document.querySelector('.buyBtn').addEventListener('click', () => {
             window.location.href = "{% url 'checkout' %}";
         })
-    </script>
+    </script> -->
     </body>
 </html>

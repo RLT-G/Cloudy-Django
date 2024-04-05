@@ -63,7 +63,8 @@ def basket(request: WSGIRequest):
     basket = request.session.get('basket', None)
     if basket is None:
         data = {
-
+            'user': request.user,
+            'basket': None
         }
         return render(request, 'cm_site/basket.html')
     else:
@@ -72,6 +73,7 @@ def basket(request: WSGIRequest):
 
         tracks_in_basket = Tracks.objects.filter(track_name__in=track_names)
         data = {
+            'user': request.user,
             'tracks': tracks_in_basket,
             'basket': basket
         }
