@@ -48,7 +48,8 @@ def store_track(request: WSGIRequest, track_id: int):
     data = {
         'user': request.user,
         'id': track_id,
-        'track': track
+        'track': track,
+        'prices': Prices.objects.all().first()
     }
     return render(request, 'cm_site/track.html', data)
 

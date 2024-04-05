@@ -49,3 +49,26 @@ html{
 a{
     text-decoration: none;
 }
+
+
+/* Стилизация скроллбара */
+*::-webkit-scrollbar {
+    width: 7.5px; /* Ширина скроллбара */
+}
+
+/* Стилизация трека скроллбара */
+*::-webkit-scrollbar-track {
+    background: transparent; /* Цвет фона трека */
+}
+
+/* Стилизация "ползунка" (бегунка) скроллбара */
+*::-webkit-scrollbar-thumb {
+    background: #BA0038; /* Цвет "ползунка" */
+    border-radius: 25px;
+}
+
+/* Установка радиуса скругления "ползунка" */
+*::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background: rgba(186, 0, 56, 0.33); /* Цвет "ползунка" при наведении */
+}
