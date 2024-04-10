@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'cm_site/img/logo.svg' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/lk.css' %}">
+        <title>CloudyMotion | Store</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header class="header">
+                <div class="header__container">
+                    <a href="{% url 'not_developed' %}">
+                        <div class="header__container-logo"></div>
+                    </a>
+                        {% if user.is_authenticated %}
+                            <!-- Навигация после аунтефикации -->
+                            <div class="header__container-navbar">
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Home</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-services">Services</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-contacts">Contacts</div>
+                                </a>
+                                <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-account"></div>
+                                </a>
+                                <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-basket"></div>
+                                </a>
+                            </div>
+                        {% else %}
+                            <!-- Навигация без аунтификации -->
+                            <div class="header__container-navbar header__container-navbar--no">
+                                <a href="{% url 'not_developed' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Home</div>
+                                </a>
+                                <a href="{% url 'account_login' %}" class="navbar__link">
+                                    <div class="navbar__link-singin">Sign In</div>
+                                </a>
+                                <div class="navbar__link navbar__link-sep">
+                                    <div id="item1" class="navbar__link-sep">|</div>
+                                </div>
+                                <a href="{% url 'account_signup' %}" class="navbar__link">
+                                    <div class="navbar__link-singup">Sign Up</div>
+                                </a>
+                                <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
+                                    <div class="navbar__link-basket"></div>
+                                </a>
+                            </div>
+                        {% endif %}
+                </div>
+            </header>
+            <main class="main">
+                <div class="main__container">
+                    
+                </div>
+            </main>
+        </div>
+        
+        <script src="{% static 'cm_site/js/lk.js' %}"></script>
+    </body>
+</html>

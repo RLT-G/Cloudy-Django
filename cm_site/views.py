@@ -59,6 +59,7 @@ def not_developed(request: WSGIRequest):
     return render(request, 'cm_site/comingsoon.html')
     
 
+@login_required
 def basket(request: WSGIRequest):
     basket = request.session.get('basket', None)
     if basket is None:
@@ -151,3 +152,8 @@ def success(request):
 def cancel(request: WSGIRequest):
     print('cancel')
     return redirect('cart')
+
+
+def account(request: WSGIRequest):
+    data = {}
+    return render(request, 'cm_site/lk.html', data)

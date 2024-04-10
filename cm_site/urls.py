@@ -18,6 +18,7 @@ urlpatterns = [
     path('cancel/', view=views.cancel, name='cancel'),
 
     # Аккаунты
+    path('account/', view=views.account, name='account'),
     path('accounts/', include('allauth.urls')),
     path('accounts/confirm-email/<str:key>/', ConfirmEmailView.as_view(), name='account_confirm_email'),
 
