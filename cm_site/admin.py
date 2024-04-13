@@ -8,7 +8,8 @@ cm_site_models = [
     Tracks, 
     Banners, 
     Tags, 
-    PurchasedTrack
+    PurchasedTrack,
+    ErrorReport
 ]
 for model in cm_site_models:
     admin.site.register(model)

@@ -30,7 +30,7 @@
                                 <a href="{% url 'not_developed' %}" class="navbar__link">
                                     <div class="navbar__link-contacts">Contacts</div>
                                 </a>
-                                <a href="{% url 'not_developed' %}" class="navbar__link navbar__link--svg">
+                                <a href="{% url 'account' %}" class="navbar__link navbar__link--svg">
                                     <div class="navbar__link-account"></div>
                                 </a>
                                 <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
@@ -61,11 +61,41 @@
             </header>
             <main class="main">
                 <div class="main__container">
-                    
+                    <h1>My Account</h1>
+                    <div class="main__content">
+                        <div class="account__nav">
+                            <button class="account__nav-btn btn-info">My info</button>
+                            <button class="account__nav-btn btn-purchases active">Purchases</button>
+                            <button class="account__nav-btn btn-wishlist">Wishlist</button>
+                            <button class="account__nav-btn btn-support">Support</button>
+                            <button class="account__nav-btn btn-singout">Sing Out</button>
+                        </div>
+                        <div class="account__nav__content">
+
+                            <div class="div" style="color: aliceblue; display: none;">
+                                <h2>Update Profile</h2>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ user_form.as_p }}
+                                    <button type="submit">Save Changes</button>
+                                </form>
+                            </div>
+
+                            <div class="div" style="color: aliceblue;">
+                                <h2>Report an Error</h2>
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ error_form.as_p }}
+                                    <button type="submit">Submit Error Report</button>
+                                </form>                         
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
-        
+        <script>const redirect_on = '{{redirect_on}}';</script>
         <script src="{% static 'cm_site/js/lk.js' %}"></script>
     </body>
 </html>

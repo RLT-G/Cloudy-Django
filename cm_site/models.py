@@ -74,3 +74,15 @@ class PurchasedTrack(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.track.track_name}'
+    
+
+class ErrorReport(models.Model):
+    email = models.EmailField('Email')
+    subject = models.CharField('Subject', max_length=256)
+    description = models.TextField('Description', max_length=4096)
+    photo = models.ImageField(upload_to='uploads/errors/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subject
+    

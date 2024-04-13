@@ -1,12 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.urls import reverse
 # Для описания request в функциях
 from django.core.handlers.wsgi import WSGIRequest
 from . models import CustomUser, Tracks, Prices, Banners, PurchasedTrack
 from . forms import SearchForm
 from www import settings
-from pprint import pprint
 import stripe
 from django.contrib.auth.decorators import login_required
+from django_ratelimit.decorators import ratelimit
+
+from .forms import ErrorReportForm
+from .forms import CustomUserForm
 
 
 def index(request: WSGIRequest):
@@ -42,7 +46,6 @@ def store(request: WSGIRequest):
     }
     return render(request, 'cm_site/store.html', data)
 
-
 def store_track(request: WSGIRequest, track_id: int):
     track = get_object_or_404(Tracks, id=track_id)
     data = {
@@ -53,11 +56,9 @@ def store_track(request: WSGIRequest, track_id: int):
     }
     return render(request, 'cm_site/track.html', data)
 
-
 def not_developed(request: WSGIRequest):
     request.session.flush()
     return render(request, 'cm_site/comingsoon.html')
-    
 
 @login_required
 def basket(request: WSGIRequest):
@@ -79,7 +80,6 @@ def basket(request: WSGIRequest):
             'basket': basket
         }
         return render(request, 'cm_site/basket.html', data)
-
 
 @login_required
 def checkout(request: WSGIRequest):
@@ -115,7 +115,6 @@ def checkout(request: WSGIRequest):
 
         return redirect(checkout_session.url, code=303)
 
-
 def success(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     session_id = request.GET.get('session_id')
@@ -148,12 +147,35 @@ def success(request):
         print(str(e))   
         return redirect('store')
 
-
 def cancel(request: WSGIRequest):
     print('cancel')
     return redirect('cart')
 
 
+@login_required
+@ratelimit(key='ip', rate='5/m', block=True)
 def account(request: WSGIRequest):
-    data = {}
+    if request.method == 'POST':
+
+        user_form = CustomUserForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            redirect_on = 'info'
+
+        
+        error_form = ErrorReportForm(request.POST, request.FILES)
+        if error_form.is_valid():
+            error_form.save()
+            redirect_on = 'support'
+        
+    else:
+        redirect_on = 'default'
+        user_form = CustomUserForm(instance=request.user)
+        error_form = ErrorReportForm()
+
+    data = {
+        'user_form': user_form,
+        'error_form': error_form,
+        'redirect_on': redirect_on
+    }
     return render(request, 'cm_site/lk.html', data)

@@ -1,4 +1,7 @@
 from django import forms
+from .models import ErrorReport
+from django.contrib.auth import get_user_model
+
 
 class SearchForm(forms.Form):
     text_field = forms.CharField(
@@ -8,3 +11,17 @@ class SearchForm(forms.Form):
             }),
         required=False
     )
+
+
+class ErrorReportForm(forms.ModelForm):
+    class Meta:
+        model = ErrorReport
+        fields = ['email', 'subject', 'description', 'photo']
+
+
+User = get_user_model()
+
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'artist_name']
