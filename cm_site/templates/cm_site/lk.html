@@ -72,16 +72,26 @@
                         </div>
                         <div class="account__nav__content">
 
-                            <div class="div" style="color: aliceblue; display: none;">
+                            <div class="content__info nav-content" style="color: aliceblue;">
                                 <h2>Update Profile</h2>
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ user_form.as_p }}
+                                    <a href="{% url 'account_email' %}">Email settings</a><br>
+                                    <a href="{% url 'account_change_password' %}">Change password</a><br>
                                     <button type="submit">Save Changes</button>
                                 </form>
                             </div>
+                            
+                            <div class="content__purchases nav-content active">
 
-                            <div class="div" style="color: aliceblue;">
+                            </div>
+
+                            <div class="content__wishlist nav-content">
+
+                            </div>
+
+                            <div class="content__support nav-content" style="color: aliceblue;">
                                 <h2>Report an Error</h2>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}

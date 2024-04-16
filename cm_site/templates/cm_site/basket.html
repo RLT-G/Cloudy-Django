@@ -199,6 +199,11 @@
             }`)["value"];
             const checkoutURL = "{% url 'checkout' %}";
         </script> 
+        <script>
+            let cartUrl = "{% url 'basket' %}";
+            let trackName = "{{track.track_name}}";
+            let csrfmiddlewaretoken = "{{ csrf_token }}";
+        </script>
         <script src="{% static 'cm_site/js/basket.js' %}"></script>
         
         <!--

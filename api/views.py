@@ -71,6 +71,49 @@ class BasketAPIViews(APIView):
                 'data': f'add {track_name} to basket'
             }
         return Response(answer)
+    
+    @staticmethod
+    def delete(requests: WSGIRequest):
+        track_name = requests.data.get('name', None)
+        license = requests.data.get('license', None)
+        if track_name is None or license is None:
+            answer = {
+                'status': 'Error',
+                'data': 'No name or license entered'
+            }
+        elif not (license in ['wav', 'unlimited', 'exclusive']):
+            answer = {
+                'status': 'Error',
+                'data': 'Invalid license'
+            }
+        else:
+            if 'basket' in requests.session:
+                basket = requests.session.get('basket')
+
+                out_of_cart = True
+                for track in basket:
+                    if ('track_name', track_name) in track.items() and ('license', license) in track.items():
+                        del basket[basket.index(track)]
+                        out_of_cart = False
+                requests.session['basket'] = basket
+
+                if out_of_cart:
+                    answer = {
+                        'status': 'Error',
+                        'data': 'Out of cart'
+                    }                        
+                else:
+                    answer = {
+                        'status': 'OK',
+                        'data': f'Remove {track_name} from basket'
+                    }     
+            else:
+                answer = {
+                        'status': 'Error',
+                        'data': 'Cart is empty'
+                    }
+        return Response(answer)
+    
 
 class ClearSessionAPIViews(APIView):
     @staticmethod

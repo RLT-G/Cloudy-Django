@@ -161,7 +161,6 @@ def account(request: WSGIRequest):
         if user_form.is_valid():
             user_form.save()
             redirect_on = 'info'
-
         
         error_form = ErrorReportForm(request.POST, request.FILES)
         if error_form.is_valid():

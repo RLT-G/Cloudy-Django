@@ -43,10 +43,13 @@ class Tracks(models.Model):
     mood = models.ForeignKey(Moods, on_delete=models.CASCADE)
     duration = models.CharField('Duration', max_length=16, null=False)
     type_beat = models.CharField('Type Beat', unique=False, max_length=32, default="Unique", null=False)
-    mp3 = models.FileField('Mp3 File', upload_to='uploads/')
     tags = models.ManyToManyField(Tags, blank=True)
-    priority = models.IntegerField('Track priority', blank=False, unique=False, default=0)
     description = models.CharField('Track description', max_length=256, blank=False, unique=False, default='Produced by @Cloudymotion4life. Only high quality beats for you💎')
+    priority = models.IntegerField('Track priority', blank=False, unique=False, default=0)
+    mp3 = models.FileField('Mp3 File', upload_to='uploads/')
+    waw_link = models.URLField('Link to wav license files', blank=True)
+    unl_and_exc_link = models.URLField('Link to unlimited and exclusive license files', blank=True)
+    
     def __str__(self) -> str:
         return self.track_name
     class Meta:
