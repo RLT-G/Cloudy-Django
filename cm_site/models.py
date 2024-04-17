@@ -59,16 +59,41 @@ class Tracks(models.Model):
 
 class Banners(models.Model):
     banner = models.ImageField("Banner", upload_to='uploads/')
-    link = models.URLField('HREF', default='http://127.0.0.1:8000/store')
+    link = models.URLField('HREF', default='http://cloudymotion.com/store')
     class Meta:
         verbose_name = 'Banner'
         verbose_name_plural = 'Banners'
 
 
+class NoSignContracts(models.Model):
+    wav_license = models.FileField('Wav license contract', upload_to='uploads/contracts/temp/')
+    unlimited_license = models.FileField('Unlimited license contract', upload_to='uploads/contracts/temp/')
+    exclusive_license = models.FileField('Exclusive license contract', upload_to='uploads/contracts/temp/')
+    class Meta:
+        verbose_name = 'No Sign Contract'
+        verbose_name_plural = 'No Sign Contracts'
+
+class SignContracts(models.Model):
+    wav_license = models.FileField('Wav license contract', upload_to='uploads/contracts/temp/')
+    unlimited_license = models.FileField('Unlimited license contract', upload_to='uploads/contracts/temp/')
+    exclusive_license = models.FileField('Exclusive license contract', upload_to='uploads/contracts/temp/')
+    class Meta:
+        verbose_name = 'Sign Contract'
+        verbose_name_plural = 'Sign Contracts'
+
+
 User = get_user_model()
 class PurchasedTrack(models.Model):
+    LICENSE_CHOICES = [
+        ('WAV', 'Wav license'),
+        ('UNLIMITED', 'Unlimited license'),
+        ('EXCLUSIVE', 'Exclusive license'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchased_tracks')
     track = models.ForeignKey(Tracks, on_delete=models.CASCADE)
+    track_license = models.CharField(max_length=20, choices=LICENSE_CHOICES, null=True, blank=True)
+    contract = models.FileField(upload_to='uploads/contracts/', null=True, blank=True)
     purchase_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

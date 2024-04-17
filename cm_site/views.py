@@ -1,16 +1,30 @@
+# Django
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.urls import reverse
-# Для описания request в функциях
 from django.core.handlers.wsgi import WSGIRequest
-from . models import CustomUser, Tracks, Prices, Banners, PurchasedTrack
-from . forms import SearchForm
-from www import settings
-import stripe
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
 
+# Settings
+from www import settings
+
+# Models
+from . models import (
+    CustomUser, 
+    Tracks,
+    Prices,
+    Banners,
+    PurchasedTrack
+)
+
+# Django Forms
+from . forms import SearchForm
 from .forms import ErrorReportForm
 from .forms import CustomUserForm
+
+# Utils
+from api.utils import *
+import stripe
 
 
 def index(request: WSGIRequest):
@@ -83,6 +97,10 @@ def basket(request: WSGIRequest):
 
 @login_required
 def checkout(request: WSGIRequest):
+    if hasattr(request.user, 'artist_name') and not request.user.artist_name:
+        request.user.artist_name = request.user.username
+        request.user.save()
+
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     basket = request.session.get('basket', None)

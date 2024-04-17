@@ -3,13 +3,16 @@ from . models import *
 # Register your models here.
 cm_site_models = [
     CustomUser, 
+    Tracks, 
+    PurchasedTrack,
     Prices,
     Moods, 
-    Tracks, 
     Banners, 
     Tags, 
-    PurchasedTrack,
-    ErrorReport
+    ErrorReport,
+    SignContracts,
+    NoSignContracts,
 ]
 for model in cm_site_models:
     admin.site.register(model)
+    

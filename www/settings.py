@@ -194,3 +194,68 @@ if DEBUG:
 else:
     STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
     STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+REPLACE_PATTERN_CONTRACTS = {
+    'wav':{
+        'date': {
+            'old': '{%DATE%}',
+            'new': '',    
+        },
+        'date_full': {
+            'old': '{%DATEFULL%}',
+            'new': '',    
+        },
+        'na': {
+            'old': '{%[N/A]%}',
+            'new': '',    
+        },
+        'track_name': {
+            'old': '{%TRACKNAME%}',
+            'new': '',    
+        },
+        'lic': {
+            'old': '{%LIC%}',
+            'new': '',    
+        }
+    },
+    'unlimited':{
+        'date': {
+            'old': '{%DATE%}',
+            'new': '',    
+        },
+        'date_full': {
+            'old': '{%DATEFULL%}',
+            'new': '',    
+        },
+        'na': {
+            'old': '{%[N/A]%}',
+            'new': '',    
+        },
+        'track_name': {
+            'old': '{%TRACKNAME%}',
+            'new': '',    
+        },
+        'lic': {
+            'old': '{%LIC%}',
+            'new': '',    
+        }
+    },
+    'exclusive':{
+        'date': {
+            'old': '{%DATE%}',
+            'new': '',    
+        },
+        'customer_alias': {
+            'old': '{%CUSTOMER_ALIAS%}',
+            'new': '',    
+        },
+        'track_name': {
+            'old': '{%TRACKNAME%}',
+            'new': '',    
+        },
+        'customer_name': {
+            'old': '{%CUSTOMER_NAME%}',
+            'new': '',    
+        }
+    },
+}
