@@ -24,4 +24,4 @@ User = get_user_model()
 class CustomUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'artist_name']
+        fields = ['username', 'first_name', 'last_name', 'artist_name']

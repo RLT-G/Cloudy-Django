@@ -173,26 +173,45 @@ def cancel(request: WSGIRequest):
 @login_required
 @ratelimit(key='ip', rate='5/m', block=True)
 def account(request: WSGIRequest):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        data = {
+            'user_form': CustomUserForm(instance=request.user),
+            'error_form': ErrorReportForm(),
+            'redirect_on': 'default'
+        }
+        return render(request, 'cm_site/lk.html', data)
+    elif request.method == 'POST':
 
-        user_form = CustomUserForm(request.POST, instance=request.user)
-        if user_form.is_valid():
-            user_form.save()
-            redirect_on = 'info'
-        
-        error_form = ErrorReportForm(request.POST, request.FILES)
-        if error_form.is_valid():
-            error_form.save()
-            redirect_on = 'support'
-        
-    else:
-        redirect_on = 'default'
-        user_form = CustomUserForm(instance=request.user)
-        error_form = ErrorReportForm()
-
-    data = {
-        'user_form': user_form,
-        'error_form': error_form,
-        'redirect_on': redirect_on
-    }
-    return render(request, 'cm_site/lk.html', data)
+        if 'form1-submit' in request.POST:
+            user_form = CustomUserForm(request.POST, instance=request.user)
+            if user_form.is_valid():
+                user_form.save()
+                data = {
+                    'user_form': CustomUserForm(instance=request.user),
+                    'error_form': ErrorReportForm(),
+                    'redirect_on': 'info'
+                }
+            else:
+                data = {
+                    'user_form': user_form,
+                    'error_form': ErrorReportForm(),
+                    'redirect_on': 'info'
+                }
+            return render(request, 'cm_site/lk.html', data)
+            
+        elif 'form2-submit' in request.POST:
+            error_form = ErrorReportForm(request.POST, request.FILES)
+            if error_form.is_valid():
+                error_form.save()
+                data = {
+                    'user_form': CustomUserForm(instance=request.user),
+                    'error_form': ErrorReportForm(),
+                    'redirect_on': 'support'
+                }
+            else:
+                data = {
+                    'user_form': CustomUserForm(instance=request.user),
+                    'error_form': error_form,
+                    'redirect_on': 'support'
+                }
+            return render(request, 'cm_site/lk.html', data)

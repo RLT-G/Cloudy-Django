@@ -205,6 +205,68 @@ main{
     text-align: center;
     color: #fff;
 }
+.account__nav__content{
+    width: 80%;
+}
+.nav-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.nav-content form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form__element{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form__element input{
+    border: 1px solid #222;
+    border-radius: 5px;
+    height: 30px;
+    background: #141414;
+    font-family: Outfit;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ababab;
+    padding: 0px 15px;
+}
+.form__element__text{
+    font-family: Outfit;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+}
+.form__element--buttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.form__element--buttons a, .form__element--buttons button{
+    width: 58%;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BA0038;
+    font-family: Outfit;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 5px;
+} .form__element--buttons a {width: 20%; background-color: #5b5b5a;}
 .nav-content{
     display: none;
 }
