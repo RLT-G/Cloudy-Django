@@ -124,12 +124,14 @@
                             </div>
 
                             <div class="content__wishlist nav-content">
-
+                                <h1>Coming Soon</h1>
+                                <h2>Please be quet, the developer is making this page</h2>
+                                <div class="ico"></div>
                             </div>
 
                             <div class="content__support nav-content">
-                                <h2>Report an Error</h2>
-                                <h3>Error</h3>
+                                <h2>Having an issue with our website?</h2>
+                                <h3>Submit a ticket or contact us via <a href="">Instagram</a></h3>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form__element">
@@ -160,26 +162,33 @@
                                         </ul>
                                     </div>
                                     <div class="form__element">
-                                        <span class="form__element__text">Photo</span>
-                                        {{ error_form.photo }}
-                                        <ul>
-                                            {% for error in error_form.photo.errors %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                    <div class="form__element">
-                                        <button name="form2-submit" type="submit">Submit Error Report</button>
+                                        <div class="ended-block">
+                                            {{ error_form.photo }}
+                                            <label for="input__file">Add photo</label>
+                                            <button name="form2-submit" type="submit">Submit Error Report</button>
+                                            <script>
+                                                function updateFileName(input) {
+                                                    let fileName = input.files[0].name;
+                                                    let label = input.parentNode.querySelector('label');
+                                                    label.textContent = fileName;
+                                                }
+                                                document.querySelector('#input__file').addEventListener("change", function() {
+                                                    updateFileName(this);
+                                                });
+                                            </script>
+                                        </div>
                                     </div>
                                 </form>                         
                             </div>
-
                         </div>
                     </div>
                 </div>
             </main>
         </div>
-        <script>const redirect_on = '{{redirect_on}}';</script>
+        <script>
+            const redirect_on = "{{redirect_on}}";
+            const singOutHREF = "{% url 'account_logout' %}";
+        </script>
         <script src="{% static 'cm_site/js/lk.js' %}"></script>
     </body>
 </html>

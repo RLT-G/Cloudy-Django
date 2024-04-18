@@ -39,5 +39,23 @@ supportBtn.addEventListener('click', () => {
     supportCnt.classList.add('active');
 })
 singOutBtn.addEventListener('click', () => {
-    console.log('click on singOunt');
+    window.location.href = singOutHREF;
 })
+
+
+switch (redirect_on) {
+    case 'support':
+            removeClasses('active', [infoBtn, purBtn, wishlistBtn, supportBtn, singOutBtn, infoCnt, purCnt, wishlistCnt, supportCnt]);
+            supportBtn.classList.add('active');
+            supportCnt.classList.add('active');
+            break;
+    
+    case 'info':
+            removeClasses('active', [infoBtn, purBtn, wishlistBtn, supportBtn, singOutBtn, infoCnt, purCnt, wishlistCnt, supportCnt]);
+            infoBtn.classList.add('active');
+            infoCnt.classList.add('active');
+            break;
+
+    default:
+            break;
+}

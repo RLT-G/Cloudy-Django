@@ -17,6 +17,9 @@ class ErrorReportForm(forms.ModelForm):
     class Meta:
         model = ErrorReport
         fields = ['email', 'subject', 'description', 'photo']
+        widgets = {
+            'photo': forms.FileInput(attrs={'id': 'input__file'})
+        }
 
 
 User = get_user_model()
