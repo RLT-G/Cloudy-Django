@@ -25,7 +25,8 @@ from .forms import CustomUserForm
 # Utils
 from api.utils import *
 import stripe
-
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 def index(request: WSGIRequest):
     return redirect('store')
@@ -153,11 +154,20 @@ def success(request):
             if basket:
                 for item in basket:
                     track = Tracks.objects.get(track_name=item['track_name'])
-                    purchased_track = PurchasedTrack.objects.create(
-                        user=user,
-                        track=track
-                    )
-                    purchased_track.save()
+                    output = createContract(request, track, item.get('license'))
+                    with open(output, 'rb') as f:
+                        contract_file = ContentFile(f.read())
+
+                        purchased_track = PurchasedTrack.objects.create(
+                            user=user,
+                            track=track,
+                            track_license=item.get('license')
+                        )
+
+                        purchased_track.contract.save(f'contract_{generate_unique_sequence()}.docx', contract_file)
+
+                        purchased_track.save()
+                        
                 del request.session['basket']
             return redirect('store')  
 

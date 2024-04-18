@@ -85,11 +85,10 @@ class SignContracts(models.Model):
 User = get_user_model()
 class PurchasedTrack(models.Model):
     LICENSE_CHOICES = [
-        ('WAV', 'Wav license'),
-        ('UNLIMITED', 'Unlimited license'),
-        ('EXCLUSIVE', 'Exclusive license'),
+        ('wav', 'Wav license'),
+        ('unlimited', 'Unlimited license'),
+        ('exclusive', 'Exclusive license'),
     ]
-
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchased_tracks')
     track = models.ForeignKey(Tracks, on_delete=models.CASCADE)
     track_license = models.CharField(max_length=20, choices=LICENSE_CHOICES, null=True, blank=True)
