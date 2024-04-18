@@ -47,6 +47,30 @@ def createContract(request: WSGIRequest, track: Tracks, license_type: str):
 
     elif license_type == "unlimited":
         pattern = REPLACE_PATTERN_CONTRACTS.get('unlimited')
+        contract_path = SignContracts.objects.all().first().unlimited_license
+        pattern_data = [
+            datetime.now().strftime("%a, %d %b %Y"),
+            datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z'),
+            track.track_name,
+            f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else user.artist_name if user.artist_name else user.username
+        ]
+        keys = ['date', 'date_full', 'track_name', 'lic']
+        for key in keys:
+            pattern[key]['new'] = pattern_data[keys.index(key)]
+        
+        return replace_text_in_docx(contract_path, f'media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
     elif license_type == "exclusive":
         pattern = REPLACE_PATTERN_CONTRACTS.get('exclusive')
+        contract_path = SignContracts.objects.all().first().exclusive_license
+        pattern_data = [
+            datetime.now().strftime("%a, %d %b %Y"),
+            user.artist_name if user.artist_name else user.username,
+            track.track_name,
+            f'{user.first_name} {user.last_name}' if user.first_name and user.last_name else user.artist_name if user.artist_name else user.username
+        ]
+        keys = ['date', 'customer_alias', 'track_name', 'customer_name']
+        for key in keys:
+            pattern[key]['new'] = pattern_data[keys.index(key)]
+        
+        return replace_text_in_docx(contract_path, f'media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
         

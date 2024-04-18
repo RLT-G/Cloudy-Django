@@ -223,10 +223,6 @@ REPLACE_PATTERN_CONTRACTS = {
             'old': '{%DATEFULL%}',
             'new': '',    
         },
-        'na': {
-            'old': '{%[N/A]%}',
-            'new': '',    
-        },
         'track_name': {
             'old': '{%TRACKNAME%}',
             'new': '',    
