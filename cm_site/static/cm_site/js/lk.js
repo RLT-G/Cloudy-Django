@@ -59,3 +59,25 @@ switch (redirect_on) {
     default:
             break;
 }
+
+const replaceData1 = document.querySelectorAll('.left__track_data__track_license');
+const replaceData2 = document.querySelectorAll('.right__track_pur_data__price');
+
+replaceData1.forEach((el) => {
+    if (el.innerHTML === 'wav'){
+        el.innerHTML = 'Beat - WAV License';
+    } else if (el.innerHTML === 'unlimited') {
+        el.innerHTML = 'Beat - Unlimited License';
+    } else {
+        el.innerHTML = 'Beat - Exclusive License';
+    }
+});
+replaceData2.forEach((el) => {
+    if (el.innerHTML === 'wav'){
+        el.innerHTML = '30$';
+    } else if (el.innerHTML === 'unlimited') {
+        el.innerHTML = '100$';
+    } else {
+        el.innerHTML = '300$';
+    }
+});

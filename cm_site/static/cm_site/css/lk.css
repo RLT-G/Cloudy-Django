@@ -365,7 +365,7 @@ textarea {
     gap: 25px;
     align-items: start;
 }
-.content__wishlist h1{
+.content__wishlist h1, .content__purchases h1{
     width: 100%;
     font-family: Outfit;
     font-weight: 500;
@@ -373,7 +373,7 @@ textarea {
     color: #fff;
     align-items: self-start;
 }
-.content__wishlist h2{
+.content__wishlist h2, .content__purchases h2{
     width: 100%;
     font-family: Outfit;
     font-weight: 400;
@@ -382,6 +382,10 @@ textarea {
     color: #ababab;
     align-items: self-start;
 }
+.content__purchases h2 a {
+    color: #ba0038;
+    text-decoration: underline;
+}
 .content__wishlist .ico{
     width: 75px;
     height: 75px;
@@ -389,8 +393,113 @@ textarea {
     background-size: cover;
 }
 
-
-
+.content__purchases{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.purchases_track{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.purchases_track__left{
+    display: flex;
+    gap: 20px;
+}
+.left__track_cover{
+    width: 75px;
+    height: 75px;
+    border-radius: 5px;
+}
+.purchases_line{
+    width: 100%;
+    height: 1px;
+    background-color: #383838;
+}
+.left__track_data{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.left__track_data__track_name{
+    font-family: Outfit;
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+}
+.left__track_data__track_license{
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: #676767;
+}
+.left__track_data__track_contract{
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: #ba0038;
+}
+.purchases_track__right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+.right__track_pur_data, .right__track_links{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.right__track_pur_data__date{
+    /* font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.05em;*/
+    color: #676767; 
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: right;
+    /* color: #fff; */
+}
+.right__track_pur_data__price{
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: right;
+    color: #fff;
+}
+.right__track_links__trackout, .right__track_links__mp3{
+    border: 2px solid #ba0038;
+    border-radius: 10px 5px;
+    height: 30px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 5px 10px;
+}
+.right__track_links__trackout-ico{
+    width: 13px;
+    height: 16px;
+    background: url('../img/lktrackout.svg') no-repeat;
+    background-size: cover;
+}
+.right__track_links__mp3-ico{
+    width: 16px;
+    height: 15px;
+    background: url('../img/lkmp3wav.svg') no-repeat;
+    background-size: cover;
+}
+.right__track_links__trackout-text, .right__track_links__mp3-text{
+    font-family: Outfit;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+}
 
 .nav-content{
     display: none;

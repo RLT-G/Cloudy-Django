@@ -120,7 +120,45 @@
                             </div>
                             
                             <div class="content__purchases nav-content active">
-
+                                {% if user_pt %}
+                                    {% for pt in user_pt %}
+                                        <div class="purchases_track">
+                                            <div class="purchases_track__left">
+                                                <div class="left__track_cover" style="background: url('../media/{{pt.track.cover_art}}') no-repeat; background-size: cover;"></div>
+                                                <div class="left__track_data">
+                                                    <span class="left__track_data__track_name">{{pt.track.track_name}}</span>
+                                                    <span class="left__track_data__track_license">{{pt.track_license}}</span>
+                                                    <a href="../media/{{pt.contract}}" class="left__track_data__track_contract">Review License</a>
+                                                </div>
+                                            </div>
+                                            <div class="purchases_track__right">
+                                                <div class="right__track_pur_data">
+                                                    <div class="right__track_pur_data__date">{{pt.purchase_date}}</div>
+                                                    <div class="right__track_pur_data__price">{{pt.track_license}}</div>
+                                                </div>
+                                                <div class="right__track_links">
+                                                    {% if pt.track_license == 'wav' %}
+                                                    {% else %}
+                                                        <a href="{{pt.track.unl_and_exc_link}}" class="right__track_links__trackout">
+                                                            <div class="right__track_links__trackout-ico"></div>
+                                                            <span class="right__track_links__trackout-text">Trackout</span>
+                                                        </a>
+                                                    {% endif %}
+                                                    <a href="{{pt.track.waw_link}}" class="right__track_links__mp3">
+                                                        <div class="right__track_links__mp3-ico"></div>
+                                                        <span class="right__track_links__mp3-text">Wav&MP3</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if not forloop.last %}
+                                            <div class="purchases_line"></div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <h1>The purchase history is empty</h1>
+                                    <h2>Go to the <a href="{% url 'store' %}">store</a> now</h2>
+                                {% endif %}
                             </div>
 
                             <div class="content__wishlist nav-content">

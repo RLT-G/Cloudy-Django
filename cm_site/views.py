@@ -183,11 +183,13 @@ def cancel(request: WSGIRequest):
 @login_required
 @ratelimit(key='ip', rate='5/m', block=True)
 def account(request: WSGIRequest):
+    user_pt = PurchasedTrack.objects.filter(user=request.user)
     if request.method == 'GET':
         data = {
             'user_form': CustomUserForm(instance=request.user),
             'error_form': ErrorReportForm(),
-            'redirect_on': 'default'
+            'redirect_on': 'default',
+            'user_pt': user_pt
         }
         return render(request, 'cm_site/lk.html', data)
     elif request.method == 'POST':
@@ -199,13 +201,15 @@ def account(request: WSGIRequest):
                 data = {
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': ErrorReportForm(),
-                    'redirect_on': 'info'
+                    'redirect_on': 'info',
+                    'user_pt': user_pt
                 }
             else:
                 data = {
                     'user_form': user_form,
                     'error_form': ErrorReportForm(),
-                    'redirect_on': 'info'
+                    'redirect_on': 'info',
+                    'user_pt': user_pt
                 }
             return render(request, 'cm_site/lk.html', data)
             
@@ -216,12 +220,14 @@ def account(request: WSGIRequest):
                 data = {
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': ErrorReportForm(),
-                    'redirect_on': 'support'
+                    'redirect_on': 'support',
+                    'user_pt': user_pt
                 }
             else:
                 data = {
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': error_form,
-                    'redirect_on': 'support'
+                    'redirect_on': 'support',
+                    'user_pt': user_pt
                 }
             return render(request, 'cm_site/lk.html', data)
