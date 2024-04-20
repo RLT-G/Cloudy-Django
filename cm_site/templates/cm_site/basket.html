@@ -34,7 +34,7 @@
                                     <div class="navbar__link-account"></div>
                                 </a>
                                 <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
-                                    <div class="navbar__link-basket"></div>
+                                    <div class="navbar__link-basket" {% if basket %}style="background: url('../../static/cm_site/img/cartisnotempty.svg') no-repeat; background-size: cover;"{% endif %}></div>
                                 </a>
                             </div>
                         {% else %}
@@ -53,7 +53,7 @@
                                     <div class="navbar__link-singup">Sign Up</div>
                                 </a>
                                 <a href="{% url 'cart' %}" class="navbar__link navbar__link--svg">
-                                    <div class="navbar__link-basket"></div>
+                                    <div class="navbar__link-basket" {% if basket %}style="background: url('../../static/cm_site/img/cartisnotempty.svg') no-repeat; background-size: cover;"{% endif %}></div>
                                 </a>
                             </div>
                         {% endif %}

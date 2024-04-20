@@ -96,6 +96,8 @@ class BasketAPIViews(APIView):
                         del basket[basket.index(track)]
                         out_of_cart = False
                 requests.session['basket'] = basket
+                if basket == []:
+                    del requests.session['basket']
 
                 if out_of_cart:
                     answer = {

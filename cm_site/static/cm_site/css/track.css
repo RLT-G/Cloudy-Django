@@ -695,3 +695,63 @@ main{
     width: 100px;
     height: 50px;
 }
+
+
+
+.beat__license__buttons button{
+    position: relative;
+    transition: 0.2s;
+}
+.beat__license__buttons button:hover::after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    border: 1px solid #ba0038;
+    border-radius: 25px 5px;
+    transition: 0.2s;
+}
+.beat__license__buttons button.active:hover::after{
+    content: '';
+    display: none;
+}
+.share{
+    transition: 0.2s;
+}
+.share div{
+    transition: 0.2s;
+}
+.share.HasBeenCopied div{
+    background: url('../img/codied.svg') no-repeat;
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+}
+.share h1{
+    transition: 0.2s;
+}
+.share:hover{
+    background-color: rgba(91, 91, 90, 0.9);
+}
+.share.HasBeenCopied{
+    background-color: transparent;
+}
+.ico:hover{
+    stroke-width: 2px;
+    stroke: #FFF;
+    filter: drop-shadow(0px 0px 5px white);
+    transition: 0.2s;
+}
+.beat__intro__data_name-btn .to_cart{
+    transition: 0.2s;
+}
+.beat__intro__data_name-btn .to_cart.incart{
+    background-color: rgba(186, 0, 56, 0.5);
+    border: none;
+}
+.beat__intro__data_name-btn .to_cart.incart div:nth-child(2){
+    font-size: 18px;
+}

@@ -45,7 +45,8 @@ def store(request: WSGIRequest):
                 'tracks': current_tracks,
                 'prices': Prices.objects.all()[0],
                 'search_form': form,
-                'banners': Banners.objects.all()
+                'banners': Banners.objects.all(),
+                'basket': request.session.get('basket', None)
             }
             return render(request, 'cm_site/store.html', data)
         else:
@@ -57,7 +58,9 @@ def store(request: WSGIRequest):
         'tracks': Tracks.objects.all().order_by('-priority'),
         'prices': Prices.objects.all()[0],
         'search_form': form,
-        'banners': Banners.objects.all()
+        'banners': Banners.objects.all(),
+        'basket': request.session.get('basket', None)
+
     }
     return render(request, 'cm_site/store.html', data)
 
@@ -67,12 +70,12 @@ def store_track(request: WSGIRequest, track_id: int):
         'user': request.user,
         'id': track_id,
         'track': track,
-        'prices': Prices.objects.all().first()
+        'prices': Prices.objects.all().first(),
+        'basket': request.session.get('basket', None)
     }
     return render(request, 'cm_site/track.html', data)
 
 def not_developed(request: WSGIRequest):
-    request.session.flush()
     return render(request, 'cm_site/comingsoon.html')
 
 @login_required
@@ -189,7 +192,8 @@ def account(request: WSGIRequest):
             'user_form': CustomUserForm(instance=request.user),
             'error_form': ErrorReportForm(),
             'redirect_on': 'default',
-            'user_pt': user_pt
+            'user_pt': user_pt,
+            'basket': request.session.get('basket', None)
         }
         return render(request, 'cm_site/lk.html', data)
     elif request.method == 'POST':
@@ -202,14 +206,16 @@ def account(request: WSGIRequest):
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'info',
-                    'user_pt': user_pt
+                    'user_pt': user_pt,
+                    'basket': request.session.get('basket', None)
                 }
             else:
                 data = {
                     'user_form': user_form,
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'info',
-                    'user_pt': user_pt
+                    'user_pt': user_pt,
+                    'basket': request.session.get('basket', None)
                 }
             return render(request, 'cm_site/lk.html', data)
             
@@ -221,13 +227,15 @@ def account(request: WSGIRequest):
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'support',
-                    'user_pt': user_pt
+                    'user_pt': user_pt,
+                    'basket': request.session.get('basket', None)
                 }
             else:
                 data = {
                     'user_form': CustomUserForm(instance=request.user),
                     'error_form': error_form,
                     'redirect_on': 'support',
-                    'user_pt': user_pt
+                    'user_pt': user_pt,
+                    'basket': request.session.get('basket', None)
                 }
             return render(request, 'cm_site/lk.html', data)

@@ -95,6 +95,9 @@ buyBtn.addEventListener('click', () => {
     })
     .then(data => {
         console.log(data);
+        buyBtn.classList.add('incart');
+        document.querySelector('.beat__intro__data_name-btn .to_cart.incart div:nth-child(2)').innerHTML = 'Added';
+        document.querySelector('.navbar__link-basket').style = "background: url('../../static/cm_site/img/cartisnotempty.svg') no-repeat; background-size: cover;";
     })
     .catch(error => {
         console.error('Error:', error);
