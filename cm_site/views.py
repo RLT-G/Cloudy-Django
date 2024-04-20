@@ -1,9 +1,10 @@
 # Django
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from django.core.handlers.wsgi import WSGIRequest
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django_ratelimit.decorators import ratelimit
+from django.core.handlers.wsgi import WSGIRequest
+from django.core.files.base import ContentFile
+from django.urls import reverse
 
 # Settings
 from www import settings
@@ -14,22 +15,24 @@ from . models import (
     Tracks,
     Prices,
     Banners,
-    PurchasedTrack
+    PurchasedTrack,
+    NoSignContracts
 )
 
 # Django Forms
-from . forms import SearchForm
 from .forms import ErrorReportForm
 from .forms import CustomUserForm
+from . forms import SearchForm
 
 # Utils
 from api.utils import *
-import stripe
 from io import BytesIO
-from django.core.files.base import ContentFile
+import stripe
+
 
 def index(request: WSGIRequest):
     return redirect('store')
+
 
 def store(request: WSGIRequest):
     if request.method == 'POST':
@@ -92,10 +95,14 @@ def basket(request: WSGIRequest):
         track_names = [item['track_name'] for item in basket]
 
         tracks_in_basket = Tracks.objects.filter(track_name__in=track_names)
+        contracts = NoSignContracts.objects.all().first()
         data = {
             'user': request.user,
             'tracks': tracks_in_basket,
-            'basket': basket
+            'basket': basket,
+            'wavcontarct': contracts.wav_license,
+            'unlcontarct': contracts.unlimited_license,
+            'exccontract': contracts.exclusive_license
         }
         return render(request, 'cm_site/basket.html', data)
 

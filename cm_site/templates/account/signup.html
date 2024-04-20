@@ -4,59 +4,81 @@
 
 {% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
-
-{% block extra_head %}
-    <link rel="stylesheet" href="{% static 'cm_site/css/singup.css' %}">
-{% endblock extra_head %}
+{% block head_title %}{% trans "Sign up" %}{% endblock head_title %}
 
 {% block content %}
-<!-- <h1>{% trans "Sign Up" %}</h1> -->
-
-<!-- <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p> -->
 <main class="main">
     <div class="main__container">
-        <a href="{% url 'store' %}"><div class="main__container-logo"></div></a>
-        <div class="main__container-form">
-            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-                {% csrf_token %}
-              
-                <h1>Sing Up</h1>
-                <h2>Username</h2>
+        <!-- <a href="{% url 'store' %}"><div class="main__container-logo"></div></a> -->
+        <a href="{% url 'store' %}" class="cloudy_motion_logo"></a>
+        <form class="form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            <h1 class="form__title">Sing Up</h1>
+            <div class="form__line"></div>
+
+            <span class="form__fieldname">Username</span>
+            <div class="form__input">
                 {{form.username}}
-                <h2>Email</h2>
+            </div>
+            {% if form.username.errors %}
+                <ul class="form__errorlist">
+                    {% for error in form.username.errors %}
+                        <li class="form__errorlist__error">{{ error|escape }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <span class="form__fieldname">Email</span>
+            <div class="form__input">
                 {{form.email}}
-                <h2>Password</h2>
+            </div>
+            {% if form.email.errors %}
+                <ul class="form__errorlist">
+                    {% for error in form.email.errors %}
+                        <li class="form__errorlist__error">{{ error|escape }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <span class="form__fieldname">Password</span>
+            <div class="form__input">
                 {{form.password1}}
-                <h2>Password again</h2>
+            </div>
+            {% if form.password1.errors %}
+                <ul class="form__errorlist">
+                    {% for error in form.password1.errors %}
+                        <li class="form__errorlist__error">{{ error|escape }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <span class="form__fieldname">Password again</span>
+            <div class="form__input">
                 {{form.password2}}
-              
-                {% if form.password1.errors %}
-                    <div class="alert alert-danger">
-                        {% for error in form.password1.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-              
-                {% if form.password1.errors %}
-                    <div class="alert alert-danger">
-                        {% for error in form.password1.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-              
-                {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
+            </div>
+            {% if form.password2.errors %}
+                <ul class="form__errorlist">
+                    {% for error in form.password2.errors %}
+                        <li class="form__errorlist__error">{{ error|escape }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+    
+        
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            
+            <div class="form__line"></div>
+            <button class="form__submit" type="submit">Continue</button>
+            <div class="form__line"></div>
 
-                <button type="submit" class="button-submit">Continue</button>
+            
+            <a href="{{ login_url }}" class="form__redirect">Have an account already?</a>    
+            <a href="{% url 'store' %}" class="form__redirect">Return to store</a>    
 
-                <a href="{{ login_url }}">Have an account already?</a>
-            </form>
-          
-        </div>
+
+        </form>
     </div>
 </main>
 

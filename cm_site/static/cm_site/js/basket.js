@@ -34,7 +34,7 @@ function tracksFill(){
                 <div class="beat_left__data">
                     <div class="beat_left__data-name">${song.name}</div>
                     <div class="beat_left__data-license">${song.license === "wav" ? 'Beat - WAV License' : song.license === "unlimited" ? 'Beat - Unlimited License' : 'Beat - Exclusive License'}</div>
-                    <div class="beat_left__data-review">Review License</div>
+                    <a href="../media/${song.license === "wav" ? contractLinks[0] : song.license === "unlimited" ? contractLinks[1] : contractLinks[2]}" class="beat_left__data-review">Review License</a>
                 </div>
             </div>
             <div class="beat_right">

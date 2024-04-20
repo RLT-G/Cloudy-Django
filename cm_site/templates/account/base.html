@@ -10,38 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'cm_site/css/accall.css' %}">
     <title>{% block head_title %}{% endblock head_title %}</title>
     {% block extra_head %}
     {% endblock extra_head %}
   </head>
   <body>
     {% block body %}
-
-      {% if messages %}
-      <div>
-        <strong>{% trans "Messages:" %}</strong>
-        <ul>
-          {% for message in messages %}
-          <li>{{message}}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
-      <!-- <div>
-        <strong>{% trans "Menu:" %}</strong>
-        <ul>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'account_email' %}">{% trans "Change Email" %}</a></li>
-          <li><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
-          {% else %}
-          <li><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
-          <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-          {% endif %}
-        </ul>
-      </div> -->
       {% block content %}
+      <!-- Сюда весь мусор будет лететь -->
       {% endblock content %}
     {% endblock body %}
     {% block extra_body %}

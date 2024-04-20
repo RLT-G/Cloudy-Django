@@ -22,11 +22,13 @@ def has_duplicate_dicts(lst):
 def replace_text_in_docx(input_docx: str, output_docx: str, pattern: dict) -> None:
     doc = Document(input_docx)
     for paragraph in doc.paragraphs:
-        for key in pattern.keys():
-            if pattern.get(key).get('old') in paragraph.text:
-                paragraph.text = paragraph.text.replace(pattern.get(key).get('old'), pattern.get(key).get('new'))
+        for run in paragraph.runs:
+            for key in pattern.keys():
+                if pattern.get(key).get('old') in run.text:
+                    run.text = run.text.replace(pattern.get(key).get('old'), pattern.get(key).get('new'))
     doc.save(output_docx)
     return output_docx
+
 
 def createContract(request: WSGIRequest, track: Tracks, license_type: str):
     user = request.user 
