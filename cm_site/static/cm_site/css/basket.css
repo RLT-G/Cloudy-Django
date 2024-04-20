@@ -517,12 +517,25 @@ main {
     align-items: center;
     gap: 20px;
 } */
-
-
-
-
-
-
+.summary__singinsingup a:hover, .summary__refund_policy a:hover{
+    text-decoration: underline;
+    transition: 0.2s;
+}
+.summary__checkout:hover{
+    background: rgba(186, 0, 56, 0.33);
+    border: 1px solid #ba0038;
+    transition: 0.2s;
+}
+.beat_left__data-review:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.beat_right__del:hover{
+    background: url('../img/delbtnbasket.svg') no-repeat;
+    background-size: cover;
+    transition: 0.2s;
+}
 
 
 
