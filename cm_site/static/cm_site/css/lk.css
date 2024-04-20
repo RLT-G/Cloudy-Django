@@ -507,3 +507,37 @@ textarea {
 .nav-content.active{
     display: flex;
 }
+
+.form__element input:hover, textarea:hover{
+    border: 1px solid #414141;
+    transition: 0.2s;
+}
+.form__element--buttons a:hover, .ended-block label:hover{
+    background: rgba(91, 91, 90, 0.7);
+    transition: 0.2s;
+}
+.form__element--buttons button, .ended-block button{
+    border: 1px solid transparent;
+}
+.form__element--buttons button:hover, .ended-block button:hover{
+    background: rgba(186, 0, 56, 0.33);
+    border: 1px solid #ba0038;
+    transition: 0.2s;
+}
+.left__track_data__track_contract:hover{
+    text-decoration: underline;
+    transition: 0.2s;
+}
+.right__track_links__trackout, .right__track_links__mp3{
+    background-color: #BA0038;
+}
+.right__track_links__trackout:hover, .right__track_links__mp3:hover{
+    background: rgba(186, 0, 56, 0.33);
+    border: 2px solid #ba0038;
+    transition: 0.2s;
+}
+.btn-singout:hover{
+    color: #BA0038;
+    transition: 0.2s;
+}
+
