@@ -7,29 +7,68 @@
 
 
 {% block content %}
-<h1>{% trans "Confirm Email Address" %}</h1>
 
-{% if confirmation %}
 
-{% user_display confirmation.email_address.user as user_display %}
 
-{% if can_confirm %}
-<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an email address for user {{ user_display }}.{% endblocktrans %}</p>
+<main class="main">
+    <div class="main__container">
+        <a href="{% url 'store' %}" class="cloudy_motion_logo"></a>
+        {% if confirmation %}
+        <form class="form" id="signup_form" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+            {% csrf_token %}
+            <h1 class="form__title">Confirm Email Address</h1>
+            <div class="form__line"></div>
+                {% if can_confirm %}
+                    <span class="form__fieldname">
+                        {% user_display confirmation.email_address.user as user_display %}
+                    </span>
+                    <span class="form__fieldname">
+                        {% blocktrans with confirmation.email_address.email as email %}
+                        Please confirm that 
+                        {{ email }}
+                        is an email address for user {{ user_display }}.{% endblocktrans %}
+                    </span>
 
-<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-{% csrf_token %}
-    <button type="submit">{% trans 'Confirm' %}</button>
-</form>
-{% else %}
-<p>{% blocktrans %}Unable to confirm {{ email }} because it is already confirmed by a different account.{% endblocktrans %}</p>
-{% endif %}
+                {% else %}
+                    <span class="form__fieldname">
+                        {% user_display confirmation.email_address.user as user_display %}
+                        {% blocktrans %}
+                            Unable to confirm {{ email }} because it is already confirmed by a different account.
+                        {% endblocktrans %}
+                    </span>
+                {% endif %}
+                <div class="form__line"></div>
+                <button type="submit" class="form__submit">{% trans 'Confirm' %}</button>
+                <div class="form__line"></div>
+                
+                
+                <a href="{{ login_url }}" class="form__redirect">Have an account already?</a>    
+                <a href="{% url 'store' %}" class="form__redirect">Return to store</a>    
+                
+            </form>
+            {% else %}
+                <form action="" class="form">
+                    <h1 class="form__title">Confirm Email Address</h1>
+                    <div class="form__line"></div>
 
-{% else %}
+                    <span class="form__fieldname">
+                        {% blocktrans %}
+                                This email confirmation link expired or is invalid. Please 
+                                issue a new email confirmation request.
+                                {% endblocktrans %}
+                    </span>
+                    <div class="form__line"></div>
+                <a href="{% url 'store' %}" class="form__redirect">Return to store</a>    
 
-{% url 'account_email' as email_url %}
 
-<p>{% blocktrans %}This email confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new email confirmation request</a>.{% endblocktrans %}</p>
+                </form>
+            {% endif %}
+        </div>
+</main>
 
-{% endif %}
+
+
+
+
 
 {% endblock content %}

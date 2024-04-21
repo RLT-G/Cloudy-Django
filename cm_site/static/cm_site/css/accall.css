@@ -105,7 +105,7 @@ main{
     border: 1px solid #ba0038;
 }
 
-.form__input input{
+.form__input input, .form__input input:focus{
 
     border: 1px solid #2c2c2c;
     border-radius: 2px;
@@ -120,6 +120,12 @@ main{
     transition: 0.2s;
 }
 
-.form__input input:hover{
+.form__input input:hover, .form__input input:focus:hover{
     border: 1px solid #414141;
+}
+
+.email_radio{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

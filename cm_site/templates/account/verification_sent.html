@@ -5,8 +5,37 @@
 {% block head_title %}{% trans "Verify Your Email Address" %}{% endblock head_title %}
 
 {% block content %}
-    <h1>{% trans "Verify Your Email Address" %}</h1>
 
-    <p>{% blocktrans %}We have sent an email to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification email in your main inbox, check your spam folder. Please contact us if you do not receive the verification email within a few minutes.{% endblocktrans %}</p>
+<main class="main">
+    <div class="main__container">
+        <!-- <a href="{% url 'store' %}"><div class="main__container-logo"></div></a> -->
+        <a href="{% url 'store' %}" class="cloudy_motion_logo"></a>
+        <form class="form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            <h1 class="form__title">Verify Your Email Address</h1>
+            <div class="form__line"></div>
+
+                <ul class="form__errorlist">
+                        <li class="form__errorlist__error">
+                            We have sent an email to you for verification. Follow the link provided to finalize the signup process. 
+                        </li>
+                        <li class="form__errorlist__error">
+                            If you do not see the verification email in your main inbox, check your spam folder.
+                        </li>
+                        <li class="form__errorlist__error">
+                            Please contact us if you do not receive the verification email within a few minutes
+                        </li>
+                </ul>
+            <div class="form__line"></div>
+
+            
+            <a href="{% url 'store' %}" class="form__redirect">Return to store</a>    
+
+
+        </form>
+    </div>
+</main>
+
+
 
 {% endblock content %}
