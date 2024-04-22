@@ -193,7 +193,8 @@
             </audio>
             <!-- Прогресс бар -->
             <input class="player__progress" id="myRange" type="range" min="0" max="100" step="0.00001" value="0">
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+            <script src="{% static 'cm_site/js/jQuery.js' %}"></script>
             <script>
                 let flag = false;
                 $('.player__progress').on({

@@ -174,7 +174,8 @@
                 if (isRand){
                     songIndex = Math.floor(Math.random() * songs.length);
                 }
-                loadSong(songIndex);
+                const musicCoverLoadFromPlayer = document.querySelector(`.music:nth-child(${songIndex + 1}) .music__cover`);
+                loadSong(songIndex, true, musicCoverLoadFromPlayer);
             } else {
                 /////////////////////////////////////
                 console.log('Заблокировал <-');
