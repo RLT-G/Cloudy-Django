@@ -16,7 +16,8 @@
         const prevBtn = document.querySelector('.back');
         const buyLink = document.querySelector('.player__container_other-link');
         player.classList.add('player-deactivate');
-      
+        let launshWas = false;
+
       
       
 
@@ -45,7 +46,10 @@
 
         let songIndex = 0;
 
-        function loadSong(songIndex, play=true) {
+        function loadSong(songIndex, play=true, musicCoverLoad=null) {
+            if (musicCoverLoad !== null){
+                musicCoverLoad.classList.add('musicCoverLoad');
+            }
             changeBlobData(songIndex)
                 .then(objectURL => {
                     // Этот код выполнится после завершения changeBlobData
@@ -58,6 +62,15 @@
                     buyLink.href = songs[songIndex].href;
                     if (play){
                         playSong();
+                    }
+                    if(launshWas === true) {
+                        launshWas = false;
+                        /////////////////////////////////////
+                        console.log('launshWas = false ибо loadsong закончил выгрузку');
+                        /////////////////////////////////////
+                    }
+                    if (musicCoverLoad !== null){
+                        musicCoverLoad.classList.remove('musicCoverLoad');
                     }
                 })
                 .catch(error => {
@@ -132,27 +145,41 @@
         });
         // Кнопка next
         function nextSong(){
-            songIndex++;
-            if (songIndex > songs.length - 1){
-                songIndex = 0;
+            if (!launshWas){
+                launshWas = true;
+                songIndex++;
+                if (songIndex > songs.length - 1){
+                    songIndex = 0;
+                }
+                if (isRand){
+                    songIndex = Math.floor(Math.random() * songs.length);
+                }
+                const musicCoverLoadFromPlayer = document.querySelector(`.music:nth-child(${songIndex + 1}) .music__cover`);
+                loadSong(songIndex, true, musicCoverLoadFromPlayer);
+            } else {
+            /////////////////////////////////////
+            console.log('Заблокировал ->');
+            /////////////////////////////////////
             }
-            if (isRand){
-                songIndex = Math.floor(Math.random() * songs.length);
-            }
-            loadSong(songIndex)
-
         }
         nextBtn.addEventListener('click', nextSong);
         // Кнопка prev
         function prevSong(){
-            songIndex--;
-            if (songIndex < 0){
-                songIndex = songs.length - 1;
+            if (!launshWas){
+                launshWas = true;
+                songIndex--;
+                if (songIndex < 0){
+                    songIndex = songs.length - 1;
+                }
+                if (isRand){
+                    songIndex = Math.floor(Math.random() * songs.length);
+                }
+                loadSong(songIndex);
+            } else {
+                /////////////////////////////////////
+                console.log('Заблокировал <-');
+                /////////////////////////////////////
             }
-            if (isRand){
-                songIndex = Math.floor(Math.random() * songs.length);
-            }
-            loadSong(songIndex)
         }
         prevBtn.addEventListener('click', prevSong);
 
@@ -207,42 +234,58 @@
         });
 
         function coverPlay(index){
-            if (player.classList.contains('player-deactivate')) {
-                player.classList.remove('player-deactivate');
-                player.classList.add('player-activate');
-            }
-            if (songIndex != index - 1){
-                let classDel;
-                let innerClassDel;
-                for (let i = 1; i <= songs.length; i++) {
-                    innerClassDel = document.querySelector(`.music:nth-child(${i}) .music__cover_button`);
-                    classDel = document.querySelector(`.music:nth-child(${i})`);
-                    classDel.classList.remove('operated');
-                    innerClassDel.classList.remove('music__cover_button-active');
+            if (!launshWas){
+                launshWas = true;
+                /////////////////////////////////////
+                console.log('launshWas = true ибо coverplay');
+                /////////////////////////////////////
+                if (player.classList.contains('player-deactivate')) {
+                    player.classList.remove('player-deactivate');
+                    player.classList.add('player-activate');
                 }
-            }
-            const musicButton = document.querySelector(`.music:nth-child(${index})`);
-            const isOperated = musicButton.classList.contains('operated');
-            const musicCoverButton = document.querySelector(`.music:nth-child(${index}) .music__cover_button`);
-            if (isOperated){
-                const isPlaing = musicButton.classList.contains('playSong');
-                if (isPlaing){
-                    musicCoverButton.classList.remove('music__cover_button-active');
-                    musicButton.classList.remove('playSong');
-                    pauseSong();
+                if (songIndex != index - 1){
+                    let classDel;
+                    let innerClassDel;
+                    for (let i = 1; i <= songs.length; i++) {
+                        innerClassDel = document.querySelector(`.music:nth-child(${i}) .music__cover_button`);
+                        classDel = document.querySelector(`.music:nth-child(${i})`);
+                        classDel.classList.remove('operated');
+                        innerClassDel.classList.remove('music__cover_button-active');
+                    }
+                }
+                const musicButton = document.querySelector(`.music:nth-child(${index})`);
+                const musicCoverLoad = document.querySelector(`.music:nth-child(${index}) .music__cover`);
+
+                const isOperated = musicButton.classList.contains('operated');
+                const musicCoverButton = document.querySelector(`.music:nth-child(${index}) .music__cover_button`);
+                if (isOperated){
+                    const isPlaing = musicButton.classList.contains('playSong');
+                    if (isPlaing){
+                        musicCoverButton.classList.remove('music__cover_button-active');
+                        musicButton.classList.remove('playSong');
+                        pauseSong();
+                    } else {
+                        musicCoverButton.classList.add('music__cover_button-active');
+                        musicButton.classList.add('playSong');
+                        playSong();
+                    }
+                    launshWas = false;
+                    /////////////////////////////////////
+                    console.log('launshWas = false ибо coverplay закончилось обычным запуском');
+                    /////////////////////////////////////
                 } else {
-                    musicCoverButton.classList.add('music__cover_button-active');
+                    console.log('init');
+                    musicButton.classList.add('operated');
                     musicButton.classList.add('playSong');
-                    playSong();
+                    musicCoverButton.classList.add('music__cover_button-active');
+                    songIndex = index - 1;
+
+                    loadSong(songIndex, true, musicCoverLoad);
                 }
             } else {
-                console.log('init');
-                musicButton.classList.add('operated');
-                musicButton.classList.add('playSong');
-                musicCoverButton.classList.add('music__cover_button-active');
-                songIndex = index - 1;
-
-                loadSong(songIndex)
+                /////////////////////////////////////
+                console.log('Заблокировал coverplay');
+                /////////////////////////////////////
             }
         }
         setTimeout(() => {
