@@ -756,8 +756,12 @@ main{
     font-size: 18px;
 }
 
+.terms{
+    transition: 0.0s;
+}
 
 
-
-
+.beat__intro__cover {
+    width: 100%;
+}
 

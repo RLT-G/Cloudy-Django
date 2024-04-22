@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{% static 'cm_site/css/reset.css' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/track.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/track_a.css' %}">
         <title>CloudyMotion | Store</title>
     </head>
     <body>
@@ -63,7 +64,9 @@
                 <div class="main__container">
                     <div class="beat">
                         <div class="beat__intro">
-                            <div class="beat__intro__cover" style="background: url('../../media/{{track.cover_art}}') no-repeat; background-size: cover;"></div>
+                            <div style="width: 30%;">
+                                <div class="beat__intro__cover" style="background: url('../../media/{{track.cover_art}}') no-repeat; background-size: cover;"></div>
+                            </div>
                             <div class="beat__intro__data">
                                 <div class="beat__intro__data_name">
                                     <div class="beat__intro__data_name-text">
