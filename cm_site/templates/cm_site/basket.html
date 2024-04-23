@@ -16,7 +16,7 @@
         <div class="wrapper">
             <header class="header">
                 <div class="header__container">
-                    <a href="{% url 'not_developed' %}">
+                    <a href="{% url 'store' %}">
                         <div class="header__container-logo"></div>
                     </a>
                         {% if user.is_authenticated %}
@@ -28,8 +28,8 @@
                                 <a href="{% url 'not_developed' %}" class="navbar__link">
                                     <div class="navbar__link-services">Services</div>
                                 </a>
-                                <a href="{% url 'not_developed' %}" class="navbar__link">
-                                    <div class="navbar__link-contacts">Contacts</div>
+                                <a href="{% url 'store' %}" class="navbar__link">
+                                    <div class="navbar__link-contacts">Store</div>
                                 </a>
                                 <a href="{% url 'account' %}" class="navbar__link navbar__link--svg">
                                     <div class="navbar__link-account"></div>
@@ -41,8 +41,8 @@
                         {% else %}
                             <!-- Навигация без аунтификации -->
                             <div class="header__container-navbar header__container-navbar--no">
-                                <a href="{% url 'not_developed' %}" class="navbar__link">
-                                    <div class="navbar__link-home">Home</div>
+                                <a href="{% url 'store' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Store</div>
                                 </a>
                                 <a href="{% url 'account_login' %}" class="navbar__link">
                                     <div class="navbar__link-singin">Sign In</div>
@@ -134,17 +134,17 @@
                         <div class="footer__container_up-items1">
                             <a href="{% url 'not_developed' %}">Home</a>
                             <a href="{% url 'store' %}">Store</a>
-                            <a href="{% url 'not_developed' %}">Accounts</a>
+                            <a href="{% url 'account' %}">Accounts</a>
                             <a href="{% url 'not_developed' %}">Services</a>
                         </div>
                         <div class="footer__container_up-items2">
-                            <a href="{% url 'not_developed' %}">Cart</a>
+                            <a href="{% url 'cart' %}">Cart</a>
                             <a href="{% url 'not_developed' %}">About</a>
-                            <a href="{% url 'not_developed' %}">Contact us</a>
-                            <a href="{% url 'not_developed' %}">Support</a>
+                            <a href="{% url 'account' %}">Contact us</a>
+                            <a href="{% url 'account' %}">Support</a>
                         </div>
                         <div class="footer__container_up-items3">
-                            <a href="{% url 'not_developed' %}">Beats</a>
+                            <a href="{% url 'store' %}">Beats</a>
                             <a href="{% url 'not_developed' %}">Custom beats</a>
                             <a href="{% url 'not_developed' %}">Mixing & mastering</a>
                             <a href="{% url 'not_developed' %}">Custom projects</a>

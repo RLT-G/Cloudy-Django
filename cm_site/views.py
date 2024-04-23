@@ -28,6 +28,7 @@ from . forms import SearchForm
 from api.utils import *
 from io import BytesIO
 import stripe
+import math
 
 
 def index(request: WSGIRequest):
@@ -121,7 +122,7 @@ def checkout(request: WSGIRequest):
         total_price = 0
         for track in basket:
             total_price += int(track['price'])
-        
+        total_price +=  math.ceil(total_price * 0.029)
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[

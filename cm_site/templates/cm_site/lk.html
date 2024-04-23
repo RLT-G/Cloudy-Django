@@ -16,7 +16,7 @@
         <div class="wrapper">
             <header class="header">
                 <div class="header__container">
-                    <a href="{% url 'not_developed' %}">
+                    <a href="{% url 'store' %}">
                         <div class="header__container-logo"></div>
                     </a>
                         {% if user.is_authenticated %}
@@ -28,8 +28,8 @@
                                 <a href="{% url 'not_developed' %}" class="navbar__link">
                                     <div class="navbar__link-services">Services</div>
                                 </a>
-                                <a href="{% url 'not_developed' %}" class="navbar__link">
-                                    <div class="navbar__link-contacts">Contacts</div>
+                                <a href="{% url 'store' %}" class="navbar__link">
+                                    <div class="navbar__link-contacts">Store</div>
                                 </a>
                                 <a href="{% url 'account' %}" class="navbar__link navbar__link--svg">
                                     <div class="navbar__link-account"></div>
@@ -41,8 +41,8 @@
                         {% else %}
                             <!-- Навигация без аунтификации -->
                             <div class="header__container-navbar header__container-navbar--no">
-                                <a href="{% url 'not_developed' %}" class="navbar__link">
-                                    <div class="navbar__link-home">Home</div>
+                                <a href="{% url 'store' %}" class="navbar__link">
+                                    <div class="navbar__link-home">Store</div>
                                 </a>
                                 <a href="{% url 'account_login' %}" class="navbar__link">
                                     <div class="navbar__link-singin">Sign In</div>
@@ -170,7 +170,7 @@
 
                             <div class="content__support nav-content">
                                 <h2>Having an issue with our website?</h2>
-                                <h3>Submit a ticket or contact us via <a href="">Instagram</a></h3>
+                                <h3>Submit a ticket or contact us via <a href="https://www.instagram.com/cloudymotion4life/">Instagram</a></h3>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form__element">
