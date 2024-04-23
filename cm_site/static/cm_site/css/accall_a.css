@@ -1,0 +1,37 @@
+@media only screen and (max-width: 1300px){
+    .main__container {
+        width: 45%;
+    }
+}
+@media only screen and (max-width: 900px){
+    .form__title {
+        font-size: 18px;
+    }
+    .form__fieldname {
+        font-size: 14px;
+    }
+    .form__submit {
+        height: 22.5px;
+        font-size: 14px;
+    }
+    .form {
+        gap: 5px;
+    }
+}
+@media only screen and (max-width: 1300px){
+    .main__container {
+        width: calc(100% - 20px);
+    }
+    main {
+        height: auto;
+        min-height: 100vh;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .form__fieldname {
+        font-size: 12px;
+    }
+    .form {
+        padding: 10px;
+    }
+}
