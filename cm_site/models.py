@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 
 class CustomUser(AbstractUser):
@@ -113,3 +115,21 @@ class ErrorReport(models.Model):
     def __str__(self):
         return self.subject
     
+class Promocode(models.Model):
+    data_create = models.DateTimeField(auto_now_add=True)
+    promo_name = models.CharField('Name', max_length=32, unique=True)
+    promo_count = models.IntegerField('Amount of use', blank=True, null=True)
+    promo_discount = models.IntegerField(
+        'Percentage discount (%)',
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
+    class Meta:
+        verbose_name = 'Promocode'
+        verbose_name_plural = 'Promocodes'
+
+    def __str__(self):
+        return self.promo_name

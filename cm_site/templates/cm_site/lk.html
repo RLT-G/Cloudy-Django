@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{% static 'cm_site/css/font.css' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/lk.css' %}">
         <link rel="stylesheet" href="{% static 'cm_site/css/lk_a.css' %}">
+        <link rel="stylesheet" href="{% static 'cm_site/css/font_fix.css' %}">
         <title>CloudyMotion | Store</title>
     </head>
     <body>
@@ -134,7 +135,7 @@
                                             </div>
                                             <div class="purchases_track__right">
                                                 <div class="right__track_pur_data">
-                                                    <div class="right__track_pur_data__date">{{pt.purchase_date}}</div>
+                                                    <div class="right__track_pur_data__date">{{pt.purchase_date}} UTC-5:00</div>
                                                     <div class="right__track_pur_data__price">{{pt.track_license}}</div>
                                                 </div>
                                                 <div class="right__track_links">
@@ -147,7 +148,7 @@
                                                     {% endif %}
                                                     <a href="{{pt.track.waw_link}}" class="right__track_links__mp3">
                                                         <div class="right__track_links__mp3-ico"></div>
-                                                        <span class="right__track_links__mp3-text">Wav&MP3</span>
+                                                        <span class="right__track_links__mp3-text">Wav & MP3</span>
                                                     </a>
                                                 </div>
                                             </div>

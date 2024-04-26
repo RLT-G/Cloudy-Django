@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['cloudymotion.com', '127.0.0.1', 'localhost']
-CURRENT_DOMAIN = 'http://localhost:8000/'
+ALLOWED_HOSTS = ['cloudymotion.com', '127.0.0.1', 'localhost', 'www.cloudymotion.com']
+CURRENT_DOMAIN = 'https://cloudymotion.com/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     #API
     'rest_framework',
-    'api'
+    'api',
+    'corsheaders'
 ]
 
 # django-allouth
@@ -91,8 +92,8 @@ if DEBUG:
     EMAIL_HOST_USER = 'inco.k.b.blizz@gmail.com'
     EMAIL_HOST_PASSWORD = 'ltzw ivpx tqib lxnl'
 else:
-    EMAIL_HOST_USER = ''
-    EMAIL_HOST_PASSWORD = ''
+    EMAIL_HOST_USER = 'cloudymotion4life@gmail.com'
+    EMAIL_HOST_PASSWORD = 'lgkv yskm kkik lsup'
 
 
 ROOT_URLCONF = 'www.urls'
@@ -108,6 +109,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # middleware allauth
     'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 TEMPLATES = [
@@ -152,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -194,7 +196,12 @@ if DEBUG:
 else:
     STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
     STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-
+CORS_ORIGIN_WHITELIST = [
+    'http://cloudymotion.com',
+    'https://cloudymotion.com',
+    'http://www.cloudymotion.com',
+    'https://www.cloudymotion.com',
+]
 REPLACE_PATTERN_CONTRACTS = {
     'wav':{
         'date': {
