@@ -12,6 +12,7 @@ cm_site_models = [
     ErrorReport,
     SignContracts,
     NoSignContracts,
+    Promocode
 ]
 for model in cm_site_models:
     admin.site.register(model)

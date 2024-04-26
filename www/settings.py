@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = ['cloudymotion.com', '127.0.0.1', 'localhost', 'www.cloudymotion.com']
-CURRENT_DOMAIN = 'https://cloudymotion.com/'
+CURRENT_DOMAIN = 'https://cloudymotion.com/' if DEBUG is False else 'http://localhost:8000/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,13 +88,9 @@ EMAIL_USE_TLS = True
 
 # Отправкой через Gmail SMTP сервер
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-if DEBUG:
-    EMAIL_HOST_USER = 'inco.k.b.blizz@gmail.com'
-    EMAIL_HOST_PASSWORD = 'ltzw ivpx tqib lxnl'
-else:
-    EMAIL_HOST_USER = 'cloudymotion4life@gmail.com'
-    EMAIL_HOST_PASSWORD = 'lgkv yskm kkik lsup'
 
+EMAIL_HOST_USER = 'inco.k.b.blizz@gmail.com' if DEBUG else 'cloudymotion4life@gmail.com'
+EMAIL_HOST_PASSWORD = 'ltzw ivpx tqib lxnl' if DEBUG else 'lgkv yskm kkik lsup'
 
 ROOT_URLCONF = 'www.urls'
 #end django-allouth
@@ -175,7 +171,7 @@ STATIC_ROOT = '../static/'
 MEDIA_URL = '/media/'
 
 #MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = 'media/' if DEBUG is False else f'{BASE_DIR}../media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -190,71 +186,36 @@ REST_FRAMEWORK = {
     ],
 }
 
-if DEBUG:
-    STRIPE_PUBLIC_KEY = os.getenv("STRIPE_TEST_PUBLIC_KEY")
-    STRIPE_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET_KEY")
-else:
-    STRIPE_PUBLIC_KEY = os.getenv("STRIPE_PUBLIC_KEY")
-    STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = os.getenv("STRIPE_TEST_PUBLIC_KEY") if DEBUG else os.getenv("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET_KEY") if DEBUG else os.getenv("STRIPE_SECRET_KEY")
+
 CORS_ORIGIN_WHITELIST = [
     'http://cloudymotion.com',
     'https://cloudymotion.com',
     'http://www.cloudymotion.com',
     'https://www.cloudymotion.com',
+] if DEBUG is False else [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000'
 ]
+
 REPLACE_PATTERN_CONTRACTS = {
     'wav':{
-        'date': {
-            'old': '{%DATE%}',
-            'new': '',    
-        },
-        'date_full': {
-            'old': '{%DATEFULL%}',
-            'new': '',    
-        },
-        'track_name': {
-            'old': '{%TRACKNAME%}',
-            'new': '',    
-        },
-        'lic': {
-            'old': '{%LIC%}',
-            'new': '',    
-        }
+        'date': { 'old': '{%DATE%}', 'new': ''},
+        'date_full': {'old': '{%DATEFULL%}', 'new': ''},
+        'track_name': {'old': '{%TRACKNAME%}', 'new': ''},
+        'lic': {'old': '{%LIC%}', 'new': ''}
     },
     'unlimited':{
-        'date': {
-            'old': '{%DATE%}',
-            'new': '',    
-        },
-        'date_full': {
-            'old': '{%DATEFULL%}',
-            'new': '',    
-        },
-        'track_name': {
-            'old': '{%TRACKNAME%}',
-            'new': '',    
-        },
-        'lic': {
-            'old': '{%LIC%}',
-            'new': '',    
-        }
+        'date': {'old': '{%DATE%}', 'new': ''},
+        'date_full': {'old': '{%DATEFULL%}', 'new': ''},
+        'track_name': {'old': '{%TRACKNAME%}', 'new': ''},
+        'lic': {'old': '{%LIC%}', 'new': ''}
     },
     'exclusive':{
-        'date': {
-            'old': '{%DATE%}',
-            'new': '',    
-        },
-        'customer_alias': {
-            'old': '{%CUSTOMER_ALIAS%}',
-            'new': '',    
-        },
-        'track_name': {
-            'old': '{%TRACKNAME%}',
-            'new': '',    
-        },
-        'customer_name': {
-            'old': '{%CUSTOMER_NAME%}',
-            'new': '',    
-        }
+        'date': {'old': '{%DATE%}', 'new': ''},
+        'customer_alias': {'old': '{%CUSTOMER_ALIAS%}', 'new': ''},
+        'track_name': {'old': '{%TRACKNAME%}', 'new': ''},
+        'customer_name': {'old': '{%CUSTOMER_NAME%}', 'new': ''}
     },
 }
