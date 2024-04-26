@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['cloudymotion.com', '127.0.0.1', 'localhost', 'www.cloudymotion.com']
 CURRENT_DOMAIN = 'https://cloudymotion.com/' if DEBUG is False else 'http://localhost:8000/'
@@ -156,22 +156,15 @@ USE_I18N = True
 
 USE_TZ = True
 
-# STATIC_URL = 'static/'
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [
-#     # 'static/'
-# ]
-# MEDIA_URL = 'media/'
-
-# MEDIA_ROOT = BASE_DIR / 'media'
+# -------------------------------- FOR REG.RU --------------------------------#
 STATIC_URL = '/static/'
 
 STATIC_ROOT = '../static/'
+
 MEDIA_URL = '/media/'
 
-#MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_ROOT = 'media/' if DEBUG is False else f'{BASE_DIR}../media'
+MEDIA_ROOT = 'media/' if DEBUG is False else BASE_DIR / '../media/'
+# -------------------------------- FOR REG.RU --------------------------------#
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

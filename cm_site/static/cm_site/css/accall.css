@@ -129,3 +129,6 @@ main{
     justify-content: space-between;
     align-items: center;
 }
+.form {
+    padding-bottom: 12px;
+}

@@ -6,7 +6,7 @@
     width: 100%;
 }
 body{
-    background-color: #110F13;
+    background-color: #000000;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -287,7 +287,10 @@ body{
     background-size: cover;
     margin-bottom: 35px;
 }
-
+.footer__container {
+    
+    margin-bottom: 0px;
+}
 
 
 
@@ -765,3 +768,12 @@ main{
     width: 100%;
 }
 
+.terms h1 {
+    
+    font-weight: 400;
+    
+}
+.navbar__link-account {
+    width: 30px;
+    height: 30px;
+}

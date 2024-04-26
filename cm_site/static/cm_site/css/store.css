@@ -933,15 +933,15 @@ transition: 0.5s;
     content: '';
     display: block;
     position: absolute;
-    width: 50%;
-    height: 50%;
-    top: 25%;
-    left: 25%;
+    width: 20%;
+    height: 20%;
+    top: 40%;
+    left: 40%;
     border-radius: 50%;
     border: red solid 1px;
-    border: 12.5px solid #636363;
-    border-top: 12.5px solid #BA0038;
-    animation: spin 0.7s linear infinite;
+    border: 5px solid #636363;
+    border-top: 5px solid #BA0038;
+    animation: spin 1.0s linear infinite;
 }
 .music__cover.musicCoverLoad .music__cover_button{
     opacity: 0;
@@ -977,3 +977,14 @@ transition: 0.5s;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   } */
+  .navbar__link-account {
+    width: 30px;
+    height: 30px;
+
+}
+.footer__container, body {
+    background-color: #141414;
+}
+.loader-wrapper {
+    background: #000000;
+}
