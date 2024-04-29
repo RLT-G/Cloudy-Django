@@ -53,11 +53,15 @@ function tracksFill(discount=null){
     targetElement.innerHTML = innerhtml;
     totalCountElement.innerHTML = `Total (${totalCount} items)`;
     totalPriceElement.innerHTML = `$${totalPrice / 100}.00`;
+    let oldTotalPrice; let oldFee = null;
     if (discount != null){
+        oldTotalPrice = totalPrice;
+        oldFee = `$${(Math.ceil(oldTotalPrice * 0.029 + 30) / 100).toFixed(2)}`
+        
         totalPrice = (totalPrice - Math.floor(totalPrice * (discount / 100)));
-        totalPriceElement.innerHTML = `$${(totalPrice / 100).toFixed(2)}`;        
+        totalPriceElement.innerHTML = `<span class="oldp">$${oldTotalPrice / 100}.00</span>&nbsp;$${(totalPrice / 100).toFixed(2)}`;        
     }
-    fee.innerHTML = `$${(Math.ceil(totalPrice * 0.029 + 30) / 100).toFixed(2)}`;
+    fee.innerHTML = `<span class="oldp">${oldFee === null ? '' : oldFee}</span>&nbsp;$${(Math.ceil(totalPrice * 0.029 + 30) / 100).toFixed(2)}`;
 
     deleteButtons = document.querySelectorAll('.beat_right__del');
     deleteButtons.forEach((button, index) => {
