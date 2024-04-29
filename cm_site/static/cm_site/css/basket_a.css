@@ -191,4 +191,25 @@
     .summary__wrapper {
         width: 100%;
     }
+    .promo {
+        right: 0;
+    }
+}
+@media only screen and (max-width: 500px){
+    .promo {
+            width: 250px;
+        right: 0;
+    }
+}
+@media only screen and (max-width: 380px) {
+    .promo {
+        width: 210px;
+        right: 0;
+    }
+}
+@media only screen and (max-width: 340px) {
+    .promo {
+        width: 190px;
+        right: 0;
+    }
 }
