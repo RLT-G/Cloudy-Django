@@ -133,3 +133,15 @@ class Promocode(models.Model):
 
     def __str__(self):
         return self.promo_name
+    
+
+class AppliedPromocodes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    promocode = models.ForeignKey(Promocode, on_delete=models.CASCADE)
+    data_create = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name = 'APPLIEDPromocode'
+        verbose_name_plural = 'APPLIEDPromocodes'
+
+    def __str__(self):
+        return f'{self.user} : {self.promocode}'

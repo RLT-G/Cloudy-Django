@@ -13,8 +13,40 @@ from api.utils import has_duplicate_dicts
 from rest_framework.permissions import AllowAny
 
 # Models
-from cm_site.models import Prices
+from cm_site.models import Prices, Promocode, AppliedPromocodes
 
+
+class CheckPromocodeAPIViews(APIView):
+    @staticmethod
+    def post(request):
+        if 'promocode' in request.data:
+            if Promocode.objects.filter(promo_name=request.data.get('promocode')).exists() and \
+                not AppliedPromocodes.objects.filter(user=request.user).filter(
+                    promocode=Promocode.objects.get(promo_name=request.data.get('promocode'))
+                ).exists():
+                
+                promocode_obj = Promocode.objects.get(promo_name=request.data.get('promocode'))
+
+                answer = {
+                    'status': 'OK',
+                    'data': {
+                        'data_create': promocode_obj.data_create,
+                        'promo_discount': promocode_obj.promo_discount,
+                        'promo_count': promocode_obj.promo_count
+                    }
+                }
+            else:
+                answer = {
+                    'status': 'Error',
+                    'data': 'Promocode doesnt exist'
+                }
+        else:
+            answer = {
+                'status': 'Error',
+                'data': 'No promocode entered'
+            }
+        return Response(answer)
+    
 
 class BasketAPIViews(APIView):
     permission_classes = [AllowAny]

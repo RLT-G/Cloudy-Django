@@ -45,7 +45,7 @@ def createContract(request: WSGIRequest, track: Tracks, license_type: str):
         for key in keys:
             pattern[key]['new'] = pattern_data[keys.index(key)]
         
-        return replace_text_in_docx(contract_path, f'media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
+        return replace_text_in_docx(contract_path, f'..//media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
 
     elif license_type == "unlimited":
         pattern = REPLACE_PATTERN_CONTRACTS.get('unlimited')
@@ -60,7 +60,7 @@ def createContract(request: WSGIRequest, track: Tracks, license_type: str):
         for key in keys:
             pattern[key]['new'] = pattern_data[keys.index(key)]
         
-        return replace_text_in_docx(contract_path, f'media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
+        return replace_text_in_docx(contract_path, f'..//media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
     elif license_type == "exclusive":
         pattern = REPLACE_PATTERN_CONTRACTS.get('exclusive')
         contract_path = SignContracts.objects.all().first().exclusive_license
@@ -74,5 +74,5 @@ def createContract(request: WSGIRequest, track: Tracks, license_type: str):
         for key in keys:
             pattern[key]['new'] = pattern_data[keys.index(key)]
         
-        return replace_text_in_docx(contract_path, f'media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
+        return replace_text_in_docx(contract_path, f'..//media//uploads//contracts//DEL//intermediate_{generate_unique_sequence()}.docx', pattern)
         

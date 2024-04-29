@@ -64,7 +64,19 @@
             <main class="main">
                 <div class="main__container">
                     <div class="cart__container">
-                        <div class="cart__container__title">Your Cart</div>
+                        <div class="rlt-inv-202020">
+                            <div class="cart__container__title">Your Cart</div>
+                            <div class="promo">
+                                <button class="promo_open">☉ Apply Coupon</button>
+                                <div class="promo__container close">
+                                    <span class="promo__container__title">Apply coupon code</span>
+                                    <div class="promo__container__line"></div>
+                                    <input type="text" class="promo__container__input" placeholder="Enter coupon code">
+                                    <button class="promo__container__apply">Apply Coupon</button>
+                                    <div class="promo__container__close"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="cart__container__content">
                             <div class="cart__container__list">
                                 {% if basket %}
@@ -99,8 +111,21 @@
                                             {% endif %}
                                         </div>
                                     </div>
+                                    {% if basket %}
+                                    <div class="summary__total">
+                                        <div class="summary__total-count summary__total_fee">
+                                            + Service Fee
+                                        </div>
+                                        <div class="summary__total-price summary__total_fee_price">
+                                            
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
                                     {% if user.is_authenticated %}
                                         {% if basket %}
+                                            
+                                            <div class="summary__line"></div>
                                             <button class="summary__checkout">Proceed to Checkout</button>
                                         {% endif %}
                                     {% else %}
@@ -155,6 +180,7 @@
         </script> 
         <script>
             let cartUrl = "{% url 'basket' %}";
+            let promoUrl = "{% url 'check_promo' %}"
             let trackName = "{{track.track_name}}";
             let csrfmiddlewaretoken = "{{ csrf_token }}";
             let contractLinks = [

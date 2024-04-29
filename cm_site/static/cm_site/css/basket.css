@@ -546,17 +546,117 @@ main {
     height: 30px;
 }
 .beat_right__del {
-
     width: 12px;
     height: 12px;
 }
 
 
+.rlt-inv-202020{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.promo{
+    width: 300px;
+    right: 52%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
 
-
-
-
-
+.promo_open{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 0;
+    letter-spacing: 0.05em;
+    color: #BA0038;
+}.promo_open:hover{color: #97002d;}
+.promo__container__line{
+    width: 100%;
+    height: 1px;
+    background-color: #2c2c2c;
+}
+.promo__container.close{
+    z-index: -1;
+    opacity: 0;
+}
+.promo__container{
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    gap: 7px;
+    background: #141414;
+    border: 1px solid #2c2c2c;
+    border-radius: 2.5px;
+    transition: 0.2s;
+}
+.promo__container__title{
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    color: #FFF;
+    transition: 0.2s;
+}
+.promo__container__input{
+    font-family: Outfit;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: #676767;
+    border: none;
+    background-color: #141414;
+    border: 1px solid #2c2c2c;
+    padding: 2.5px 5px;
+    width: 100%;
+}
+.promo__container__apply{
+    cursor: pointer;
+    border: none;
+    background-color: #ba0038;
+    font-family: Outfit;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 229%;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0px 10px;
+    height: auto;
+    border: #ba0038 solid 1px;
+}
+.promo__container__apply:hover{
+    background: rgba(186, 0, 56, 0.33);
+    border: 1px solid #ba0038;
+    transition: 0.2s;
+}
+.promo__container__close{
+    border: none;
+    background-color: transparent;
+    background: url('../img/delbasket.svg') no-repeat;
+    background-size: cover;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+} .promo__container__close:hover {
+    background: url('../img/delbtnbasket.svg') no-repeat;
+    background-size: cover;
+    transition: 0.2s;
+}
 
 
 

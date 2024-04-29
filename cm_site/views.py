@@ -16,7 +16,9 @@ from . models import (
     Prices,
     Banners,
     PurchasedTrack,
-    NoSignContracts
+    NoSignContracts,
+    Promocode,
+    AppliedPromocodes
 )
 
 # Django Forms
@@ -114,15 +116,32 @@ def checkout(request: WSGIRequest):
         request.user.save()
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
-
     basket = request.session.get('basket', None)
+    promocode = request.GET.get('promocode', None)
+
     if basket is None:
         return redirect('store')
     else:
         total_price = 0
         for track in basket:
-            total_price += int(track['price'])
-        total_price +=  math.ceil(total_price * 0.029)
+            total_price += int(track['price']) * 100
+        if promocode is None:
+            total_price +=  math.ceil(total_price * 0.029 + 30)
+        else:
+            if request.session.get('promo', None) is not None:
+                del request.session['promo']
+
+            if Promocode.objects.filter(promo_name=promocode).exists():
+                promocode_obj = Promocode.objects.get(promo_name=promocode)
+                if not AppliedPromocodes.objects.filter(user=request.user).filter(promocode=promocode_obj).exists():
+                    if promocode_obj.promo_count > 0:
+                        total_price = total_price - math.floor(total_price * (promocode_obj.promo_discount / 100))
+                        total_price +=  math.ceil(total_price * 0.029 + 30)
+                        request.session['promo'] = promocode_obj.promo_name
+
+            else:
+                total_price +=  math.ceil(total_price * 0.029 + 30)
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[
@@ -132,7 +151,7 @@ def checkout(request: WSGIRequest):
                         'product_data': {
                             'name': 'Payment for CloudyMotion content',
                         },
-                        'unit_amount': total_price * 100,
+                        'unit_amount': total_price,
                     },
                     'quantity': 1,
                 },
@@ -161,6 +180,14 @@ def success(request):
         else:
             print('Красавчик оплатил')
             user = request.user
+            if request.session.get('promo', None) is not None:
+                promo_obj = Promocode.objects.get(promo_name=request.session.get('promo'))
+                AppliedPromocodes.objects.create(user=user, promocode=promo_obj).save()
+                promo_obj.promo_count -= 1
+                promo_obj.save()
+
+            
+
             basket = request.session.get('basket', None)
             if basket:
                 for item in basket:
