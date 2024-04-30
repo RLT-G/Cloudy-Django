@@ -111,7 +111,7 @@
                 <!-- Плейлист -->
                 <div class="main__container_playlist">
                     {% for element in tracks %}
-                        <div class="music">
+                        <div class="music {% if element.cool_cover %}music_hot{% endif %}">
                             <div class="music__cover" onclick="coverPlay(parseInt('{{forloop.counter}}'));" style="background: url('../media/{{element.cover_art}}') no-repeat; background-size: cover;">
                                 <div class="music__cover_button"></div>
                             </div>
@@ -121,7 +121,7 @@
                                     <h2>·</h2>
                                     <h2>Key {{element.key}}</h2>
                                     <h2>·</h2>
-                                    <h3>{{prices.wav_license}}$</h3>
+                                    <h3 {% if element.cool_cover %}style="color: #ABABAB;"{% endif %}>${{prices.wav_license}}</h3>
                                 </div>
                                 <div class="music__data-name">
                                     <h1><a href="{% url 'store' %}{{element.id}}/">{{element.track_name}}</a></h1>

@@ -988,3 +988,52 @@ transition: 0.5s;
 .loader-wrapper {
     background: #000000;
 }
+
+
+.music.music_hot {
+    background: linear-gradient(359deg, rgba(186, 0, 56, 1), rgba(230, 119, 11, 1), rgba(186, 0, 31, 1), rgba(73, 39, 0, 1));
+    background-size: 800% 800%;
+    -webkit-animation: HotBeat 15s ease infinite;
+    -moz-animation: HotBeat 15s ease infinite;
+    -o-animation: HotBeat 15s ease infinite;
+    animation: HotBeat 15s ease infinite;
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 1) inset;
+    -moz-box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 1) inset;
+    box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 1) inset;
+    /* filter: grayscale(50%) blur(5px);
+-webkit-filter: grayscale(50%) blur(5px); */
+}
+.music.music_hot:hover{
+    background: linear-gradient(359deg, rgba(186, 0, 56, 0.5), rgba(230, 119, 11, 0.5), rgba(186, 0, 31, 0.5), rgba(73, 39, 0, 0.5));
+    background-size: 800% 800%;
+    -webkit-animation: HotBeat 15s ease infinite;
+    -moz-animation: HotBeat 15s ease infinite;
+    -o-animation: HotBeat 15s ease infinite;
+    animation: HotBeat 15s ease infinite;
+    border-radius: 12px;
+    /* -webkit-box-shadow: 0px 0px 56px 31px rgba(0, 0, 0, 1) inset;
+-moz-box-shadow: 0px 0px 56px 31px rgba(0, 0, 0, 1) inset;
+box-shadow: 0px 0px 56px 31px rgba(0, 0, 0, 1) inset; */
+}
+
+@-webkit-keyframes HotBeat {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@-moz-keyframes HotBeat {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@-o-keyframes HotBeat {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@keyframes HotBeat {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}

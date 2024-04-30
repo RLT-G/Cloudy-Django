@@ -74,10 +74,10 @@ replaceData1.forEach((el) => {
 });
 replaceData2.forEach((el) => {
     if (el.innerHTML === 'wav'){
-        el.innerHTML = '30$';
+        el.innerHTML = `$${wawPrice}`;
     } else if (el.innerHTML === 'unlimited') {
-        el.innerHTML = '100$';
+        el.innerHTML = `$${unlPrice}`;
     } else {
-        el.innerHTML = '300$';
+        el.innerHTML = `$${excPrice}`;
     }
 });

@@ -43,9 +43,9 @@ def store(request: WSGIRequest):
         if form.is_valid():
             text = form.cleaned_data['text_field']
             if text is None or text == "":
-                current_tracks = Tracks.objects.all().order_by('-priority')
+                current_tracks = Tracks.objects.filter(show_on_site=True).order_by('-priority')
             else:
-                current_tracks = Tracks.objects.filter(track_name__icontains=text).order_by('-priority')
+                current_tracks = Tracks.objects.filter(track_name__icontains=text).filter(show_on_site=True).order_by('-priority')
             data = {
                 'user': request.user,
                 'tracks': current_tracks,
@@ -61,7 +61,7 @@ def store(request: WSGIRequest):
         form = SearchForm()
     data = {
         'user': request.user,
-        'tracks': Tracks.objects.all().order_by('-priority'),
+        'tracks': Tracks.objects.filter(show_on_site=True).order_by('-priority'),
         'prices': Prices.objects.all()[0],
         'search_form': form,
         'banners': Banners.objects.all(),
@@ -201,10 +201,13 @@ def success(request):
                             track=track,
                             track_license=item.get('license')
                         )
-
+                        
                         purchased_track.contract.save(f'contract_{generate_unique_sequence()}.docx', contract_file)
 
                         purchased_track.save()
+                        if item.get('license') == 'exclusive':
+                            track.show_on_site = False
+                            track.save()
                         
                 del request.session['basket']
             return redirect('store')  
@@ -222,13 +225,15 @@ def cancel(request: WSGIRequest):
 @ratelimit(key='ip', rate='5/m', block=True)
 def account(request: WSGIRequest):
     user_pt = PurchasedTrack.objects.filter(user=request.user)
+    prices = Prices.objects.all().first()
     if request.method == 'GET':
         data = {
             'user_form': CustomUserForm(instance=request.user),
             'error_form': ErrorReportForm(),
             'redirect_on': 'default',
             'user_pt': user_pt,
-            'basket': request.session.get('basket', None)
+            'basket': request.session.get('basket', None),
+            'prices': prices
         }
         return render(request, 'cm_site/lk.html', data)
     elif request.method == 'POST':
@@ -242,7 +247,8 @@ def account(request: WSGIRequest):
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'info',
                     'user_pt': user_pt,
-                    'basket': request.session.get('basket', None)
+                    'basket': request.session.get('basket', None),
+                    'prices': prices
                 }
             else:
                 data = {
@@ -250,7 +256,8 @@ def account(request: WSGIRequest):
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'info',
                     'user_pt': user_pt,
-                    'basket': request.session.get('basket', None)
+                    'basket': request.session.get('basket', None),
+                    'prices': prices
                 }
             return render(request, 'cm_site/lk.html', data)
             
@@ -263,7 +270,8 @@ def account(request: WSGIRequest):
                     'error_form': ErrorReportForm(),
                     'redirect_on': 'support',
                     'user_pt': user_pt,
-                    'basket': request.session.get('basket', None)
+                    'basket': request.session.get('basket', None),
+                    'prices': prices
                 }
             else:
                 data = {
@@ -271,6 +279,7 @@ def account(request: WSGIRequest):
                     'error_form': error_form,
                     'redirect_on': 'support',
                     'user_pt': user_pt,
-                    'basket': request.session.get('basket', None)
+                    'basket': request.session.get('basket', None),
+                    'prices': prices
                 }
             return render(request, 'cm_site/lk.html', data)

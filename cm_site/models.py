@@ -40,6 +40,7 @@ class Tags(models.Model):
 class Tracks(models.Model):
     track_name = models.CharField('Track Name', unique=True, null=False, max_length=64)
     cover_art = models.ImageField("Cover Art", upload_to='uploads/')
+    show_on_site = models.BooleanField("Show on site", default=True)
     bpm = models.IntegerField('BPM', default=90)
     key = models.CharField('Key', unique=False, null=False, max_length=16)
     mood = models.ForeignKey(Moods, on_delete=models.CASCADE)
@@ -48,9 +49,12 @@ class Tracks(models.Model):
     tags = models.ManyToManyField(Tags, blank=True)
     description = models.CharField('Track description', max_length=256, blank=False, unique=False, default='Produced by @Cloudymotion4life. Only high quality beats for you💎')
     priority = models.IntegerField('Track priority', blank=False, unique=False, default=0)
+    cool_cover = models.BooleanField('Cool cover in store', default=False)
     mp3 = models.FileField('Mp3 File', upload_to='uploads/')
     waw_link = models.URLField('Link to wav license files', blank=True)
     unl_and_exc_link = models.URLField('Link to unlimited and exclusive license files', blank=True)
+
+    
     
     def __str__(self) -> str:
         return self.track_name
